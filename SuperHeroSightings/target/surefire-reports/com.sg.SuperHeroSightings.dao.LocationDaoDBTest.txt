@@ -1,4 +1,28 @@
 -------------------------------------------------------------------------------
 Test set: com.sg.SuperHeroSightings.dao.LocationDaoDBTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.137 s - in com.sg.SuperHeroSightings.dao.LocationDaoDBTest
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 4.073 s <<< FAILURE! - in com.sg.SuperHeroSightings.dao.LocationDaoDBTest
+testAddGetLocation  Time elapsed: 1.029 s  <<< ERROR!
+org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.LocationDaoDBTest.setUp(LocationDaoDBTest.java:61)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.LocationDaoDBTest.setUp(LocationDaoDBTest.java:61)
+
+testDeleteLocationById  Time elapsed: 1.014 s  <<< ERROR!
+org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.LocationDaoDBTest.setUp(LocationDaoDBTest.java:61)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.LocationDaoDBTest.setUp(LocationDaoDBTest.java:61)
+
+testGetAllLocations  Time elapsed: 1.011 s  <<< ERROR!
+org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.LocationDaoDBTest.setUp(LocationDaoDBTest.java:61)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.LocationDaoDBTest.setUp(LocationDaoDBTest.java:61)
+
+testUpdateLocation  Time elapsed: 1.015 s  <<< ERROR!
+org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.LocationDaoDBTest.setUp(LocationDaoDBTest.java:61)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.LocationDaoDBTest.setUp(LocationDaoDBTest.java:61)
+

@@ -15,6 +15,10 @@ public class Superpower {
     public Superpower(int superPowerId) {
         this.superPowerId = superPowerId;
     }
+
+    public Superpower(String superPowerName) {
+        this.superPowerName = superPowerName;
+    }
     
 
     private int superPowerId;

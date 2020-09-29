@@ -1,4 +1,28 @@
 -------------------------------------------------------------------------------
 Test set: com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.147 s - in com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 4.075 s <<< FAILURE! - in com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest
+testAddGetSuperpowerById  Time elapsed: 1.031 s  <<< ERROR!
+org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest.setUp(SuperpowerDaoDBTest.java:56)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest.setUp(SuperpowerDaoDBTest.java:56)
+
+testGetAllSuperpowers  Time elapsed: 1.015 s  <<< ERROR!
+org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest.setUp(SuperpowerDaoDBTest.java:56)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest.setUp(SuperpowerDaoDBTest.java:56)
+
+testDeleteSuperpowerById  Time elapsed: 1.013 s  <<< ERROR!
+org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest.setUp(SuperpowerDaoDBTest.java:56)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest.setUp(SuperpowerDaoDBTest.java:56)
+
+testUpdateSuperpower  Time elapsed: 1.013 s  <<< ERROR!
+org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest.setUp(SuperpowerDaoDBTest.java:56)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.sg.SuperHeroSightings.dao.SuperpowerDaoDBTest.setUp(SuperpowerDaoDBTest.java:56)
+

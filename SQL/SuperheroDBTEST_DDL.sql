@@ -15,7 +15,7 @@ CREATE TABLE Superpower (
   CREATE TABLE Location (
   idLocation INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(45) NOT NULL,
-  description VARCHAR(45) NOT NULL,
+  description VARCHAR(280) NOT NULL,
   address VARCHAR(45) NOT NULL,
   city VARCHAR(45) NOT NULL,
   state CHAR(2) NULL,
@@ -29,7 +29,7 @@ CREATE TABLE Superpower (
 CREATE TABLE Hero (
   idHero INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(45) NOT NULL,
-  description VARCHAR(45) NOT NULL,
+  description VARCHAR(280) NOT NULL,
   Superpower_idSuperpower INT NOT NULL,
     FOREIGN KEY (Superpower_idSuperpower)
     REFERENCES Superpower(idSuperpower));
@@ -41,8 +41,8 @@ CREATE TABLE Organization (
   idOrganization INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(45) NOT NULL,
   Location_idLocation INT NOT NULL,
-  description VARCHAR(45) NOT NULL,
-  contactEmail VARCHAR(20) NULL,
+  description VARCHAR(280) NOT NULL,
+  contactEmail VARCHAR(65) NULL,
   contactPhone VARCHAR(15) NULL,
 
 

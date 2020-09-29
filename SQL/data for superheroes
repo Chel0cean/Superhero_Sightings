@@ -1,0 +1,166 @@
+Heroes{
+id: AI
+name: FlyGuy
+description: Can turn into a fly, alias is Frank McCowen.
+id: AI
+name: Tecton-Nick
+description: Can control all tectonic plates within range, causing earthquakes. Alias Nick Shaker
+id: AI
+name: Spider Pig,
+description: Can vomit spider webs, alias is Homer Simpson},
+id: AI
+name: Janitor Poopatine,
+description: Can cause extreme fear, and breathe Fire alias Russell Russ
+id: AI
+name: The InvisibleEntity
+description: Can turn invisible anytime. Alias Chucker
+id: AI
+name: Zen
+description: Can read and control people’s minds. Alias Mandy
+id: AI
+name: Iron Man
+description: Tony Stark has a suit of armor that he uses to save the world.
+id: AI
+name: Mr. Fantastic
+description: Reed Richards can stretch any part of his body to save the day.
+}
+
+
+Organizations{
+id: AI
+name: The Southwest Center for Bad-doing
+description: A large obsidian glass building that reflects the southwest sun into the eyes of all that pass by. Its mere existence has been the cause of many car accidents.
+address: 200 W Broken Arrow Dr
+Wickenburg, Arizona
+id: AI
+name: The Thermopolis House of Integrity
+description: Hidden underground, rumored to have a secret rocket launch pad.
+address: 299 N 9th St
+Thermopolis, Wyoming
+id: AI
+name: 404
+description: A portal gun allows you to visit the Virtual Reality Simulation.
+address: 404 E 65th St, New York, NY 10021},
+id: AI
+name: Fire Nation
+description: Hidden under a dune on Fire Island.
+address: Fire Island National Seashore, Sayville, NY 11782
+id: AI
+name: The post
+description: A lotus looking building that is made of steel. Finger prints needed to enter.
+address: 143 West 3rd Ave
+Seattle, WA
+id: AI
+name: The Way
+description: Far away in the middle of BadLands, SandHouse blends right into the Environment.
+address: 300 N
+Rapid City, South Dakota
+id: AI
+name: Fantastic Four
+description: A family dedicated to saving the planet.
+address: 1 Vanderbilt Ave, New York, NY 10017
+id: AI
+name: Doomers
+description: Earth’s worst supervillain team located under Penn Station.
+address: 299 W 33rd St, New York, NY 10001
+}
+
+
+
+Superpowers{
+id: AI
+name: Shapeshifting
+id: AI
+name: Flight
+id: AI
+name: Elemental control/manipulation
+id: AI
+name: Uncontrollable Vomiting
+id: AI
+name: Telekinesis
+id: AI
+name: Teleportation
+id: AI
+name: Thermal control/manipulation
+id: AI
+name: Superspeed
+id: AI
+name: Super-Strength
+}
+
+
+
+Locations{
+id: AI
+name: Del Taco
+description: fast food restaurant
+address: 822 E College Pkwy, Carson City, NV 89706
+lat: 39.190640
+long: -119.758200
+id: AI
+name: Central Linn High School
+description: public secondary school
+address: 32433 OR-228, Halsey, OR 97348
+lat: 44.388882
+long: -123.081070
+id: AI
+name: Lockheed Martin Aeronautics Co
+description: aeronautical development with military ties/funding and weaponry.
+address: 1011 Lockheed Way, Palmdale, CA 93599
+lat: 34.620312
+long: -118.120628
+id: AI
+name: Tacos Y Jugos Genesis,
+description: Mexican restaurant,
+address: 7804 Woodside Ave, Queens, NY 11373,
+lat: 40.743695,
+long: -73.886934},
+id: AI
+name: Unisphere,
+description: Spherical stainless steel globe orbited by three rings & commissioned for the 1964 World’s Fair.,
+address: Avenue of the Americas, Flushing, NY 11354,
+lat: 40.746373,
+long: -73.845051},
+id: AI
+name: Montauk Lighthouse Museum,
+description: Scenic views & museum at historic 1796 lighthouse authorized under President George Washington.,
+address: 2000 Montauk Hwy, Montauk, NY 11954,
+lat: 41.070794,
+long: -71.857239
+id: AI
+name: The Fisher Building In Detroit
+description: Land Mark Sky Scraper
+address: 3011 W Grand Blvd, Detroit, MI 48202
+lat: 42.369160
+long: -83.077011
+id: AI
+name: Grand Central Terminal
+description: public subway
+address:  89 E 42nd St, New York, NY 10017
+lat: 42.369160
+long: -73.977310
+id: AI
+name: Flat Iron Building
+Description: building
+address: 175 5th Ave, New York, NY 10010
+lat: 40.727760
+long: -73.259956
+id: AI
+name: Baxter Building
+description: Fantastic Four headquarters
+address: 1 Vanderbilt Ave, New York, NY 10017
+lat: 40.7524413
+long: -73.9783296
+id: AI
+name: Stark Tower
+description: Home of the Avengers.
+address: 1472 Broadway, New York, NY 10036
+lat: 40.7560149
+long: -73.9860436
+id: AI
+name: Batman’s House
+description: Batman lives on top of the freedom tower.
+address: 285 Fulton Street, New York, NY 10006
+lat: 40.7131216
+long: -74.0133631
+}

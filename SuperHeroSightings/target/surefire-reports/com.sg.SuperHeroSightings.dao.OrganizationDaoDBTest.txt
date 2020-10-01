@@ -1,28 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 4.103 s <<< FAILURE! - in com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest
-testGetAllOrganizations  Time elapsed: 1.026 s  <<< ERROR!
-org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.setUp(OrganizationDaoDBTest.java:58)
-Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.setUp(OrganizationDaoDBTest.java:58)
-
-testUpdateOrganization  Time elapsed: 1.036 s  <<< ERROR!
-org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.setUp(OrganizationDaoDBTest.java:58)
-Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.setUp(OrganizationDaoDBTest.java:58)
-
-testDeleteOrganizationById  Time elapsed: 1.018 s  <<< ERROR!
-org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.setUp(OrganizationDaoDBTest.java:58)
-Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.setUp(OrganizationDaoDBTest.java:58)
-
-testAddGetOrganizationById  Time elapsed: 1.022 s  <<< ERROR!
-org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.setUp(OrganizationDaoDBTest.java:58)
-Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.setUp(OrganizationDaoDBTest.java:58)
-
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.21 s - in com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest

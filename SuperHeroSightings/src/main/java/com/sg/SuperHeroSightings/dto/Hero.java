@@ -13,7 +13,7 @@ public class Hero {
     private String heroName;
     private String heroDescription;
     private Superpower superPower;
-    private List<Organization> organizations;
+    private List<Integer> organizationIds;
 
     public Hero() {
     }
@@ -54,22 +54,22 @@ public class Hero {
         this.superPower = superPower;
     }
 
-    public List<Organization> getOrganizations() {
-        return organizations;
+    public List<Integer> getOrganizationIds() {
+        return organizationIds;
     }
 
-    public void setOrganizations(List<Organization> organizations) {
-        this.organizations = organizations;
+    public void setOrganizationIds(List<Integer> organizationIds) {
+        this.organizationIds = organizationIds;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + this.heroId;
-        hash = 41 * hash + Objects.hashCode(this.heroName);
-        hash = 41 * hash + Objects.hashCode(this.heroDescription);
-        hash = 41 * hash + Objects.hashCode(this.superPower);
-        hash = 41 * hash + Objects.hashCode(this.organizations);
+        int hash = 3;
+        hash = 47 * hash + this.heroId;
+        hash = 47 * hash + Objects.hashCode(this.heroName);
+        hash = 47 * hash + Objects.hashCode(this.heroDescription);
+        hash = 47 * hash + Objects.hashCode(this.superPower);
+        hash = 47 * hash + Objects.hashCode(this.organizationIds);
         return hash;
     }
 
@@ -97,7 +97,7 @@ public class Hero {
         if (!Objects.equals(this.superPower, other.superPower)) {
             return false;
         }
-        if (!Objects.equals(this.organizations, other.organizations)) {
+        if (!Objects.equals(this.organizationIds, other.organizationIds)) {
             return false;
         }
         return true;
@@ -105,8 +105,9 @@ public class Hero {
 
     @Override
     public String toString() {
-        return "Hero{" + "heroId=" + heroId + ", heroName=" + heroName + ", heroDescription=" + heroDescription + ", superPower=" + superPower + ", organizations=" + organizations + '}';
+        return "Hero{" + "heroId=" + heroId + ", heroName=" + heroName + ", heroDescription=" + heroDescription + ", superPower=" + superPower + ", organizationIds=" + organizationIds + '}';
     }
-    
+
+
 
 }

@@ -53,7 +53,7 @@ public class SightingDaoDB implements SightingDao {
         try {
             final String GET_SIGHTING_BY_ID = "SELECT * FROM Sighting WHERE idSighting = ?";
             Sighting sighting = jdbc.queryForObject(GET_SIGHTING_BY_ID, new SightingMapper(), id);
-             sighting= associateHeroesAndLocationsWithSighting(sighting);
+            sighting = associateHeroesAndLocationsWithSighting(sighting);
             return sighting;
         } catch (DataAccessException ex) {
             return null;
@@ -66,7 +66,7 @@ public class SightingDaoDB implements SightingDao {
         final String GET_ALL_SIGHTINGS = "SELECT * FROM Sighting";
         List<Sighting> sightings = jdbc.query(GET_ALL_SIGHTINGS, new SightingMapper());
         for (Sighting sighting : sightings) {
-          sighting= associateHeroesAndLocationsWithSighting(sighting);
+            sighting = associateHeroesAndLocationsWithSighting(sighting);
         }
         return sightings;
     }
@@ -101,7 +101,7 @@ public class SightingDaoDB implements SightingDao {
                 new SightingMapper(), hero.getHeroId());
 
         for (Sighting sighting : sightings) {
-           sighting= associateHeroesAndLocationsWithSighting(sighting);
+            sighting = associateHeroesAndLocationsWithSighting(sighting);
         }
         return sightings;
     }
@@ -114,7 +114,7 @@ public class SightingDaoDB implements SightingDao {
         List<Sighting> sightings = jdbc.query(GET_SIGHTINGS_BY_Location,
                 new SightingMapper(), location.getLocationId());
         for (Sighting sighting : sightings) {
-            sighting= associateHeroesAndLocationsWithSighting(sighting);
+            sighting = associateHeroesAndLocationsWithSighting(sighting);
         }
 
         return sightings;
@@ -127,24 +127,33 @@ public class SightingDaoDB implements SightingDao {
                 + " WHERE s.date = ?";
         List<Sighting> sightings = jdbc.query(GET_SIGHTINGS_BY_DATE,
                 new SightingMapper(), date);
-         for (Sighting sighting : sightings) {
-            sighting= associateHeroesAndLocationsWithSighting(sighting);
+        for (Sighting sighting : sightings) {
+            sighting = associateHeroesAndLocationsWithSighting(sighting);
         }
-        
+
         return sightings;
     }
 
-  
-    private Sighting associateHeroesAndLocationsWithSighting(Sighting sighting){
+    private List<Sighting> getTopTenSightings() {
+        final String GET_TOP_TEN_SIGHTINGS
+                = "USE SuperHeroDB;"
+                + " SELECT * FROM Sighting"
+                + " ORDER BY Date DESC"
+                + " LIMIT 10;";
+        List<Sighting> topTenSightings = jdbc.query(GET_TOP_TEN_SIGHTINGS, new SightingMapper());
+        return topTenSightings;
+        
+    }
+
+    private Sighting associateHeroesAndLocationsWithSighting(Sighting sighting) {
         final String GET_LOCATION_FOR_SIGHTING
                 = "SELECT l.idLocation, l.name, l.description, l.address, l.city, l.state, l.country, l.zipcode, l.latitude, l.longitude"
                 + " FROM Location l JOIN Sighting s ON s.Location_idLocation = l.idLocation"
                 + " WHERE idSighting = ?";
         Location location = jdbc.queryForObject(GET_LOCATION_FOR_SIGHTING, new LocationMapper(), sighting.getSightingId());
-        
+
         sighting.setLocation(location);
-        
-        
+
         final String GET_HERO_FOR_SIGHTING
                 = "SELECT h.idHero, h.name, h.description FROM Hero h "
                 + " JOIN Sighting s ON s.Hero_idHero = h.idHero"
@@ -158,32 +167,9 @@ public class SightingDaoDB implements SightingDao {
         Superpower thisPower = jdbc.queryForObject(SELECT_SUPERPOWER_FOR_HERO, new SuperpowerDaoDB.SuperpowerMapper(), heroID);
         hero.setSuperPower(thisPower);
 
-        final String GET_ORGANIZATION_BY_HEROES
-                = "SELECT 'idOrganization','name','description','Location_idLocation', 'contactEmail', 'contactPhone' "
-                + "FROM Organization o JOIN HeroOrganization ho ON ho.Organization_idOrganization = o.idOrganization "
-                + "WHERE ho.Hero_idHero = ?";
-        List<Organization> organizations = jdbc.query(GET_ORGANIZATION_BY_HEROES,
-                new OrganizationMapper(), hero.getHeroId());
+        sighting.setHero(hero);
 
-        if (organizations.isEmpty()) {
-            organizations = null;
-        } else {
-
-            for (Organization organization : organizations) {
-                final String SELECT_LOCATION_FOR_ORGANIZATION = "SELECT l.idLocation, l.name, l.description, l.address, l.city, l.state, l.country, l.zipcode, l.latitude, l.longitude FROM Location l "
-                        + "JOIN Organization o ON o.Location_idLocation = l.idLocation WHERE o.idOrganization =?";
-                Location thisLocation = jdbc.queryForObject(SELECT_LOCATION_FOR_ORGANIZATION, new LocationMapper(), organization.getOrganizationId());
-
-                organization.setLocation(thisLocation);
-
-            }
-        }
-        hero.setOrganizations(organizations);
-        
-         sighting.setHero(hero);
-         
-         
-         return sighting;
+        return sighting;
     }
 
     public static final class SightingMapper implements RowMapper<Sighting> {

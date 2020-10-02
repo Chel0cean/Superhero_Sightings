@@ -53,7 +53,7 @@ public class HeroDaoDB implements HeroDao {
             final String GET_HERO_BY_ID = "SELECT * FROM Hero WHERE idHero = ?";
             Hero hero = jdbc.queryForObject(GET_HERO_BY_ID, new HeroMapper(), id);
             
-            associateSuperpowerandOrganizationsWithHero(hero);
+            associateSuperpowerWithHero(hero);
             
             return hero;
         } catch (DataAccessException ex) {
@@ -67,7 +67,7 @@ public class HeroDaoDB implements HeroDao {
         List<Hero> heroes = jdbc.query(GET_ALL_HEROES, new HeroMapper());
         
         for (Hero hero : heroes) {
-            associateSuperpowerandOrganizationsWithHero(hero);
+            associateSuperpowerWithHero(hero);
         }
         return heroes;
     }
@@ -116,7 +116,7 @@ public class HeroDaoDB implements HeroDao {
                 new HeroMapper(), superPower.getSuperPowerId());
 
         for (Hero hero : heroes) {
-            associateSuperpowerandOrganizationsWithHero(hero);
+            associateSuperpowerWithHero(hero);
         }
         return heroes;
     }
@@ -125,17 +125,17 @@ public class HeroDaoDB implements HeroDao {
         final String INSERT_HERO_ORGANIZATION = "INSERT INTO "
                 + "HeroOrganization(Hero_idHero, Organization_idOrganization) VALUES(?,?)";
         try {
-            for (Organization organization : hero.getOrganizations()) {
+            for (int i : hero.getOrganizationIds()) {
                 jdbc.update(INSERT_HERO_ORGANIZATION,
                         hero.getHeroId(),
-                        organization.getOrganizationId());
+                       i);
             }
         } catch (NullPointerException ex) {
 
         }
     }
 
-    private void associateSuperpowerandOrganizationsWithHero(Hero hero) {
+    private void associateSuperpowerWithHero(Hero hero) {
 
         final String SELECT_SUPERPOWER_FOR_HERO = "SELECT s.idSuperpower, s.name FROM Superpower s "
                 + "JOIN Hero h ON h.Superpower_idSuperpower = s.idSuperpower WHERE h.idHero =?";
@@ -143,24 +143,6 @@ public class HeroDaoDB implements HeroDao {
 
         hero.setSuperPower(thisPower);
 
-        final String GET_ORGANIZATION_BY_HEROES
-                = "SELECT 'idOrganization','name','description','Location_idLocation', 'contactEmail', 'contactPhone' "
-                + "FROM Organization o JOIN HeroOrganization ho ON ho.Organization_idOrganization = o.idOrganization "
-                + "WHERE ho.Hero_idHero = ?";
-        List<Organization> organizations = jdbc.query(GET_ORGANIZATION_BY_HEROES,
-                new OrganizationMapper(), hero.getHeroId());
-
-        if (organizations.isEmpty()) {
-            organizations = null;
-        } else {
-            for (Organization organization : organizations) {
-                final String SELECT_LOCATION_FOR_ORGANIZATION = "SELECT l.idLocation, l.name, l.description, l.address, l.city, l.state, l.country, l.zipcode, l.latitude, l.longitude FROM Location l "
-                        + "JOIN Organization o ON o.Location_idLocation = l.idLocation WHERE o.idOrganization =?";
-                Location thisLocation = jdbc.queryForObject(SELECT_LOCATION_FOR_ORGANIZATION, new LocationMapper(), organization.getOrganizationId());
-                organization.setLocation(thisLocation);
-            }
-        }
-        hero.setOrganizations(organizations);
     }
 
     public static final class HeroMapper implements RowMapper<Hero> {

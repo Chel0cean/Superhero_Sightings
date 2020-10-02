@@ -76,7 +76,7 @@ public class HeroController {
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);
-        hero.setOrganizations(organizations);
+        hero.setOrganizationIds(organizations);
 
         heroDao.addHero(hero);
         return "redirect:/heroes";

@@ -121,7 +121,7 @@ public class OrganizationDaoDB implements OrganizationDao {
         organization.setLocation(thisLocation);
 
         final String GET_HEROES_BY_ORGANIZATION
-                = "SELECT 'idHero','name','description','Superpower_idSuperpower'"
+                = "SELECT idHero, name, description,Superpower_idSuperpower"
                 + " FROM Hero h JOIN HeroOrganization ho ON ho.Hero_idHero = h.idHero"
                 + " WHERE ho.Organization_idOrganization = ?";
         List<Hero> heroes = jdbc.query(GET_HEROES_BY_ORGANIZATION,

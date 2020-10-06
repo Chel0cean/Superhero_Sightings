@@ -1,7 +1,6 @@
 package com.sg.SuperHeroSightings.dto;
 
 
-import java.util.List;
 import java.util.Objects;
 
 /*
@@ -13,7 +12,7 @@ public class Hero {
     private String heroName;
     private String heroDescription;
     private Superpower superPower;
-    private List<Integer> organizationIds;
+ 
 
     public Hero() {
     }
@@ -54,13 +53,6 @@ public class Hero {
         this.superPower = superPower;
     }
 
-    public List<Integer> getOrganizationIds() {
-        return organizationIds;
-    }
-
-    public void setOrganizationIds(List<Integer> organizationIds) {
-        this.organizationIds = organizationIds;
-    }
 
     @Override
     public int hashCode() {
@@ -69,7 +61,7 @@ public class Hero {
         hash = 47 * hash + Objects.hashCode(this.heroName);
         hash = 47 * hash + Objects.hashCode(this.heroDescription);
         hash = 47 * hash + Objects.hashCode(this.superPower);
-        hash = 47 * hash + Objects.hashCode(this.organizationIds);
+
         return hash;
     }
 
@@ -97,15 +89,13 @@ public class Hero {
         if (!Objects.equals(this.superPower, other.superPower)) {
             return false;
         }
-        if (!Objects.equals(this.organizationIds, other.organizationIds)) {
-            return false;
-        }
+      
         return true;
     }
 
     @Override
     public String toString() {
-        return "Hero{" + "heroId=" + heroId + ", heroName=" + heroName + ", heroDescription=" + heroDescription + ", superPower=" + superPower + ", organizationIds=" + organizationIds + '}';
+        return "Hero{" + "heroId=" + heroId + ", heroName=" + heroName + ", heroDescription=" + heroDescription + ", superPower=" + superPower + '}';
     }
 
 

@@ -113,7 +113,17 @@ public class OrganizationDaoDB implements OrganizationDao {
 
         }
     }
-
+    public Organization getOrganizationByLocation(Location location){
+        final String SELECT_ORGANIZATION_BY_LOCATION = "SELECT * FROM Organization WHERE Location_idLocation=?";
+        try{
+            Organization organization=jdbc.queryForObject(SELECT_ORGANIZATION_BY_LOCATION, new OrganizationMapper(), location.getLocationId());
+        return organization;
+        }catch(NullPointerException ex){
+            return null;
+        }
+    }
+    
+   
     private void associateLocationandHeroesWithOrganization(Organization organization) {
         final String SELECT_LOCATION_FOR_ORGANIZATION = "SELECT l.idLocation, l.name, l.description, l.address, l.city, l.state, l.country, l.zipcode, l.latitude, l.longitude FROM Location l "
                 + "JOIN Organization o ON o.Location_idLocation = l.idLocation WHERE o.idOrganization =?";

@@ -16,11 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-
-
 
 
 /**
@@ -83,9 +78,8 @@ public class HeroController {
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);
-        hero.setOrganizationIds(organizationIds);
-
         heroDao.addHero(hero);
+        heroDao.insertHeroOrganization(hero, organizationIds);
         return "redirect:/heroes";
     }
     
@@ -110,33 +104,57 @@ public class HeroController {
     }
 
 
-    //USED SAME CODE AS ADDHERO WE CAN FIX OBV
+    
     @PostMapping("editHero")
     public String performEditHero(HttpServletRequest request) {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        String heroName = request.getParameter("heroName");
-        String heroDescription = request.getParameter("heroDescription");
+        String heroName = request.getParameter("heroNameEdit");
+        String heroDescription = request.getParameter("heroDescriptionEdit");
 
-        int superPowerID = Integer.parseInt(request.getParameter("superPowerID"));
+        int superPowerID = Integer.parseInt(request.getParameter("superPowerIDEdit"));
         Superpower superpower = new Superpower(superPowerID);
 
-        String[] organizationIDs = request.getParameterValues("organizationID");
+        String[] organizationIDsString = request.getParameterValues("organizationIDEdit");
 
-        List<Organization> organizations = new ArrayList<>();
-        if (organizationIDs != null) {
-            for (String organizationID : organizationIDs) {
-                organizations.add(organizationDao.getOrganizationById(Integer.parseInt(organizationID)));
-            }
+        List<Integer> organizationIDs = new ArrayList<>();
+        
+            for (String organizationID : organizationIDsString) {
+                organizationIDs.add(Integer.parseInt(organizationID));
+            
         }
 
         Hero hero = heroDao.getHeroById(id);
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);
-        //hero.setOrganizations(organizations);
-
         heroDao.updateHero(hero);
+        heroDao.insertHeroOrganization(hero, organizationIDs);
         return "redirect:/heroes";
     }
+
+
+
+
+ /*@GetMapping("searchHeroesBySuperpower")
+    public String displayHeroesBySuperpower(Model model) {
+        List<Hero> heroes = heroDao.getHeroesBySuperpower(superPower);
+        model.addAttribute("heroes", heroes);
+       
+
+        return "heroes";
+    }
+
+*/
+    
+     /*@GetMapping("searchHeroesByOrganization")
+    public String displayHeroesByOrganization(Model model) {
+        List<Hero> heroes = heroDao.getHeroesByOrganization(organization);
+        model.addAttribute("heroes", heroes);
+       
+
+        return "heroes";
+    }
+
+*/
 }

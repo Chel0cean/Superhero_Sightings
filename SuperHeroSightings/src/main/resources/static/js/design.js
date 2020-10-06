@@ -44,6 +44,7 @@ $("#searchHeroesByOrganization").click(function(event){
 
 
 
+
 });
 
 
@@ -53,14 +54,24 @@ $("#cancelSearchByOrganization").click(function(event){
 
 });
 
-$("#deleteThisHero").click(function(event){
-var heroName=this.value;
-var confirmed=confirm("Are you sure you with to delete "+heroName+"?");
-if(confirmed){
-  
-}
 
-    });
 
 
 });
+
+function deleteHero(name, id){
+
+
+var confirmed=window.confirm('Are you sure you want to delete '+name+'?');
+if(confirmed){
+  window.location.href = "/deleteHero?id="+id;
+}
+function updateHero(heroId, superPowerId){
+  $('.editForm').hide();
+  $('#updateHeroTr'+heroId).show();
+
+}
+  
+  
+
+}

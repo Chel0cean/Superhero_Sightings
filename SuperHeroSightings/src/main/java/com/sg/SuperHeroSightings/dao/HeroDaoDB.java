@@ -1,10 +1,8 @@
 package com.sg.SuperHeroSightings.dao;
 
-import com.sg.SuperHeroSightings.dao.LocationDaoDB.LocationMapper;
 import com.sg.SuperHeroSightings.dao.OrganizationDaoDB.OrganizationMapper;
 import com.sg.SuperHeroSightings.dao.SuperpowerDaoDB.SuperpowerMapper;
 import com.sg.SuperHeroSightings.dto.Hero;
-import com.sg.SuperHeroSightings.dto.Location;
 import com.sg.SuperHeroSightings.dto.Organization;
 import com.sg.SuperHeroSightings.dto.Superpower;
 import java.sql.ResultSet;
@@ -42,7 +40,7 @@ public class HeroDaoDB implements HeroDao {
 
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         hero.setHeroId(newId);
-        insertHeroOrganization(hero);
+        
         return hero;
     }
 
@@ -54,6 +52,7 @@ public class HeroDaoDB implements HeroDao {
             Hero hero = jdbc.queryForObject(GET_HERO_BY_ID, new HeroMapper(), id);
             
             associateSuperpowerWithHero(hero);
+           
             
             return hero;
         } catch (DataAccessException ex) {
@@ -68,6 +67,7 @@ public class HeroDaoDB implements HeroDao {
         
         for (Hero hero : heroes) {
             associateSuperpowerWithHero(hero);
+           
         }
         return heroes;
     }
@@ -84,8 +84,7 @@ public class HeroDaoDB implements HeroDao {
 
         final String DELETE_HERO_ORGANIZATION = "DELETE FROM HeroOrganization WHERE Hero_idHero = ?";
         jdbc.update(DELETE_HERO_ORGANIZATION, hero.getHeroId());
-        
-        insertHeroOrganization(hero);
+      
     }
 
     @Override
@@ -120,12 +119,39 @@ public class HeroDaoDB implements HeroDao {
         }
         return heroes;
     }
+    
+        public List<Hero> getHeroesByOrganization(Organization organization) {
+        
+        final String GET_HEROES_BY_ORGANIZATION
+                = "SELECT h.idHero, h.name, h.description, FROM Hero h "
+                + " JOIN HeroOrganization ho ON ho.Hero_idHero=h.idHero"
+                + " WHERE ho.Organization_idOrganization = ?";
 
-    private void insertHeroOrganization(Hero hero) {
+        List<Hero> heroes = jdbc.query(GET_HEROES_BY_ORGANIZATION,
+                new HeroMapper(), organization.getOrganizationId());
+
+        for (Hero hero : heroes) {
+            associateSuperpowerWithHero(hero);
+        }
+        return heroes;
+    }
+        
+    public List<Organization> getOrganizationListForHero(Hero hero){
+        final String GET_ORGANIZATIONS_FOR_HERO="SELECT o.idOrganization, o.name, o.Location_idLocation, o.description+"
+                + " FROM Organization o JOIN HeroOrganization ho ON ho.Organization_idOrganization = o.idOrganization"
+                +" WHERE ho.Hero_idHero=?";
+       
+       List <Organization> organization = jdbc.query(GET_ORGANIZATIONS_FOR_HERO, new OrganizationMapper(), hero.getHeroId());
+  
+       return organization;
+    }
+
+    @Override
+    public void insertHeroOrganization(Hero hero, List<Integer> organizationsIds) {
         final String INSERT_HERO_ORGANIZATION = "INSERT INTO "
                 + "HeroOrganization(Hero_idHero, Organization_idOrganization) VALUES(?,?)";
         try {
-            for (int i : hero.getOrganizationIds()) {
+            for (Integer i : organizationsIds) {
                 jdbc.update(INSERT_HERO_ORGANIZATION,
                         hero.getHeroId(),
                        i);

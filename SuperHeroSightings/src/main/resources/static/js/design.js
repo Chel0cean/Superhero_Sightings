@@ -65,13 +65,35 @@ function deleteHero(name, id){
 var confirmed=window.confirm('Are you sure you want to delete '+name+'?');
 if(confirmed){
   window.location.href = "/deleteHero?id="+id;
-}
-function updateHero(heroId, superPowerId){
+};
+
+};
+
+function updateHero(id, value){
+
+  var updateId= "updateHeroTr" + id;
+  $('#'+updateId).removeAttr("hidden");
   $('.editForm').hide();
-  $('#updateHeroTr'+heroId).show();
+  $('#'+updateId).show();
+  var superheroForm ="superPowerIdForEditHero"+id;
+ $('#'+superheroForm).val(value);
 
-}
+
+ $('button[id="'+id+'"]').hide();
+ 
+
+};
+
+function hideForm(value){
+
+  var updateId= "updateHeroTr" + value;
+ 
+  $('#'+updateId).hide();
+ 
+ $('button[id="'+value+'"]').show();
+
+
+};
   
   
 
-}

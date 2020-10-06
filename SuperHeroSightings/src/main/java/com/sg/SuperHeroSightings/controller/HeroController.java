@@ -108,14 +108,15 @@ public class HeroController {
     @PostMapping("editHero")
     public String performEditHero(HttpServletRequest request) {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+      int heroId=Integer.parseInt(request.getParameter("heroIdEdit"));
+      
         String heroName = request.getParameter("heroNameEdit");
         String heroDescription = request.getParameter("heroDescriptionEdit");
 
         int superPowerID = Integer.parseInt(request.getParameter("superPowerIDEdit"));
         Superpower superpower = new Superpower(superPowerID);
 
-        String[] organizationIDsString = request.getParameterValues("organizationIDEdit");
+        String[] organizationIDsString = request.getParameterValues("organizationIDForEditHero");
 
         List<Integer> organizationIDs = new ArrayList<>();
         
@@ -124,7 +125,7 @@ public class HeroController {
             
         }
 
-        Hero hero = heroDao.getHeroById(id);
+        Hero hero = heroDao.getHeroById(heroId);
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);

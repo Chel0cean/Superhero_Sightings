@@ -24,4 +24,6 @@ public interface HeroDao {
 
     List<Hero> getHeroesBySuperpower(Superpower superPower);
 
+    public void insertHeroOrganization(Hero hero, List<Integer> organizationIds);
+
 }

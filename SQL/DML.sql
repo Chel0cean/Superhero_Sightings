@@ -27,8 +27,8 @@ INSERT INTO Superpower(idSuperpower, name) VALUES
 
     INSERT INTO Hero(name,description,Superpower_idSuperpower)  VALUES
 	
-	("FlyGuy","Can control all tectonic plates within range, causing earthquakes. Alias Nick Shaker",1),
-	("Tecton-Nick","Good Guy",2),
+	("Tecton-Nick","Can control all tectonic plates within range, causing earthquakes. Alias Nick Shaker",3),
+	("FlyGuy","Good Guy",2),
     ("Spider Pig,","Can vomit spider webs, alias is Homer Simpson",3),
 	("Flamethrower","Can cause extreme fear, and breathe Fire alias Russell Russ",4),
     ("The InvisibleEntity","Can turn invisible anytime. Alias Chucker",5),

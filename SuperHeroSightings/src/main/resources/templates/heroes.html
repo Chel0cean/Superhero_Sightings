@@ -272,7 +272,7 @@
                         
                        
                     
-                        <button type="submit" class="btn btn-primary">Update Hero</button>
+                        <button type="submit" th:attr="value=${hero.heroId}" class="btn btn-primary" OnClick="hideForm(this.value)">Update Hero</button>
                         <button type="button" th:attr="value=${hero.heroId}" class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)" >Cancel</button>
                     
                     </form>
@@ -281,28 +281,7 @@
                 </td> </tr>
             </div>
                 
-                <!-- fix this later 
-                    th:href="javascript:void(0)"
-                @{/deleteHero(id=${hero.HeroId})}
-
-                <a href="#" th:value='${hero.heroName}' class="deleteThisHero btn btn-outline-primary btn-lg" OnClick="deleteHero()">Delete</a>
-                
-                -->
-                
-
-
-                <!--                                <td><a href="#" th:href="@{/courseDetail(id=${course.id})}">Details</a></td>-->
-                <!--                                <td><a href="#" th:href="@{/editCourse(id=${course.id})}">Update</a></td>-->
-                <!--                               
-            </tbody>
-        </table>
-
-
-    </div>
-</div>
-</div>
-<!-- End main body -->
-
+   
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script th:src="@{/js/jquery-2.2.4.min.js}"></script>

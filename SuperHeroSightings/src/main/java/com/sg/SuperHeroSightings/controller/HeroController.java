@@ -83,18 +83,8 @@ public class HeroController {
         return "redirect:/heroes";
     }
     
-    
-    @GetMapping("getHero")
-    public String editHero(HttpServletRequest request, Model model) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Hero hero = heroDao.getHeroById(id);
-        model.addAttribute("hero", hero);
-        return "editHero";
-    }
-    
-    
-   
 
+    
     @GetMapping("deleteHero")
     public String deleteHero(HttpServletRequest request) {
 

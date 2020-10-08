@@ -123,6 +123,16 @@ public class OrganizationDaoDB implements OrganizationDao {
         }
     }
     
+     public List<Organization> getOrganizationsByHero(Hero hero){
+        final String SELECT_ORGANIZATIONS_BY_HERO = "SELECT o.idOrganization, o.name, o.Location_idLocation, o.description, o.contactEmail, o.contactPhone FROM Organization o "
+                + " JOIN HeroOrganization ho ON ho.Organization_idOrganization=o.idOrganization"
+                + " WHERE ho.Hero_idHero=?";
+       
+            List<Organization> organizations=jdbc.query(SELECT_ORGANIZATIONS_BY_HERO, new OrganizationMapper(), hero.getHeroId());
+        return organizations;
+      
+    }
+    
    
     private void associateLocationandHeroesWithOrganization(Organization organization) {
         final String SELECT_LOCATION_FOR_ORGANIZATION = "SELECT l.idLocation, l.name, l.description, l.address, l.city, l.state, l.country, l.zipcode, l.latitude, l.longitude FROM Location l "

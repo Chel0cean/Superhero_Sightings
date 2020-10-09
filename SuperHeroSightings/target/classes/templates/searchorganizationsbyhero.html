@@ -47,9 +47,9 @@
 
     <table id="content" th:each="organization : ${organizations}">
         <tbody>
-            <tr><td id= "name" th:text='${organization.organizationName}'>Organization Name </td></tr>
-            <tr><td id="location" th:text="${organization.location.locationName}">Organization Location </td></tr>
-            <tr><td id= "description" th:text="${organization.organizationDescription}">Organization Description </td></tr>
+            <tr><td id= "name" th:text="'Name: '+${organization.organizationName}">Organization Name </td></tr>
+            <tr><td id="location" th:text="'Location: '+${organization.location.locationName}">Organization Location </td></tr>
+            <tr><td id= "description" th:text="'Description: '+${organization.organizationDescription}">Organization Description </td></tr>
             <tr><td id= "phone" th:text="'Phone:'+${organization.organizationPhone}">Organization Phone </td></tr>
             <tr><td id= "email" th:text="'Email:'+${organization.organizationEmail}">Organization Email </td></tr>
             

@@ -42,9 +42,9 @@
 
         <table id="content" th:each="hero : ${heroes}">
             <tbody>
-                <tr><td id= "name" th:text='${hero.heroName}'>Hero Name </td></tr>
-                <tr><td id="superpower" th:text="${hero.superPower.superPowerName}">Hero Superpower </td></tr>
-                <tr><td id= "description" th:text="${hero.heroDescription}">Hero Description </td></tr>
+                <tr><td id= "name" th:text="'Name: '+${hero.heroName}">Hero Name </td></tr>
+                <tr><td id="superpower" th:text="'Ability: '+${hero.superPower.superPowerName}">Hero Superpower </td></tr>
+                <tr><td id= "description" th:text="'Description: '+${hero.heroDescription}">Hero Description </td></tr>
                
                 
                 <tr><td>

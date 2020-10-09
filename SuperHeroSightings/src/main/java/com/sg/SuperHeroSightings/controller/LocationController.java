@@ -6,6 +6,7 @@
 package com.sg.SuperHeroSightings.controller;
 
 import com.sg.SuperHeroSightings.dao.LocationDao;
+import com.sg.SuperHeroSightings.dao.OrganizationDao;
 import com.sg.SuperHeroSightings.dto.Location;
 import com.sg.SuperHeroSightings.dto.Superpower;
 import java.math.BigDecimal;
@@ -27,6 +28,9 @@ public class LocationController {
     @Autowired
     LocationDao locationDao;
 
+    @Autowired
+    OrganizationDao organizationDao;
+
     @GetMapping("locations")
     public String displayLocations(Model model) {
         List<Location> locations = locationDao.getAllLocations();
@@ -38,10 +42,10 @@ public class LocationController {
     public String addLocation(HttpServletRequest request) {
 
         String locationName = request.getParameter("locationName");
-        String description = request.getParameter("description");
-        String address = request.getParameter("address");
-        String city = request.getParameter("city");
-        String state = request.getParameter("state");
+        String description = request.getParameter("locationDescription");
+        String address = request.getParameter("locationAddress");
+        String city = request.getParameter("locationCity");
+        String state = request.getParameter("locationState");
         String country = request.getParameter("country");
         String zipCode = request.getParameter("zipCode");
         BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));
@@ -67,6 +71,8 @@ public class LocationController {
     public String deleteLocation(HttpServletRequest request) {
 
         int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println("Delete from id: ");
+        System.out.println(id);
         locationDao.deleteLocationById(id);
         return "redirect:/locations";
 
@@ -76,7 +82,10 @@ public class LocationController {
     public String editLocation(HttpServletRequest request, Model model) {
 
         int id = Integer.parseInt(request.getParameter("id"));
+                System.out.println("test");
+        System.out.println("This id is" + id);
         Location location = locationDao.getLocationById(id);
+        System.out.println("com.sg.SuperHeroSightings.controller.LocationController.editLocation()");
         model.addAttribute("location", location);
         return "editLocation";
     }
@@ -84,14 +93,17 @@ public class LocationController {
     @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request) {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("locationId"));
+                System.out.println("This id is" + id);
         Location location = locationDao.getLocationById(id);
+        System.out.println("com.sg.SuperHeroSightings.controller.LocationController.performEditLocation()");
 
+        System.out.println(id);
         String locationName = request.getParameter("locationName");
-        String description = request.getParameter("description");
-        String address = request.getParameter("address");
-        String city = request.getParameter("city");
-        String state = request.getParameter("state");
+        String description = request.getParameter("locationDescription");
+        String address = request.getParameter("locationAddress");
+        String city = request.getParameter("locationCity");
+        String state = request.getParameter("locationState");
         String country = request.getParameter("country");
         String zipCode = request.getParameter("zipCode");
         BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));

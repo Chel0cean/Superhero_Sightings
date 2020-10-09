@@ -52,35 +52,30 @@ public class OrganizationController {
         String organizatonName = request.getParameter("organizationName");
 
         String organizationDescription = request.getParameter("organizationDescription");
-        
-        try{
-        String organizationEmail = request.getParameter("organizationEmail");
-        String organizationPhone = request.getParameter("organizationPhone");
-        organization.setOrganizationEmail(organizationEmail);
-        organization.setOrganizationPhone(organizationPhone);
+
+        try {
+            String organizationEmail = request.getParameter("organizationEmail");
+            String organizationPhone = request.getParameter("organizationPhone");
+            organization.setOrganizationEmail(organizationEmail);
+            organization.setOrganizationPhone(organizationPhone);
+        } catch (NullPointerException ex) {
+
         }
-        catch(NullPointerException ex){
-            
-        }
-        
+
         String locationIDAsString = request.getParameter("locationIdForAddOrganization");
         int locationID = Integer.parseInt(locationIDAsString);
         Location location = locationDao.getLocationById(locationID);
 
-       
         String[] heroIDs = request.getParameterValues("heroID");
-       
-            for (String heroID : heroIDs) {
-                heroes.add(heroDao.getHeroById(Integer.parseInt(heroID)));
-            }
-             organization.setHeroes(heroes);
-        
-       
-        
+
+        for (String heroID : heroIDs) {
+            heroes.add(heroDao.getHeroById(Integer.parseInt(heroID)));
+        }
+        organization.setHeroes(heroes);
+
         organization.setLocation(location);
         organization.setOrganizationName(organizatonName);
         organization.setOrganizationDescription(organizationDescription);
-
 
         organizationDao.addOrganization(organization);
 
@@ -96,7 +91,6 @@ public class OrganizationController {
 
     }
 
-
     @PostMapping("editOrganization")
     public String performEditOrganization(HttpServletRequest request) {
 
@@ -105,52 +99,49 @@ public class OrganizationController {
 
         String[] heroIDs = request.getParameterValues("heroIdEdit");
         List<Hero> heroes = new ArrayList<>();
-         for (String heroID : heroIDs) {
-                heroes.add(heroDao.getHeroById(Integer.parseInt(heroID)));
-            }
-        
+        for (String heroID : heroIDs) {
+            heroes.add(heroDao.getHeroById(Integer.parseInt(heroID)));
+        }
 
         Location location = locationDao.getLocationById(Integer.parseInt(request.getParameter("locationIdEdit")));
         String organizationName = request.getParameter("organizationNameEdit");
         String organizationDescription = request.getParameter("organizationDescriptionEdit");
-        try{
-        String organizationEmail = request.getParameter("organizationEmailEdit");
-        organization.setOrganizationEmail(organizationEmail);
+        try {
+            String organizationEmail = request.getParameter("organizationEmailEdit");
+            organization.setOrganizationEmail(organizationEmail);
+        } catch (NullPointerException ex) {
+
         }
-        catch(NullPointerException ex){
-            
-        }
-        try{
-        String organizationPhone = request.getParameter("organizationPhoneEdit");
-        organization.setOrganizationPhone(organizationPhone);
-        }
-        catch(NullPointerException ex){
-            
+        try {
+            String organizationPhone = request.getParameter("organizationPhoneEdit");
+            organization.setOrganizationPhone(organizationPhone);
+        } catch (NullPointerException ex) {
+
         }
         organization.setHeroes(heroes);
         organization.setLocation(location);
         organization.setOrganizationName(organizationName);
         organization.setOrganizationDescription(organizationDescription);
-        
-        
+
         organizationDao.updateOrganization(organization);
 
         return "redirect:/organizations";
-        
-  
+
     }
-    
-    
- /*@GetMapping("searchOrganizationsByHero")
-    public String displayOrganizationsByHero(Model model) {
-        List<Organizations> organizations = organizationDao.getOrganizationsByHero(hero);
+
+
+    @GetMapping("searchOrganizationsByHero")
+    public String searchOrganizationsByHero(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("heroId"));
+        Hero hero = heroDao.getHeroById(id);
+        List<Organization> organizations = organizationDao.getOrganizationsByHero(hero);
         model.addAttribute("organizations", organizations);
-       
+        model.addAttribute("hero", hero);
 
-        return "organizations";
+        return "searchOrganizationsByHero";
     }
 
-*/
     
-    
+
+
 }

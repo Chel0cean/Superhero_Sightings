@@ -33,7 +33,7 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)" class="dropbtn btn btn-outline-primary btn-lg">Search</a>
                     <div class="dropdown-content">
-                        <a id="searchHeroesByOrganization" class= "btn btn-outline-primary btn-lg" href="#">Search by Hero</a>   
+                        <a id="searchOrganizationsByHeroButton" class= "btn btn-outline-primary btn-lg" href="#">Search by Hero</a>   
                     </div>
                 </li>
 
@@ -42,7 +42,7 @@
         </div>
 
         <div hidden id="searchOrganizationsByHeroForm" class="container">
-            <form action="searchByHero" method="GET">
+            <form action="searchOrganizationsByHero" method="GET">
                 <fieldset>
 
                     <div class="col-md-6">
@@ -188,7 +188,7 @@
                     <button th:attr="id=${organization.organizationId},value=${organization.organizationName}" class="updateOrganizationButton btn btn-primary" type="button" OnClick="deleteOrganization(this.value, this.id)" >Delete</button>
                 </td></tr>
 
-                <tr hidden th:attr="id='updateOrganizationTr'+${organization.organizationId}" class="editForm"><td >
+                <tr hidden th:attr="id='updateTr'+${organization.organizationId}" class="editForm"><td >
                     <div >
 
                         

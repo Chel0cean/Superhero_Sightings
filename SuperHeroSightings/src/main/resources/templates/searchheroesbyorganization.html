@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row m-4">
                 <div class="col text-center border border-dark">
-                    <h1>Heroes</h1>
+                    <h1> <span th:text="'Heroes Belonging to '+${organization.organizationName}" th:remove="tag">title</span> </h1>
                 </div>
             </div>
 
@@ -26,162 +26,15 @@
 
 
         <div class="homeAndSearchButtons">
-            <button id= "addFormRevealButton" type="button" class="btn btn-outline-primary btn-lg">Add Hero</button>
+           
             <ul style="list-style-type:none;">
                 <li> <a  th:href="@{/index.html}" class="btn btn-outline-primary btn-lg">Home</a></li>
 
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn btn btn-outline-primary btn-lg">Search</a>
-                    <div class="dropdown-content">
-                        <a id="searchHeroesBySuperpower" class= "btn btn-outline-primary btn-lg" href="javascript:void(0)">Search by Superpower</a>
-                        <a id="searchHeroesByOrganization" class= "btn btn-outline-primary btn-lg" href="#">Search by Organization</a>   
-                    </div>
-                </li>
+               <li> <a  th:href="@{/heroes}" class="btn btn-outline-primary btn-lg">All Heroes</a></li>
 
 
             </ul>
         </div>
-
-        <div hidden id="searchHeroesBySuperpowerForm" class="container">
-            <form action="searchBySuperPower" method="GET">
-                <fieldset>
-
-                    <div class="col-md-6">
-                        <legend>Search Heroes by Superpower</legend>
-
-
-                        <div class="col-md-4">
-
-
-                            <select id="superpowerId" name="superPowerId" class="form-control" >
-                                <option th:each="superpower : ${superpowers}"
-                                        th:value="${superpower.superPowerId}"
-                                        th:text="${superpower.superPowerName}">
-                                    Superpower</option>
-                            </select>
-                        </div>
-
-
-                        <div>
-                            <div>
-                                <button type="submit" class="btn btn-success">Search</button>
-                                <button type="button" id="cancelSearchBySuperpower"  class="btn btn-danger">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-
-
-        </div>
-
-
-        <div hidden id="searchHeroesByOrganizationForm" class="container">
-            <form action="searchByOrganization" method="GET">
-                <fieldset>
-
-                    <div class="col-md-6">
-                        <legend>Search Heroes by Organization</legend>
-
-
-                        <div class="col-md-4">
-
-
-                            <select id="organization" name="organizationId" class="form-control" >
-                                <option th:each="organization : ${organizations}"
-                                        th:value="${organization.organizationId}"
-                                        th:text="${organization.organizationName}">
-                                    Organization</option>
-                            </select>
-                        </div>
-
-
-                        <div>
-                            <div>
-                                <button type="submit" class="btn btn-success">Search</button>
-                                <button type="button" id="cancelSearchByOrganization"  class="btn btn-danger">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-
-
-        </div>
-
-        <div hidden id = "addObjectField" class="container">
-
-            <div  class="col-7 text-center m-3">
-
-
-                <div class="col-3 text-center m-3">
-                    <span class="h3">Add Hero</span>
-                </div>
-                <form action="addHero" method="POST">
-                    <div class="form-group row">
-                        <label for="name" class="col-3 col-form-label">
-                            Name</label>
-                        <div class="col-9">
-                            <input type="text" name="heroName"
-                                   id="heroName" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="description" class="col-3 col-form-label">
-                            Description</label>
-                        <div class="col-9">
-                            <input type="text" name="heroDescription"
-                                   id="heroDescription" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="Superpower" class="col-3 col-form-label">
-                            Superpower</label>
-                        <div class="col-9">
-                            <select id="superPowerId" name="superPowerIdForAddHero" class="form-control" >
-                                <option th:each="superpower : ${superpowers}"
-                                        th:value="${superpower.superPowerId}"
-                                        th:text="${superpower.superPowerName}">
-                                    Superpower</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id=selectOrganizations class="form-group row">
-                        <label for="organizations" class="col-3 col-form-label">
-                            Organization(s)</label>
-                        <fieldset>
-
-                            <select multiple id="organizationID" 
-                                    class="form-control" >
-
-                                <option >
-                                <ul style="list-style-type:none;" >
-
-                                    <li th:each="organization : ${organizations}" style="list-style-type:none;" >
-                                        <input type="checkbox" name="organizationIDForAddHero" th:value="${organization.organizationId}">
-                                        <label th:text="${organization.organizationName}"></label>
-                                    </li>
-
-                                </ul>
-                                </option>
-                              
-
-                            </select>
-                        </fieldset>
-
-                    </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Add Hero</button>
-            <button id = "cancelAddObject" type="button" class="btn btn-primary">Cancel</button>
-
-        </form>
-    </div>
-</div>
-
-
-
-
 
 
 <div>
@@ -200,7 +53,7 @@
                     <button th:attr="id=${hero.heroId},value=${hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteHero(this.value, this.id)" >Delete</button>
                 </td></tr>
 
-                <tr hidden th:attr="id='updateHeroTr'+${hero.heroId}" class="editForm"><td >
+                <tr hidden th:attr="id='updateTr'+${hero.heroId}" class="editForm"><td >
                     <div >
 
                         

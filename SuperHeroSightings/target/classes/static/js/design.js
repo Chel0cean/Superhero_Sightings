@@ -59,6 +59,25 @@ $("#cancelSearchByOrganization").click(function(event){
 
 });
 
+
+
+$("#searchOrganizationsByHeroButton").click(function(event){
+  $('#searchOrganizationsByHeroForm').removeAttr("hidden");
+  $('#searchOrganizationsByHeroForm').show();
+
+
+
+
+
+});
+
+
+$("#cancelSearchByHero").click(function(event){
+  $('#searchOrganizationsByHeroForm').hide();
+ 
+
+});
+
 function deleteHero(name, id){
 
 
@@ -71,7 +90,7 @@ if(confirmed){
 
 function updateHero(id, value){
 
-  var updateId= "updateHeroTr" + id;
+  var updateId= "updateTr" + id;
   $('#'+updateId).removeAttr("hidden");
   $('.editForm').hide();
   $('#'+updateId).show();
@@ -86,7 +105,7 @@ function updateHero(id, value){
 
 function hideForm(value){
 
-  var updateId= "updateHeroTr" + value;
+  var updateId= "updateTr" + value;
  
   $('#'+updateId).hide();
  
@@ -108,7 +127,7 @@ function deleteOrganization(name, id){
   
   function updateOrganization(id, value){
   
-    var updateId= "updateOrganizationTr" + id;
+    var updateId= "updateTr" + id;
     $('#'+updateId).removeAttr("hidden");
     $('.editForm').hide();
     $('#'+updateId).show();
@@ -121,16 +140,7 @@ function deleteOrganization(name, id){
   
   };
   
-  function hideForm(value){
-  
-    var updateId= "updateOrganizationTr" + value;
-   
-    $('#'+updateId).hide();
-   
-   $('button[id="'+value+'"]').show();
-  
-  
-  };
+ 
   
   
 

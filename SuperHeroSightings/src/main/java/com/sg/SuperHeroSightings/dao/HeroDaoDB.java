@@ -119,11 +119,11 @@ public class HeroDaoDB implements HeroDao {
         }
         return heroes;
     }
-    
+     @Override
         public List<Hero> getHeroesByOrganization(Organization organization) {
         
         final String GET_HEROES_BY_ORGANIZATION
-                = "SELECT h.idHero, h.name, h.description, FROM Hero h "
+                = "SELECT h.idHero, h.name, h.description, h.Superpower_idSuperpower FROM Hero h "
                 + " JOIN HeroOrganization ho ON ho.Hero_idHero=h.idHero"
                 + " WHERE ho.Organization_idOrganization = ?";
 
@@ -135,16 +135,8 @@ public class HeroDaoDB implements HeroDao {
         }
         return heroes;
     }
-        
-    public List<Organization> getOrganizationListForHero(Hero hero){
-        final String GET_ORGANIZATIONS_FOR_HERO="SELECT o.idOrganization, o.name, o.Location_idLocation, o.description+"
-                + " FROM Organization o JOIN HeroOrganization ho ON ho.Organization_idOrganization = o.idOrganization"
-                +" WHERE ho.Hero_idHero=?";
-       
-       List <Organization> organization = jdbc.query(GET_ORGANIZATIONS_FOR_HERO, new OrganizationMapper(), hero.getHeroId());
-  
-       return organization;
-    }
+      
+ 
 
     @Override
     public void insertHeroOrganization(Hero hero, List<Integer> organizationsIds) {

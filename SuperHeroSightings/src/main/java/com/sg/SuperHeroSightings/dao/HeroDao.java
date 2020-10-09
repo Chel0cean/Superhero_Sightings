@@ -26,4 +26,6 @@ public interface HeroDao {
 
     public void insertHeroOrganization(Hero hero, List<Integer> organizationIds);
 
+    public List<Hero> getHeroesByOrganization(Organization organization);
+
 }

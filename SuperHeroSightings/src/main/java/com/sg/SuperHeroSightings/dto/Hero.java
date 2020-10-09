@@ -12,18 +12,6 @@ public class Hero {
     private String heroName;
     private String heroDescription;
     private Superpower superPower;
-    
-    
-    private String photoFilename; 
-
-    public String getPhotoFilename() {
-        return photoFilename;
-    }
-
-    public void setPhotoFilename(String photoFilename) {
-        this.photoFilename = photoFilename;
-    }
-    
  
 
     public Hero() {

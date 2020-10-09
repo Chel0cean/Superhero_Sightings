@@ -59,19 +59,88 @@ $("#cancelSearchByOrganization").click(function(event){
 
 });
 
+
+
+$("#searchOrganizationsByHeroButton").click(function(event){
+  $('#searchOrganizationsByHeroForm').removeAttr("hidden");
+  $('#searchOrganizationsByHeroForm').show();
+
+
+
+
+
+});
+
+
+$("#cancelSearchByHero").click(function(event){
+  $('#searchOrganizationsByHeroForm').hide();
+ 
+
+});
+
 function deleteHero(name, id){
 
 
 var confirmed=window.confirm('Are you sure you want to delete '+name+'?');
 if(confirmed){
   window.location.href = "/deleteHero?id="+id;
-}
-function updateHero(heroId, superPowerId){
+};
+
+};
+
+function updateHero(id, value){
+
+  var updateId= "updateTr" + id;
+  $('#'+updateId).removeAttr("hidden");
   $('.editForm').hide();
-  $('#updateHeroTr'+heroId).show();
+  $('#'+updateId).show();
+  var superheroForm ="superPowerIdForEditHero"+id;
+ $('#'+superheroForm).val(value);
 
-}
+
+ $('button[id="'+id+'"]').hide();
+ 
+
+};
+
+function hideForm(value){
+
+  var updateId= "updateTr" + value;
+ 
+  $('#'+updateId).hide();
+ 
+ $('button[id="'+value+'"]').show();
+
+
+};
+
+
+function deleteOrganization(name, id){
+
+
+  var confirmed=window.confirm('Are you sure you want to delete '+name+'?');
+  if(confirmed){
+    window.location.href = "/deleteOrganization?id="+id;
+  };
+  
+  };
+  
+  function updateOrganization(id, value){
+  
+    var updateId= "updateTr" + id;
+    $('#'+updateId).removeAttr("hidden");
+    $('.editForm').hide();
+    $('#'+updateId).show();
+    var locationForm ="locationIdForEditorganization"+id;
+   $('#'+locationForm).val(value);
+  
+  
+   $('button[id="'+id+'"]').hide();
+   
+  
+  };
+  
+ 
   
   
 
-}

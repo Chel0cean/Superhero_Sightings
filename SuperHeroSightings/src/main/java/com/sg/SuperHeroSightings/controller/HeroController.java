@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -83,18 +85,8 @@ public class HeroController {
         return "redirect:/heroes";
     }
     
-    
-    @GetMapping("getHero")
-    public String editHero(HttpServletRequest request, Model model) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Hero hero = heroDao.getHeroById(id);
-        model.addAttribute("hero", hero);
-        return "editHero";
-    }
-    
-    
-   
 
+    
     @GetMapping("deleteHero")
     public String deleteHero(HttpServletRequest request) {
 
@@ -108,14 +100,15 @@ public class HeroController {
     @PostMapping("editHero")
     public String performEditHero(HttpServletRequest request) {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+      int heroId=Integer.parseInt(request.getParameter("heroIdEdit"));
+      
         String heroName = request.getParameter("heroNameEdit");
         String heroDescription = request.getParameter("heroDescriptionEdit");
 
         int superPowerID = Integer.parseInt(request.getParameter("superPowerIDEdit"));
         Superpower superpower = new Superpower(superPowerID);
 
-        String[] organizationIDsString = request.getParameterValues("organizationIDEdit");
+        String[] organizationIDsString = request.getParameterValues("organizationIDForEditHero");
 
         List<Integer> organizationIDs = new ArrayList<>();
         
@@ -124,7 +117,7 @@ public class HeroController {
             
         }
 
-        Hero hero = heroDao.getHeroById(id);
+        Hero hero = heroDao.getHeroById(heroId);
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);
@@ -133,28 +126,29 @@ public class HeroController {
         return "redirect:/heroes";
     }
 
-
-
-
- /*@GetMapping("searchHeroesBySuperpower")
-    public String displayHeroesBySuperpower(Model model) {
-        List<Hero> heroes = heroDao.getHeroesBySuperpower(superPower);
-        model.addAttribute("heroes", heroes);
-       
-
-        return "heroes";
-    }
-
-*/
+   
     
-     /*@GetMapping("searchHeroesByOrganization")
-    public String displayHeroesByOrganization(Model model) {
-        List<Hero> heroes = heroDao.getHeroesByOrganization(organization);
+      @GetMapping("searchHeroesBySuperpower")
+    public String searchHeroesBySuperpower(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("superPowerId"));
+        Superpower superpower = superpowerDao.getSuperpowerById(id);
+        List <Hero> heroes = heroDao.getHeroesBySuperpower(superpower);
         model.addAttribute("heroes", heroes);
+        return "searchHeroesBySuperpower";
+    }
+    
        
-
-        return "heroes";
+      @GetMapping("searchHeroesByOrganization")
+    public String searchHeroesByOrganization(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("organizationId"));
+        Organization organization = organizationDao.getOrganizationById(id);
+        List <Hero> heroes = heroDao.getHeroesByOrganization(organization);
+        model.addAttribute("heroes", heroes);
+        model.addAttribute("organization", organization);
+        return "searchHeroesByOrganization";
     }
 
-*/
+
+    
+
 }

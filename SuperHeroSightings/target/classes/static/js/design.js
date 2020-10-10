@@ -78,6 +78,64 @@ $("#cancelSearchByHero").click(function(event){
 
 });
 
+
+$("#searchSightingsByHero").click(function(event){
+  $('#searchSightingsByHeroForm').removeAttr("hidden");
+  $('#searchSightingsByHeroForm').show();
+  $('#searchSightingsByDateForm').hide();
+  $('#searchSightingsByLocationForm').hide();
+ 
+
+
+
+});
+
+$("#cancelSearchByHero").click(function(event){
+  $('#searchSightingsByHeroForm').hide();
+ 
+
+});
+
+
+
+$("#searchSightingsByLocation").click(function(event){
+  $('#searchSightingsByLocationForm').removeAttr("hidden");
+  $('#searchSightingsByLocationForm').show();
+  $('#searchSightingsByHeroForm').hide();
+  $('#searchSightingsByDateForm').hide();
+
+
+
+
+});
+
+
+$("#cancelSearchSightingsByLocation").click(function(event){
+  $('#searchSightingsByLocationForm').hide();
+ 
+
+});
+
+
+
+$("#searchSightingsByDate").click(function(event){
+  $('#searchSightingsByDateForm').removeAttr("hidden");
+  $('#searchSightingsByDateForm').show();
+  $('#searchSightingsByHeroForm').hide();
+  $('#searchSightingsByLocationForm').hide();
+
+
+
+
+});
+
+
+$("#cancelSearchSightingsByDate").click(function(event){
+  $('#searchSightingsByDateForm').hide();
+ 
+
+});
+
 function deleteHero(name, id){
 
 

@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row m-4">
                 <div class="col text-center border border-dark">
-                    <h1> <span th:text="'Heroes with '+${heroes[0].superPower.superPowerName}+' Ability'" th:remove="tag">title</span> </h1>
+                    <h1> <span th:text="'Heroes with '+${ability}+' Ability'" th:remove="tag">title</span> </h1>
                 </div>
             </div>
 
@@ -38,7 +38,13 @@
 
 
 <div>
-    <div id="contentRows" class= "container">
+    <div id="itemNotFoundDiv" th:if="${#lists.isEmpty(heroes)}" class= "container">
+
+        <p>No Heroes Found :( </p>
+        <img  th:src="@{/images/Batman-Slapping-Robin-Meme.jpg}" alt="">
+        </div>
+
+    <div th:if="${not #lists.isEmpty(heroes)}" id="contentRows" class= "container">
 
         <table id="content" th:each="hero : ${heroes}">
             <tbody>

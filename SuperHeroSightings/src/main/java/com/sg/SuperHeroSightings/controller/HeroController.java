@@ -133,9 +133,16 @@ public class HeroController {
         int id = Integer.parseInt(request.getParameter("superPowerId"));
         Superpower superpower = superpowerDao.getSuperpowerById(id);
         List <Hero> heroes = heroDao.getHeroesBySuperpower(superpower);
-        model.addAttribute("heroes", heroes);
-        return "searchHeroesBySuperpower";
+     String ability = superpower.getSuperPowerName();
+        
+         model.addAttribute("heroes", heroes);
+         model.addAttribute("ability", ability);
+        return "searchHeroesBySuperpower";   
+ 
+       
     }
+    
+
     
        
       @GetMapping("searchHeroesByOrganization")

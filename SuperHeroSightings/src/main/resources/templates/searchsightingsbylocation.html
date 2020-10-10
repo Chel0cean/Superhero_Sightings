@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row m-4">
             <div class="col text-center border border-dark">
-                <h1> <span th:text="'Sightings at '+${location.name}" th:remove="tag">title</span></h1>
+                <h1> <span th:text="'Sightings at '+${location.locationName}" th:remove="tag">title</span></h1>
             </div>
             
         </div>
@@ -44,7 +44,13 @@
    
 
 <div>
-<div id="contentRows" class= "container">
+    <div id="itemNotFoundDiv" th:if="${#lists.isEmpty(sightings)}" class= "container">
+
+        <p>No Sightings Found :( </p>
+        <img  th:src="@{/images/Batman-Slapping-Robin-Meme.jpg}" alt="">
+        </div>
+
+    <div th:if="${not #lists.isEmpty(sightings)}" id="contentRows" class= "container">
 
     <table id="content" th:each="sighting : ${sightings}">
         <tbody>

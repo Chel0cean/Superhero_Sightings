@@ -43,7 +43,13 @@
    
 
 <div>
-<div id="contentRows" class= "container">
+    <div id="itemNotFoundDiv" th:if="${#lists.isEmpty(sightings)}" class= "container">
+
+        <p>No Sightings Found :( </p>
+        <img  th:src="@{/images/Batman-Slapping-Robin-Meme.jpg}" alt="">
+        </div>
+
+    <div th:if="${not #lists.isEmpty(sightings)}" id="contentRows" class= "container">
 
     <table id="content" th:each="sighting : ${sightings}">
         <tbody>

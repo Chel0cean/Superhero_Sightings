@@ -1,12 +1,14 @@
-
 package com.sg.SuperHeroSightings.controller;
 
 import com.sg.SuperHeroSightings.dao.HeroDao;
+import com.sg.SuperHeroSightings.dao.ImageDao;
 import com.sg.SuperHeroSightings.dao.OrganizationDao;
 import com.sg.SuperHeroSightings.dao.SuperpowerDao;
 import com.sg.SuperHeroSightings.dto.Hero;
 import com.sg.SuperHeroSightings.dto.Organization;
 import com.sg.SuperHeroSightings.dto.Superpower;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-
 
 /**
  *
@@ -35,58 +35,80 @@ public class HeroController {
 
     @Autowired
     HeroDao heroDao;
-    
-    
-    
-    
- @GetMapping("heroes")
+
+    @Autowired
+    ImageDao imageDao;
+
+    private final String TEACHER_UPLOAD_DIR = "Heros";
+
+    @GetMapping("heroes")
     public String displayHeroes(Model model) {
         List<Hero> heroes = heroDao.getAllHeroes();
         List<Superpower> superpowers = superpowerDao.getAllSuperpowers();
-        List<Organization> organizations = organizationDao.getAllOrganizations();
+        //List<Organization> organizations = organizationDao.getAllOrganizations();
 
         model.addAttribute("heroes", heroes);
         model.addAttribute("superpowers", superpowers);
-        model.addAttribute("organizations", organizations);
+        //model.addAttribute("organizations", organizations);
 
         return "heroes";
     }
 
     @PostMapping("addHero")
-    public String addHero(HttpServletRequest request) {
-        
-     
+    public String addHero(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        String fileLocation = imageDao.saveImage(file, Long.toString(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)), TEACHER_UPLOAD_DIR);
+
         String heroName = request.getParameter("heroName");
         String heroDescription = request.getParameter("heroDescription");
 
-        
-       String superPowerIDAsString = request.getParameter("superPowerIdForAddHero");
-       int superPowerID=Integer.parseInt(superPowerIDAsString);
+        String superPowerIDAsString = request.getParameter("superPowerIdForAddHero");
+        int superPowerID = Integer.parseInt(superPowerIDAsString);
         Superpower superpower = superpowerDao.getSuperpowerById(superPowerID);
 
-        
         String[] stringOrganizationIDs = request.getParameterValues("organizationIDForAddHero");
-        
 
         List<Integer> organizationIds = new ArrayList<>();
-        
-            for (String organizationID : stringOrganizationIDs) {
-                int i= Integer.parseInt(organizationID);
-                organizationIds.add(i);
-            
+
+        for (String organizationID : stringOrganizationIDs) {
+            int i = Integer.parseInt(organizationID);
+            organizationIds.add(i);
+
         }
 
         Hero hero = new Hero();
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);
+        hero.setPhotoFilename(fileLocation);
         heroDao.addHero(hero);
         heroDao.insertHeroOrganization(hero, organizationIds);
+
         return "redirect:/heroes";
     }
-    
 
-    
+//        @PostMapping("addTeacher")
+//    public String addTeacher(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+//        String fileLocation = imageDao.saveImage(file, Long.toString(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)), TEACHER_UPLOAD_DIR);
+//        
+//        String firstName = request.getParameter("firstName");
+//        String lastName = request.getParameter("lastName");
+//        String specialty = request.getParameter("specialty");
+//
+//        Teacher teacher = new Teacher();
+//        teacher.setFirstName(firstName);
+//        teacher.setLastName(lastName);
+//        teacher.setSpecialty(specialty);
+//        teacher.setPhotoFilename(fileLocation);
+//
+//        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+//        violations = validate.validate(teacher);
+//
+//        if (violations.isEmpty()) {
+//            teacherDao.addTeacher(teacher);
+//        }
+//        
+//        return "redirect:/teachers";
+//    }
     @GetMapping("deleteHero")
     public String deleteHero(HttpServletRequest request) {
 
@@ -95,13 +117,11 @@ public class HeroController {
         return "redirect:/heroes";
     }
 
-
-    
     @PostMapping("editHero")
     public String performEditHero(HttpServletRequest request) {
 
-      int heroId=Integer.parseInt(request.getParameter("heroIdEdit"));
-      
+        int heroId = Integer.parseInt(request.getParameter("heroIdEdit"));
+
         String heroName = request.getParameter("heroNameEdit");
         String heroDescription = request.getParameter("heroDescriptionEdit");
 
@@ -111,10 +131,10 @@ public class HeroController {
         String[] organizationIDsString = request.getParameterValues("organizationIDForEditHero");
 
         List<Integer> organizationIDs = new ArrayList<>();
-        
-            for (String organizationID : organizationIDsString) {
-                organizationIDs.add(Integer.parseInt(organizationID));
-            
+
+        for (String organizationID : organizationIDsString) {
+            organizationIDs.add(Integer.parseInt(organizationID));
+
         }
 
         Hero hero = heroDao.getHeroById(heroId);
@@ -126,29 +146,23 @@ public class HeroController {
         return "redirect:/heroes";
     }
 
-   
-    
-      @GetMapping("searchHeroesBySuperpower")
+    @GetMapping("searchHeroesBySuperpower")
     public String searchHeroesBySuperpower(HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("superPowerId"));
         Superpower superpower = superpowerDao.getSuperpowerById(id);
-        List <Hero> heroes = heroDao.getHeroesBySuperpower(superpower);
+        List<Hero> heroes = heroDao.getHeroesBySuperpower(superpower);
         model.addAttribute("heroes", heroes);
         return "searchHeroesBySuperpower";
     }
-    
-       
-      @GetMapping("searchHeroesByOrganization")
+
+    @GetMapping("searchHeroesByOrganization")
     public String searchHeroesByOrganization(HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("organizationId"));
         Organization organization = organizationDao.getOrganizationById(id);
-        List <Hero> heroes = heroDao.getHeroesByOrganization(organization);
+        List<Hero> heroes = heroDao.getHeroesByOrganization(organization);
         model.addAttribute("heroes", heroes);
         model.addAttribute("organization", organization);
         return "searchHeroesByOrganization";
     }
-
-
-    
 
 }

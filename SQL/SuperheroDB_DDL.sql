@@ -31,6 +31,8 @@ CREATE TABLE Hero (
   name VARCHAR(45) NOT NULL,
   description VARCHAR(280) NOT NULL,
   Superpower_idSuperpower INT NOT NULL,
+  photoFilename VARCHAR(255),
+
     FOREIGN KEY (Superpower_idSuperpower)
     REFERENCES Superpower(idSuperpower));
 

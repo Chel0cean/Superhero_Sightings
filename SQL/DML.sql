@@ -25,16 +25,25 @@ INSERT INTO Superpower(idSuperpower, name) VALUES
 	("Stark Tower","Home Of Avengers", " 1472 Broadway, ", "New York City","NY","US","10036",40.7560149,-73.9860436),
 	("Batman’s House","Batman lives on top of the freedom tower.", "285 Fulton Street,", "New York City", "NY","US","10006",40.7131216, -74.0133631);
 
-    INSERT INTO Hero(name,description,Superpower_idSuperpower)  VALUES
-	
-	("FlyGuy","Can control all tectonic plates within range, causing earthquakes. Alias Nick Shaker",1),
-	("Tecton-Nick","Good Guy",2),
-    ("Spider Pig,","Can vomit spider webs, alias is Homer Simpson",3),
-	("Flamethrower","Can cause extreme fear, and breathe Fire alias Russell Russ",4),
-    ("The InvisibleEntity","Can turn invisible anytime. Alias Chucker",5),
-    ("Zen","Can read and control people’s minds. Alias Mandy",6),
-    ("Iron Man","Tony Stark has a suit of armor that he uses to save the world",7),
-    ("Mr.Fantastic"," Reed Richards can stretch any part of his body to save the day.",8);
+
+
+    INSERT INTO Hero(name,description,Superpower_idSuperpower,photoFilename)  VALUES
+	("FlyGuy","Can control all tectonic plates within range, causing earthquakes. Alias Nick Shaker",1,
+"images/uploads/Heros/qwerty.png"),
+	("Tecton-Nick","Good Guy",2,
+"images/uploads/Heros/qwerty.png"),
+    ("Spider Pig,","Can vomit spider webs, alias is Homer Simpson",3,
+"images/uploads/Heros/qwerty.png"),
+	("Flamethrower","Can cause extreme fear, and breathe Fire alias Russell Russ",4,
+"images/uploads/Heros/qwerty.png"),
+    ("The InvisibleEntity","Can turn invisible anytime. Alias Chucker",5,
+"images/uploads/Heros/qwerty.png"),
+    ("Zen","Can read and control people’s minds. Alias Mandy",6,
+"images/uploads/Heros/qwerty.png"),
+    ("Iron Man","Tony Stark has a suit of armor that he uses to save the world",7,
+"images/uploads/Heros/qwerty.png"),
+    ("Mr.Fantastic"," Reed Richards can stretch any part of his body to save the day.",8,
+"images/uploads/Heros/qwerty.png");
     
     INSERT INTO Organization(name, Location_idLocation, description, contactEmail, contactPhone) VALUES
     ("The Southwest Center for Bad-doing", 1, "A large obsidian glass building that reflects the southwest sun into the eyes of all that pass by. Its mere existence has been the cause of many car accidents.", "badDoer@evil.com", 12125552112),

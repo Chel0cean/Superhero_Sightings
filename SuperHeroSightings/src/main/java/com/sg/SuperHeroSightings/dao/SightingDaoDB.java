@@ -2,10 +2,8 @@ package com.sg.SuperHeroSightings.dao;
 
 import com.sg.SuperHeroSightings.dao.HeroDaoDB.HeroMapper;
 import com.sg.SuperHeroSightings.dao.LocationDaoDB.LocationMapper;
-import com.sg.SuperHeroSightings.dao.OrganizationDaoDB.OrganizationMapper;
 import com.sg.SuperHeroSightings.dto.Hero;
 import com.sg.SuperHeroSightings.dto.Location;
-import com.sg.SuperHeroSightings.dto.Organization;
 import com.sg.SuperHeroSightings.dto.Sighting;
 import com.sg.SuperHeroSightings.dto.Superpower;
 import java.sql.ResultSet;

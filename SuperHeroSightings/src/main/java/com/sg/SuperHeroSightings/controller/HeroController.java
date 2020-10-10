@@ -15,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -42,6 +40,11 @@ public class HeroController {
  @GetMapping("heroes")
     public String displayHeroes(Model model) {
         List<Hero> heroes = heroDao.getAllHeroes();
+        for(Hero hero:heroes){
+            List <Organization> orgs=organizationDao.getOrganizationsByHero(hero);
+            heroDao.associateOrgsForHero(hero, orgs);
+        }
+        
         List<Superpower> superpowers = superpowerDao.getAllSuperpowers();
         List<Organization> organizations = organizationDao.getAllOrganizations();
 
@@ -134,6 +137,11 @@ public class HeroController {
         
         Superpower superpower = superpowerDao.getSuperpowerById(id);
         List <Hero> heroes = heroDao.getHeroesBySuperpower(superpower);
+          for(Hero hero:heroes){
+            List <Organization> orgs=organizationDao.getOrganizationsByHero(hero);
+            heroDao.associateOrgsForHero(hero, orgs);
+        }
+        
         List<Superpower> superpowers = superpowerDao.getAllSuperpowers();
         List<Organization> organizations = organizationDao.getAllOrganizations();
      String ability = superpower.getSuperPowerName();
@@ -155,6 +163,11 @@ public class HeroController {
         int id = Integer.parseInt(request.getParameter("organizationId"));
         Organization organization = organizationDao.getOrganizationById(id);
         List <Hero> heroes = heroDao.getHeroesByOrganization(organization);
+          for(Hero hero:heroes){
+            List <Organization> orgs=organizationDao.getOrganizationsByHero(hero);
+            heroDao.associateOrgsForHero(hero, orgs);
+        }
+        
          List<Superpower> superpowers = superpowerDao.getAllSuperpowers();
         List<Organization> organizations = organizationDao.getAllOrganizations();
         model.addAttribute("heroes", heroes);

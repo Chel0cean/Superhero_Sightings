@@ -1,6 +1,7 @@
 package com.sg.SuperHeroSightings.dto;
 
 
+import java.util.List;
 import java.util.Objects;
 
 /*
@@ -12,6 +13,7 @@ public class Hero {
     private String heroName;
     private String heroDescription;
     private Superpower superPower;
+    private List<OrgStub> organizations;
  
 
     public Hero() {
@@ -53,15 +55,22 @@ public class Hero {
         this.superPower = superPower;
     }
 
+    public List<OrgStub> getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(List<OrgStub> organizations) {
+        this.organizations = organizations;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 47 * hash + this.heroId;
-        hash = 47 * hash + Objects.hashCode(this.heroName);
-        hash = 47 * hash + Objects.hashCode(this.heroDescription);
-        hash = 47 * hash + Objects.hashCode(this.superPower);
-
+        int hash = 5;
+        hash = 29 * hash + this.heroId;
+        hash = 29 * hash + Objects.hashCode(this.heroName);
+        hash = 29 * hash + Objects.hashCode(this.heroDescription);
+        hash = 29 * hash + Objects.hashCode(this.superPower);
+        hash = 29 * hash + Objects.hashCode(this.organizations);
         return hash;
     }
 
@@ -89,15 +98,18 @@ public class Hero {
         if (!Objects.equals(this.superPower, other.superPower)) {
             return false;
         }
-      
+        if (!Objects.equals(this.organizations, other.organizations)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Hero{" + "heroId=" + heroId + ", heroName=" + heroName + ", heroDescription=" + heroDescription + ", superPower=" + superPower + '}';
+        return "Hero{" + "heroId=" + heroId + ", heroName=" + heroName + ", heroDescription=" + heroDescription + ", superPower=" + superPower + ", organizations=" + organizations + '}';
     }
 
+    
 
 
 }

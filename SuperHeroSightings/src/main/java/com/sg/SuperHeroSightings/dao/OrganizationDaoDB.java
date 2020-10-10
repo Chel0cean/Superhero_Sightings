@@ -164,6 +164,7 @@ public class OrganizationDaoDB implements OrganizationDao {
             }
 
         }
+        organization.setHeroes(heroes);
     }
 
     public static final class OrganizationMapper implements RowMapper<Organization> {

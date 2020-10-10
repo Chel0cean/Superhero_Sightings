@@ -134,10 +134,10 @@ public class SightingDaoDB implements SightingDao {
         return sightings;
     }
 
-    private List<Sighting> getTopTenSightings() {
+    @Override
+    public List<Sighting> getTopTenSightings() {
         final String GET_TOP_TEN_SIGHTINGS
-                = "USE SuperHeroDB;"
-                + " SELECT * FROM Sighting"
+                = " SELECT * FROM Sighting"
                 + " ORDER BY Date DESC"
                 + " LIMIT 10;";
         List<Sighting> topTenSightings = jdbc.query(GET_TOP_TEN_SIGHTINGS, new SightingMapper());
@@ -186,3 +186,4 @@ public class SightingDaoDB implements SightingDao {
     }
 
 }
+

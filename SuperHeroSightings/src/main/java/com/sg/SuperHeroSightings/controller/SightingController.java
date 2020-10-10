@@ -31,11 +31,9 @@ public class SightingController {
         List<Sighting> sightings = sightingDao.getAllSightings();
         List<Hero> heroes = heroDao.getAllHeroes();
         List<Location> locations = locationDao.getAllLocations();
-       // List<Sighting> topTenSightings= sightingDao.getTopTenSightings();
         model.addAttribute("sightings", sightings);
         model.addAttribute("heroes", heroes);
         model.addAttribute("locations", locations);
-       // model.addAttribute("topTenSightings", topTenSightings);
         return "sightings";
     }
     @PostMapping("addSighting")
@@ -59,15 +57,14 @@ public class SightingController {
     @PostMapping("editSighting")
     public String performEditSighting(HttpServletRequest request) {
         LocalDate date = LocalDate.parse(request.getParameter("date"));
-        int heroID = Integer.parseInt(request.getParameter("heroID"));
+        int heroID = Integer.parseInt(request.getParameter("heroId"));
         int locationID = Integer.parseInt(request.getParameter("locationId"));
         int sightingID = Integer.parseInt(request.getParameter("sightingId"));
         Sighting sighting = new Sighting();
         sighting.setLocation(locationDao.getLocationById(locationID));
         sighting.setDate(date);
         sighting.setHero(heroDao.getHeroById(heroID));
-        sightingDao.addSighting(sighting);
-        int id = Integer.parseInt(request.getParameter("id"));
+        sighting.setSightingId(sightingID);
         sightingDao.updateSighting(sighting);
         return "redirect:/sightings";
     }
@@ -96,5 +93,11 @@ public class SightingController {
         model.addAttribute("date", date);
         model.addAttribute("sightings", sightings);
         return "searchSightingsByDate";
+    }
+    @GetMapping("topTenSightings") //Can be changed
+    public String displayTopTenSightings(Model model) {
+        List<Sighting> topTenSightings = sightingDao.getTopTenSightings();
+        model.addAttribute("topTenSightings", topTenSightings);
+        return "index"; //Can be changed
     }
 }

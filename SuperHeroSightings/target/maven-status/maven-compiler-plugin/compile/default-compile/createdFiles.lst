@@ -5,6 +5,7 @@ com/sg/SuperHeroSightings/dto/Sighting.class
 com/sg/SuperHeroSightings/dao/SuperpowerDao.class
 com/sg/SuperHeroSightings/TestApplicationConfiguration.class
 com/sg/SuperHeroSightings/dao/OrganizationDaoDB$OrganizationMapper.class
+com/sg/SuperHeroSightings/dto/OrgStub.class
 com/sg/SuperHeroSightings/dao/LocationDaoDB.class
 com/sg/SuperHeroSightings/dao/OrganizationDao.class
 com/sg/SuperHeroSightings/controller/SuperpowerController.class

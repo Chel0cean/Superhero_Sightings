@@ -51,12 +51,20 @@
             <div  id="content" class= "card" >
                <div><img></div> 
                 <div>
-                    <h4 id= "name" th:text="'Name: '+${hero.heroName}"></h4id>><b>John Doe</b></h4>
+                    <h4 id= "name" th:text="'Name: '+${hero.heroName}"></h4id>><b></b></h4>
                     <p id="superpower" th:text="'Superpower: '+${ability}">Hero Superpower </p>
                           
                             <p id= "description" th:text="'Description: '+${hero.heroDescription}">Hero Description </p>
                            
-                            
+                            <div id="content">
+                                <p > Organizations:    
+                                <ul style="list-style-type:none;">
+                                    <li th:each="organizationforhero: ${hero.organizations}">      
+                                        <span th:text="'•' +${organizationforhero.organizationName}" th:remove="tag"></span>         
+                                    </li>    
+                            </ul>
+                        </p>
+                    </div>
                             <p>
                               
                                 <button th:attr="id=${hero.heroId},value=${hero.superPower.superPowerId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateHero(this.id, this.value)" >Update</button>

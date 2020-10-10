@@ -28,4 +28,6 @@ public interface HeroDao {
 
     public List<Hero> getHeroesByOrganization(Organization organization);
 
+    public void associateOrgsForHero(Hero hero, List<Organization> orgs);
+
 }

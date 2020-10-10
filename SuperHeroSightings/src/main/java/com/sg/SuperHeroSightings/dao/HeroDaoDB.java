@@ -1,12 +1,13 @@
 package com.sg.SuperHeroSightings.dao;
 
-import com.sg.SuperHeroSightings.dao.OrganizationDaoDB.OrganizationMapper;
 import com.sg.SuperHeroSightings.dao.SuperpowerDaoDB.SuperpowerMapper;
 import com.sg.SuperHeroSightings.dto.Hero;
+import com.sg.SuperHeroSightings.dto.OrgStub;
 import com.sg.SuperHeroSightings.dto.Organization;
 import com.sg.SuperHeroSightings.dto.Superpower;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -26,6 +27,7 @@ public class HeroDaoDB implements HeroDao {
 
     @Autowired
     JdbcTemplate jdbc;
+    
 
     //CRUD methods
     @Override
@@ -162,6 +164,22 @@ public class HeroDaoDB implements HeroDao {
         hero.setSuperPower(thisPower);
 
     }
+     @Override
+     public void associateOrgsForHero(Hero hero, List<Organization> organizations) {
+        List <OrgStub> orgStubs = new ArrayList();
+        for(Organization organization:organizations){
+           OrgStub orgstub =new OrgStub(); 
+           orgstub.setOrganizationId(organization.getOrganizationId());
+           orgstub.setOrganizationName(organization.getOrganizationName());
+           orgStubs.add(orgstub);
+        }
+        
+
+       hero.setOrganizations(orgStubs);
+
+    }
+    
+    
 
     public static final class HeroMapper implements RowMapper<Hero> {
 

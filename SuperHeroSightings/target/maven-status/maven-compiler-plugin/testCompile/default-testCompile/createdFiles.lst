@@ -3,5 +3,4 @@ com/sg/SuperHeroSightings/SuperHeroSightingsApplicationTests.class
 com/sg/SuperHeroSightings/dao/LocationDaoDBTest.class
 com/sg/SuperHeroSightings/dao/HeroDaoDBTest.class
 com/sg/SuperHeroSightings/dao/SightingDaoDBTest.class
-.netbeans_automatic_build
 com/sg/SuperHeroSightings/dao/OrganizationDaoDBTest.class

@@ -1,4 +1,5 @@
 package com.sg.SuperHeroSightings.controller;
+
 import com.sg.SuperHeroSightings.dao.HeroDao;
 import com.sg.SuperHeroSightings.dao.LocationDao;
 import com.sg.SuperHeroSightings.dao.SightingDao;
@@ -13,30 +14,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
 /**
  *
  * @author Chelsea, Karma, Mohammed, Patrick
  */
 @Controller
 public class SightingController {
+
     @Autowired
     SightingDao sightingDao;
     @Autowired
     LocationDao locationDao;
     @Autowired
     HeroDao heroDao;
+
     @GetMapping("sightings")
     public String displaySightings(Model model) {
         List<Sighting> sightings = sightingDao.getAllSightings();
         List<Hero> heroes = heroDao.getAllHeroes();
         List<Location> locations = locationDao.getAllLocations();
-       // List<Sighting> topTenSightings= sightingDao.getTopTenSightings();
         model.addAttribute("sightings", sightings);
         model.addAttribute("heroes", heroes);
         model.addAttribute("locations", locations);
-       // model.addAttribute("topTenSightings", topTenSightings);
         return "sightings";
     }
+
     @PostMapping("addSighting")
     public String addSighting(HttpServletRequest request) {
         LocalDate date = LocalDate.parse(request.getParameter("date"));
@@ -49,12 +52,14 @@ public class SightingController {
         sightingDao.addSighting(sighting);
         return "redirect:/sightings";
     }
+
     @GetMapping("deleteSighting")
     public String deleteSighting(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         sightingDao.deleteSightingById(id);
         return "redirect:/sightings";
     }
+
     @PostMapping("editSighting")
     public String performEditSighting(HttpServletRequest request) {
         LocalDate date = LocalDate.parse(request.getParameter("date"));
@@ -69,6 +74,7 @@ public class SightingController {
         sightingDao.updateSighting(sighting);
         return "redirect:/sightings";
     }
+
     @GetMapping("searchSightingsByLocation")
     public String searchSightingsByLocation(HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("locationId"));
@@ -78,6 +84,7 @@ public class SightingController {
         model.addAttribute("sightings", sightings);
         return "searchSightingsByLocation";
     }
+
     @GetMapping("searchSightingsByHero")
     public String searchSightingsByHero(HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("heroId"));
@@ -87,6 +94,7 @@ public class SightingController {
         model.addAttribute("sightings", sightings);
         return "searchSightingsByHero";
     }
+
     @GetMapping("searchSightingsByDate")
     public String searchSightingsByDate(HttpServletRequest request, Model model) {
         LocalDate date = LocalDate.parse(request.getParameter("date"));
@@ -94,5 +102,12 @@ public class SightingController {
         model.addAttribute("date", date);
         model.addAttribute("sightings", sightings);
         return "searchSightingsByDate";
+    }
+
+    @GetMapping("topTenSightings") //Can be changed
+    public String displayTopTenSightings(Model model) {
+        List<Sighting> topTenSightings = sightingDao.getTopTenSightings();
+        model.addAttribute("topTenSightings", topTenSightings);
+        return "index"; //Can be changed
     }
 }

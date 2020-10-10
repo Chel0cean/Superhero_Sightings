@@ -1,8 +1,19 @@
 //design functions go here.
 
 $(document).ready(function () {
+        $('#addLocationDiv').hide();
 
+    $('#addLocationRevealButton').click(function () {
+        $('#addLocationReveal').hide();
+        $('#addLocationDiv').removeAttr("hidden");
+        $('#addLocationDiv').show();
+    });
 
+    $('#cancelAddSighting').click(function () {
+        $('#addLocationReveal').show();
+        $('#addLocationDiv').attr("hidden");
+        $('#addLocationDiv').hide();
+    });
     $('#addFormRevealButton').click(function () {
         $('#addFormRevealButton').hide();
         $('#addObjectField').removeAttr("hidden");

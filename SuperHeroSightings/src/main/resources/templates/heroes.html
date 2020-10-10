@@ -177,34 +177,31 @@
 
         </form>
     </div>
-</div>
 
 
 
 
 
-
-<div>
-    <div id="contentRows" class= "container">
-
-        <table id="content" th:each="hero : ${heroes}">
-            <tbody>
-                <tr><td id= "name" th:text="'Name: '+${hero.heroName}">Hero Name </td></tr>
-                <tr><td id="superpower" th:text="'Ability: '+${hero.superPower.superPowerName}">Hero Superpower </td></tr>
-                <tr><td id= "description" th:text="'Description: '+${hero.heroDescription}">Hero Description </td></tr>
+<div class= "grid container" >
+<div th:each="hero : ${heroes}" >
+<div  id="content" class= "card" >
+   <div><img></div> 
+    <div>
+        <h4 id= "name" th:text="'Name: '+${hero.heroName}"></h4id>><b>John Doe</b></h4>
+        <p id="superpower" th:text="'Ability: '+${hero.superPower.superPowerName}">Hero Superpower </p>
+              
+                <p id= "description" th:text="'Description: '+${hero.heroDescription}">Hero Description </p>
                
                 
-                <tr><td>
+                <p>
                   
                     <button th:attr="id=${hero.heroId},value=${hero.superPower.superPowerId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateHero(this.id, this.value)" >Update</button>
                     <button th:attr="id=${hero.heroId},value=${hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteHero(this.value, this.id)" >Delete</button>
-                </td></tr>
-
-                <tr hidden th:attr="id='updateTr'+${hero.heroId}" class="editForm"><td >
-                    <div >
-
-                        
-                            <div>
+                </p>
+            </div>
+        </div>
+                <div hidden th:attr="id='updateTr'+${hero.heroId}" class="container editForm">
+                     <div>
                                 <span class="h3">Edit Hero</span>
                             </div>
                             <form action="editHero" method="POST">
@@ -278,9 +275,9 @@
                     </form>
                     </div>
                     
-                </td> </tr>
+                </div>
             </div>
-                
+        </body>               
    
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

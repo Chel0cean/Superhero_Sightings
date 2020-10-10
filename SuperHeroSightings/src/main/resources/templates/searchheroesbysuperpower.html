@@ -44,103 +44,105 @@
         <img  th:src="@{/images/Batman-Slapping-Robin-Meme.jpg}" alt="">
         </div>
 
-    <div th:if="${not #lists.isEmpty(heroes)}" id="contentRows" class= "container">
-
-        <table id="content" th:each="hero : ${heroes}">
-            <tbody>
-                <tr><td id= "name" th:text="'Name: '+${hero.heroName}">Hero Name </td></tr>
-                <tr><td id="superpower" th:text="'Ability: '+${hero.superPower.superPowerName}">Hero Superpower </td></tr>
-                <tr><td id= "description" th:text="'Description: '+${hero.heroDescription}">Hero Description </td></tr>
-               
-                
-                <tr><td>
-                  
-                    <button th:attr="id=${hero.heroId},value=${hero.superPower.superPowerId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateHero(this.id, this.value)" >Update</button>
-                    <button th:attr="id=${hero.heroId},value=${hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteHero(this.value, this.id)" >Delete</button>
-                </td></tr>
-
-                <tr hidden th:attr="id='updateTr'+${hero.heroId}" class="editForm"><td >
-                    <div >
-
-                        
-                            <div>
-                                <span class="h3">Edit Hero</span>
-                            </div>
-                            <form action="editHero" method="POST">
-                                <div hidden class="form-group row">
-                                    <label for="id">
-                                        Id</label>
-                                    <div class="col-5">
-                                        <input type="text" name="heroIdEdit" th:value="${hero.heroId}"
-                                               id="heroIdEdit" class="form-control" readonly/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="name">
-                                        Name</label>
-                                    <div class="col-5">
-                                        <input type="text" name="heroNameEdit" th:value="${hero.heroName}"
-                                               id="heroNameEdit" class="form-control"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="description">
-                                        Description</label>
-                                    <div class="col-9">
-                                        <input type="text" name="heroDescriptionEdit" th:value="${hero.heroDescription}"
-                                               id="heroDescriptionEdit" class="form-control"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Superpower" >
-                                        Superpower</label>
-                                    <div class="col-5">
-                                        <select th:attr="id='superPowerIdForEditHero'+${hero.heroId}"
-                                        name="superPowerIDEdit" class="form-control" >
-                                            <option th:each="superpower : ${superpowers}"
-                                                    th:value="${superpower.superPowerId}"
-                                                    th:text="${superpower.superPowerName}">
-                                                Superpower</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id=selectOrganizationsEdit class="form-group row">
-                                    <label for="organizations" class="col-3 col-form-label">
-                                        Organization(s)</label>
-                                    <fieldset>
-            
-                                        <select multiple id="organizationIDEdit" 
-                                                class="form-control" >
-            
-                                            <option >
-                                            <ul style="list-style-type:none;" >
-            
-                                                <li th:each="organization : ${organizations}" style="list-style-type:none;" >
-                                                    <input type="checkbox" name="organizationIDForEditHero" th:value="${organization.organizationId}">
-                                                    <label th:text="${organization.organizationName}"></label>
-                                                </li>
-            
-                                            </ul>
-                                            </option>
-                                          
-            
-                                        </select>
-                                    </fieldset>
-            
-                                </div>
-                        
-                       
-                    
-                        <button type="submit" th:attr="value=${hero.heroId}" class="btn btn-primary" OnClick="hideForm(this.value)">Update Hero</button>
-                        <button type="button" th:attr="value=${hero.heroId}" class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)" >Cancel</button>
-                    
-                    </form>
-                    </div>
-                    
-                </td> </tr>
-            </div>
-                
    
+
+        <div th:if="${not #lists.isEmpty(heroes)}"  class= "grid container" >
+            <div th:each="hero : ${heroes}" >
+            <div  id="content" class= "card" >
+               <div><img></div> 
+                <div>
+                    <h4 id= "name" th:text="'Name: '+${hero.heroName}"></h4id>><b>John Doe</b></h4>
+                    <p id="superpower" th:text="'Superpower: '+${ability}">Hero Superpower </p>
+                          
+                            <p id= "description" th:text="'Description: '+${hero.heroDescription}">Hero Description </p>
+                           
+                            
+                            <p>
+                              
+                                <button th:attr="id=${hero.heroId},value=${hero.superPower.superPowerId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateHero(this.id, this.value)" >Update</button>
+                                <button th:attr="id=${hero.heroId},value=${hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteHero(this.value, this.id)" >Delete</button>
+                            </p>
+                        </div>
+                    </div>
+                            <div hidden th:attr="id='updateTr'+${hero.heroId}" class="container editForm">
+                                 <div>
+                                            <span class="h3">Edit Hero</span>
+                                        </div>
+                                        <form action="editHero" method="POST">
+                                            <div hidden class="form-group row">
+                                                <label for="id">
+                                                    Id</label>
+                                                <div class="col-5">
+                                                    <input type="text" name="heroIdEdit" th:value="${hero.heroId}"
+                                                           id="heroIdEdit" class="form-control" readonly/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="name">
+                                                    Name</label>
+                                                <div class="col-5">
+                                                    <input type="text" name="heroNameEdit" th:value="${hero.heroName}"
+                                                           id="heroNameEdit" class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="description">
+                                                    Description</label>
+                                                <div class="col-9">
+                                                    <input type="text" name="heroDescriptionEdit" th:value="${hero.heroDescription}"
+                                                           id="heroDescriptionEdit" class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="Superpower" >
+                                                    Superpower</label>
+                                                <div class="col-5">
+                                                    <select th:attr="id='superPowerIdForEditHero'+${hero.heroId}"
+                                                    name="superPowerIDEdit" class="form-control" >
+                                                        <option th:each="superpower : ${superpowers}"
+                                                                th:value="${superpower.superPowerId}"
+                                                                th:text="${superpower.superPowerName}">
+                                                            Superpower</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div id=selectOrganizationsEdit class="form-group row">
+                                                <label for="organizations" class="col-3 col-form-label">
+                                                    Organization(s)</label>
+                                                <fieldset>
+                        
+                                                    <select multiple id="organizationIDEdit" 
+                                                            class="form-control" >
+                        
+                                                        <option >
+                                                        <ul style="list-style-type:none;" >
+                        
+                                                            <li th:each="organization : ${organizations}" style="list-style-type:none;" >
+                                                                <input type="checkbox" name="organizationIDForEditHero" th:value="${organization.organizationId}">
+                                                                <label th:text="${organization.organizationName}"></label>
+                                                            </li>
+                        
+                                                        </ul>
+                                                        </option>
+                                                      
+                        
+                                                    </select>
+                                                </fieldset>
+                        
+                                            </div>
+                                    
+                                   
+                                
+                                    <button type="submit" th:attr="value=${hero.heroId}" class="btn btn-primary" OnClick="hideForm(this.value)">Update Hero</button>
+                                    <button type="button" th:attr="value=${hero.heroId}" class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)" >Cancel</button>
+                                
+                                </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </body>       
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script th:src="@{/js/jquery-2.2.4.min.js}"></script>

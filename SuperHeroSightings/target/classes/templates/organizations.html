@@ -169,122 +169,124 @@
 
 
 
-
-
-<div>
-    <div id="contentRows" class= "container">
-
-        <table id="content" th:each="organization : ${organizations}">
-            <tbody>
-                   <tr><td id= "name" th:text="'Name: '+${organization.organizationName}">Organization Name </td></tr>
-            <tr><td id="location" th:text="'Location: '+${organization.location.locationName}">Organization Location </td></tr>
-            <tr><td id= "description" th:text="'Description: '+${organization.organizationDescription}">Organization Description </td></tr>
-            <tr><td id= "phone" th:text="'Phone:'+${organization.organizationPhone}">Organization Phone </td></tr>
-            <tr><td id= "email" th:text="'Email:'+${organization.organizationEmail}">Organization Email </td></tr>
-                
-                <tr><td>
+<div class= "grid container" >
+    <div th:each="organization : ${organizations}" >
+    <div  id="content" class= "card" >
+       <div><img></div> 
+        <div>
+            <h4 id= "name" th:text="${organization.organizationName}"></h4></h4>
+            <p id="location" th:text="'Location: '+${organization.location.locationName}">Organization Location </p>
                   
-                    <button th:attr="id=${organization.organizationId},value=${organization.location.locationId}" class="updateOrganizationButton btn btn-primary"  type="button" OnClick="updateOrganization(this.id, this.value)" >Update</button>
+                    <p id= "description" th:text="'Description: '+${organization.organizationDescription}">Organization Description</p>
+                    <p id= "phone" th:text="'Phone:'+${organization.organizationPhone}">Organization Phone </p>
+                    <p id= "email" th:text="'Email:'+${organization.organizationEmail}">Organization Email </p>
+                    
+                    <p>
+                      
+                        <button th:attr="id=${organization.organizationId},value=${organization.location.locationId}" class="updateOrganizationButton btn btn-primary"  type="button" OnClick="updateOrganization(this.id, this.value)" >Update</button>
                     <button th:attr="id=${organization.organizationId},value=${organization.organizationName}" class="updateOrganizationButton btn btn-primary" type="button" OnClick="deleteOrganization(this.value, this.id)" >Delete</button>
-                </td></tr>
-
-                <tr hidden th:attr="id='updateTr'+${organization.organizationId}" class="editForm"><td >
-                    <div >
-
-                        
-                            <div>
-                                <span class="h3">Edit Organization</span>
-                            </div>
-                            <form action="editOrganization" method="POST">
-                                <div hidden class="form-group row">
-                                    <label for="id">
-                                        Id</label>
-                                    <div class="col-5">
-                                        <input type="text" name="organizationIdEdit" th:value="${organization.organizationId}"
-                                               id="organizationIdEdit" class="form-control" readonly/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="name">
-                                        Name</label>
-                                    <div class="col-5">
-                                        <input type="text" name="organizationNameEdit" th:value="${organization.organizationName}"
-                                               id="organizationNameEdit" class="form-control"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="description">
-                                        Description</label>
-                                    <div class="col-9">
-                                        <input type="text" name="organizationDescriptionEdit" th:value="${organization.organizationDescription}"
-                                               id="organizationDescriptionEdit" class="form-control"/>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="phone" class="col-3 col-form-label">
-                                            Phone</label>
-                                    <div class="col-9">
-                                        <input type="text" name="organizationPhone" th:value="${organization.organizationPhone}"
-                                               id="organizationPhone" class="form-control"/>
-                                    </div>
-                                </div>
-                                    <div class="form-group row">
-                                        <label for="email" class="col-3 col-form-label">
-                                            Email</label>
-                                    <div class="col-9">
-                                        <input type="text" name="organizationEmail" th:value="${organization.organizationEmail}"
-                                               id="organizationEmail" class="form-control"/>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Location" >
-                                        Location</label>
-                                    <div class="col-5">
-                                        <select th:attr="id='locationIdForEditOrganization'+${organization.organizationId}"
-                                        name="locationIDEdit" class="form-control" >
-                                            <option th:each="location : ${locations}"
-                                                    th:value="${location.locationId}"
-                                                    th:text="${location.locationName}">
-                                                Location</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id=selectHeroesEdit class="form-group row">
-                                    <label for="heroes" class="col-3 col-form-label">
-                                        Hero(es)</label>
-                                    <fieldset>
-            
-                                        <select multiple id="heroIDEdit" 
-                                                class="form-control" >
-            
-                                            <option >
-                                            <ul style="list-style-type:none;" >
-            
-                                                <li th:each="hero : ${heroes}" style="list-style-type:none;" >
-                                                    <input type="checkbox" name="heronIDForEditOrganization" th:value="${hero.heroId}">
-                                                    <label th:text="${hero.heroName}"></label>
-                                                </li>
-            
-                                            </ul>
-                                            </option>
-                                          
-            
-                                        </select>
-                                    </fieldset>
-            
-                                </div>
-                        
-                       
-                    
-                        <button type="submit" th:attr="value=${organization.organizationId}" class="btn btn-primary" OnClick="hideForm(this.value)">Update Organization</button>
-                        <button type="button" th:attr="value=${organization.organizationId}" class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)" >Cancel</button>
-                    
-                    </form>
-                    </div>
-                    
-                </td> </tr>
+                    </p>
+                </div>
             </div>
+                    <div hidden th:attr="id='updateTr'+${organization.organizationId}" class="container editForm">
+                        <div>
+                            <span class="h3">Edit Organization</span>
+                        </div>
+                        <form action="editOrganization" method="POST">
+                            <div hidden class="form-group row">
+                                <label for="id">
+                                    Id</label>
+                                <div class="col-5">
+                                    <input type="text" name="organizationIdEdit" th:value="${organization.organizationId}"
+                                           id="organizationIdEdit" class="form-control" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name">
+                                    Name</label>
+                                <div class="col-5">
+                                    <input type="text" name="organizationNameEdit" th:value="${organization.organizationName}"
+                                           id="organizationNameEdit" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="description">
+                                    Description</label>
+                                <div class="col-9">
+                                    <input type="text" name="organizationDescriptionEdit" th:value="${organization.organizationDescription}"
+                                           id="organizationDescriptionEdit" class="form-control"/>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="phone" class="col-3 col-form-label">
+                                        Phone</label>
+                                <div class="col-9">
+                                    <input type="text" name="organizationPhone" th:value="${organization.organizationPhone}"
+                                           id="organizationPhone" class="form-control"/>
+                                </div>
+                            </div>
+                                <div class="form-group row">
+                                    <label for="email" class="col-3 col-form-label">
+                                        Email</label>
+                                <div class="col-9">
+                                    <input type="text" name="organizationEmail" th:value="${organization.organizationEmail}"
+                                           id="organizationEmail" class="form-control"/>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Location" >
+                                    Location</label>
+                                <div class="col-5">
+                                    <select th:attr="id='locationIdForEditOrganization'+${organization.organizationId}"
+                                    name="locationIDEdit" class="form-control" >
+                                        <option th:each="location : ${locations}"
+                                                th:value="${location.locationId}"
+                                                th:text="${location.locationName}">
+                                            Location</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id=selectHeroesEdit class="form-group row">
+                                <label for="heroes" class="col-3 col-form-label">
+                                    Hero(es)</label>
+                                <fieldset>
+        
+                                    <select multiple id="heroIDEdit" 
+                                            class="form-control" >
+        
+                                        <option >
+                                        <ul style="list-style-type:none;" >
+        
+                                            <li th:each="hero : ${heroes}" style="list-style-type:none;" >
+                                                <input type="checkbox" name="heronIDForEditOrganization" th:value="${hero.heroId}">
+                                                <label th:text="${hero.heroName}"></label>
+                                            </li>
+        
+                                        </ul>
+                                        </option>
+                                      
+        
+                                    </select>
+                                </fieldset>
+        
+                            </div>
+                    
+                   
                 
+                    <button type="submit" th:attr="value=${organization.organizationId}" class="btn btn-primary" OnClick="hideForm(this.value)">Update Organization</button>
+                    <button type="button" th:attr="value=${organization.organizationId}" class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)" >Cancel</button>
+                
+                </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </body>  
+
+
+
+
+
 
 
 <!-- Optional JavaScript -->

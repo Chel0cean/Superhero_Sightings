@@ -62,6 +62,7 @@ $("#cancelSearchByOrganization").click(function(event){
 
 
 $("#searchOrganizationsByHeroButton").click(function(event){
+ 
   $('#searchOrganizationsByHeroForm').removeAttr("hidden");
   $('#searchOrganizationsByHeroForm').show();
 

@@ -131,10 +131,15 @@ public class HeroController {
       @GetMapping("searchHeroesBySuperpower")
     public String searchHeroesBySuperpower(HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("superPowerId"));
+        
         Superpower superpower = superpowerDao.getSuperpowerById(id);
         List <Hero> heroes = heroDao.getHeroesBySuperpower(superpower);
+        List<Superpower> superpowers = superpowerDao.getAllSuperpowers();
+        List<Organization> organizations = organizationDao.getAllOrganizations();
      String ability = superpower.getSuperPowerName();
-        
+         model.addAttribute("superpower", superpower);
+         model.addAttribute("superpowers", superpowers);
+         model.addAttribute("organizations", organizations);
          model.addAttribute("heroes", heroes);
          model.addAttribute("ability", ability);
         return "searchHeroesBySuperpower";   
@@ -150,7 +155,11 @@ public class HeroController {
         int id = Integer.parseInt(request.getParameter("organizationId"));
         Organization organization = organizationDao.getOrganizationById(id);
         List <Hero> heroes = heroDao.getHeroesByOrganization(organization);
+         List<Superpower> superpowers = superpowerDao.getAllSuperpowers();
+        List<Organization> organizations = organizationDao.getAllOrganizations();
         model.addAttribute("heroes", heroes);
+        model.addAttribute("superpowers", superpowers);
+        model.addAttribute("organizations", organizations);
         model.addAttribute("organization", organization);
         return "searchHeroesByOrganization";
     }

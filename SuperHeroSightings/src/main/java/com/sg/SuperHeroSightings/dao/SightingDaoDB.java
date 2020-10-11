@@ -8,7 +8,9 @@ import com.sg.SuperHeroSightings.dto.Sighting;
 import com.sg.SuperHeroSightings.dto.Superpower;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -25,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Profile("database")
 public class SightingDaoDB implements SightingDao {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY"); 
 
     @Autowired
     JdbcTemplate jdbc;
@@ -42,6 +45,10 @@ public class SightingDaoDB implements SightingDao {
 
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         sighting.setSightingId(newId);
+        
+         
+       sighting.setDateAsString(formatter.format(sighting.getDate()));
+       
 
         return sighting;
     }
@@ -78,6 +85,9 @@ public class SightingDaoDB implements SightingDao {
                 sighting.getHero().getHeroId(),
                 sighting.getLocation().getLocationId(),
                 sighting.getSightingId());
+        
+        
+            sighting.setDateAsString(formatter.format(sighting.getDate()));
 
     }
 
@@ -171,6 +181,7 @@ public class SightingDaoDB implements SightingDao {
     }
 
     public static final class SightingMapper implements RowMapper<Sighting> {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY");
 
         @Override
         public Sighting mapRow(ResultSet rs, int index) throws SQLException {
@@ -178,6 +189,11 @@ public class SightingDaoDB implements SightingDao {
             sighting.setDate(rs.getDate("date").toLocalDate());
             sighting.setHero(new Hero(rs.getInt("Hero_idHero")));
             sighting.setLocation(new Location(rs.getInt("Location_idLocation")));
+            
+            
+            
+            
+             sighting.setDateAsString(formatter.format(sighting.getDate()));
 
             return sighting;
         }

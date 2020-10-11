@@ -7,6 +7,7 @@ import com.sg.SuperHeroSightings.dto.Hero;
 import com.sg.SuperHeroSightings.dto.Location;
 import com.sg.SuperHeroSightings.dto.Sighting;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,8 +89,10 @@ public class SightingController {
     }
     @GetMapping("searchSightingsByDate")
     public String searchSightingsByDate(HttpServletRequest request, Model model) {
-        LocalDate date = LocalDate.parse(request.getParameter("date"));
-        List<Sighting> sightings = sightingDao.getSightingsFromDate(date);
+        LocalDate dateAsLocalDate = LocalDate.parse(request.getParameter("date"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY");
+        String date=formatter.format(dateAsLocalDate);
+        List<Sighting> sightings = sightingDao.getSightingsFromDate(dateAsLocalDate);
         model.addAttribute("date", date);
         model.addAttribute("sightings", sightings);
         return "searchSightingsByDate";

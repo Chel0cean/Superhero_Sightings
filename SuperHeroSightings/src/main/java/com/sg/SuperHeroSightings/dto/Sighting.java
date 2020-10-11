@@ -11,6 +11,7 @@ public class Sighting {
     private LocalDate date;
     private Hero hero;
     private Location location;
+    private String dateAsString;
 
     public Sighting() {
     }
@@ -46,13 +47,22 @@ public class Sighting {
         this.location = location;
     }
 
+    public String getDateAsString() {
+        return dateAsString;
+    }
+
+    public void setDateAsString(String dateAsString) {
+        this.dateAsString = dateAsString;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + this.SightingId;
-        hash = 13 * hash + Objects.hashCode(this.date);
-        hash = 13 * hash + Objects.hashCode(this.hero);
-        hash = 13 * hash + Objects.hashCode(this.location);
+        hash = 61 * hash + this.SightingId;
+        hash = 61 * hash + Objects.hashCode(this.date);
+        hash = 61 * hash + Objects.hashCode(this.hero);
+        hash = 61 * hash + Objects.hashCode(this.location);
+        hash = 61 * hash + Objects.hashCode(this.dateAsString);
         return hash;
     }
 
@@ -71,6 +81,9 @@ public class Sighting {
         if (this.SightingId != other.SightingId) {
             return false;
         }
+        if (!Objects.equals(this.dateAsString, other.dateAsString)) {
+            return false;
+        }
         if (!Objects.equals(this.date, other.date)) {
             return false;
         }
@@ -85,8 +98,9 @@ public class Sighting {
 
     @Override
     public String toString() {
-        return "Sighting{" + "SightingId=" + SightingId + ", date=" + date + ", hero=" + hero + ", location=" + location + '}';
+        return "Sighting{" + "SightingId=" + SightingId + ", date=" + date + ", hero=" + hero + ", location=" + location + ", dateAsString=" + dateAsString + '}';
     }
-    
+
+   
 
 }

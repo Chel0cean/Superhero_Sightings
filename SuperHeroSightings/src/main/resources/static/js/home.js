@@ -108,3 +108,8 @@ function updateSuperpower(id, value) {
     $('button[id="' + id + '"]').hide();
 }
 ;
+
+function searchBySuperpower(id) {
+        window.location.href = "/searchHeroesBySuperpower?superPowerId=" + id;
+
+}

@@ -217,64 +217,63 @@
                         <button th:attr="id=${sighting.sightingId},value=${sighting.hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteSighting(this.value, this.id)" >Delete</button>
                     </p>
                 </div>
-            </div>
-            <div hidden th:attr="id='updateTr'+${sighting.sightingId}" class="container editForm">
-                <div>
-                    <span class="h3">Edit Sighting</span>
-                </div>
-                <form action="editSighting" method="POST">
-                    <div hidden class="form-group row">
-                        <label for="id">
-                            Id</label>
-                        <div class="col-5">
-                            <input type="text" name="sightingIdEdit" th:value="${sighting.sightingId}"
-                                   id="sightingIdEdit" class="form-control" readonly />
-                        </div>
+                <div hidden th:attr="id='updateTr'+${sighting.sightingId}" class="container editForm">
+                    <div>
+                        <span class="h3">Edit Sighting</span>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="Location">
-                            Location</label>
-                        <div class="col-5">
-                            <select th:attr="id='locationIdForEditSighting'+${sighting.sightingId}"
-                                    name="locationIdEdit" class="form-control">
-                                <option th:each="location : ${locations}"
-                                        th:value="${location.locationId}"
-                                        th:text="${location.locationName}">
-                                    Location</option>
-                            </select>
+                    <form action="editSighting" method="POST">
+                        <div hidden class="form-group row">
+                            <label for="id">
+                                Id</label>
+                            <div class="col-5">
+                                <input type="text" name="sightingIdEdit" th:value="${sighting.sightingId}"
+                                       id="sightingIdEdit" class="form-control" readonly />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="Hero">
-                            Hero</label>
-                        <div class="col-5">
-                            <select th:attr="id='heroIdForEditSighting'+${sighting.sightingId}"
-                                    name="heroIdEdit" class="form-control">
-                                <option th:each="hero : ${heroes}" th:value="${hero.heroId}"
-                                        th:text="${hero.heroName}">
-                                    Hero</option>
-                            </select>
+
+                        <div class="form-group row">
+                            <label for="Location">
+                                Location</label>
+                            <div class="col-5">
+                                <select th:attr="id='locationIdForEditSighting'+${sighting.sightingId}"
+                                        name="locationIdEdit" class="form-control">
+                                    <option th:each="location : ${locations}"
+                                            th:value="${location.locationId}"
+                                            th:text="${location.locationName}">
+                                        Location</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-5">
-
-                            <label for="date">Date:</label>
-                            <input type="date" id="date" name="dateForEdit" th:value="${sighting.date}">
+                        <div class="form-group row">
+                            <label for="Hero">
+                                Hero</label>
+                            <div class="col-5">
+                                <select th:attr="id='heroIdForEditSighting'+${sighting.sightingId}"
+                                        name="heroIdEdit" class="form-control">
+                                    <option th:each="hero : ${heroes}" th:value="${hero.heroId}"
+                                            th:text="${hero.heroName}">
+                                        Hero</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="form-group row">
+                            <div class="col-5">
+
+                                <label for="date">Date:</label>
+                                <input type="date" id="date" name="dateForEdit" th:value="${sighting.date}">
+                            </div>
+                        </div>
 
 
-                    <button type="submit" th:attr="value=${sighting.sightingId}" class="btn btn-primary"
-                            OnClick="hideForm(this.value)">Update Sighting</button>
-                    <button type="button" th:attr="value=${sighting.sightingId}"
-                            class="cancelEditObject btn btn-primary"
-                            OnClick="hideForm(this.value)">Cancel</button>
+                        <button type="submit" th:attr="value=${sighting.sightingId}" class="btn btn-primary"
+                                OnClick="hideForm(this.value)">Update Sighting</button>
+                        <button type="button" th:attr="value=${sighting.sightingId}"
+                                class="cancelEditObject btn btn-primary"
+                                OnClick="hideForm(this.value)">Cancel</button>
 
-                </form>
-            </div>
+                    </form>
+                </div></div>
 
         </div>
     </div>

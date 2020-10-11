@@ -90,7 +90,8 @@
                         <div>
                             <span class="h3">Edit Hero</span>
                         </div>
-                        <form action="editHero" method="POST">
+                        <!--                        <form action="editHero" method="POST">-->
+                        <form action="editHero" method="POST" enctype="multipart/form-data">
                             <div hidden class="form-group row">
                                 <label for="id">
                                     Id</label>
@@ -107,6 +108,15 @@
                                            id="heroNameEdit" class="form-control"/>
                                 </div>
                             </div>
+                            <!--                            adding image-->
+                            <div class="form-group row">
+                                <label for="file" class="col-3 col-form-label">
+                                    Profile Picture
+                                </label>
+                                <input type="file" name='file' class="form-control-file" />
+                            </div>
+                            <!--                        adding image here-->
+
                             <div class="form-group row">
                                 <label for="description">
                                     Description</label>

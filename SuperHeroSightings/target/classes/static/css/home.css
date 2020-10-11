@@ -1,15 +1,32 @@
-html {
-    font-family: sans-serif;
-    -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-  }
-  body {
-    margin: 0;
-  }
+
+html {	
+    font-family: sans-serif;	
+    -webkit-text-size-adjust: 100%;	
+    -ms-text-size-adjust: 100%;	
+/*    background-color: #557A95;*/	
+}	
+body {	
+    margin: 0;	
+    background-color: green;	
+   	
+}	
+
+form {	
+    text-align: center;	
+/*    color: #5cb85c;*/	
+}
+
+#buttonNavBar{
+
+  align-items: center;
+  justify-content: center:
+
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
   
-  form{
-    text-align: center;
-  }
+}
 
   .dropdown {
     position: relative;

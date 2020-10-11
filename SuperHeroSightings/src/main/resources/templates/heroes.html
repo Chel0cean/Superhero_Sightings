@@ -19,17 +19,28 @@
                 <div class="col text-center border border-dark">
                     <h1>Heroes</h1>
                 </div>
+                </div>
             </div>
-
-
-        </div>
-
-
+                <div id="buttonNavBar" class="text-center">	
+                    <a  th:href="@{/index.html}" class="btn btn-outline-primary btn-lg"><h3>Home</h3></a>
+                       
+                                        <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h3>Organizations</h3></a>	
+                                 
+                                        <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h3>Sightings</h3></a>	
+                                    
+                                       
+                                        <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h3>Locations</h3></a>	
+                                
+                               
+                                        <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h3>Superpowers</h3></a>	
+                                    </div>	
+            
+  
         <div class="homeAndSearchButtons">
-            <button id= "addFormRevealButton" type="button" class="btn btn-outline-primary btn-lg">Add Hero</button>
+            
             <ul style="list-style-type:none;">
-                <li> <a  th:href="@{/index.html}" class="btn btn-outline-primary btn-lg">Home</a></li>
-
+              
+<li><button id= "addFormRevealButton" type="button" class="btn btn-outline-primary btn-lg">Add Hero</button></li>
                 <li class="dropdown">
                     <a href="#" class="dropbtn btn btn-outline-primary btn-lg">Search</a>
                     <div class="dropdown-content">

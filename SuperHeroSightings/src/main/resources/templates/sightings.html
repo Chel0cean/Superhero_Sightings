@@ -35,13 +35,26 @@
 
 
         </div>
+        <div id="buttonNavBar" class="text-center">	
+            <a  th:href="@{/index.html}" class="btn btn-outline-primary btn-lg"><h3>Home</h3></a>
+               
+                                <a th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h3>HeroesOrganizations</h3></a>	
+                         
+                                <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg "><h3>Organizations</h3></a>	
+                            
+                               
+                                <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h3>Locations</h3></a>	
+                        
+                       
+                                <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h3>Superpowers</h3></a>	
+                            </div>	
 
 
         <div class="homeAndSearchButtons">
-            <button id="addFormRevealButton" type="button" class="btn btn-outline-primary btn-lg">Add Sighting</button>
+           
             <ul style="list-style-type:none;">
                 <li> <a th:href="@{/index.html}" class="btn btn-outline-primary btn-lg">Home</a></li>
-
+<li><button id="addFormRevealButton" type="button" class="btn btn-outline-primary btn-lg">Add Sighting</button></li>
                 <li class="dropdown">
                     <a href="javascript:void(0)" class="dropbtn btn btn-outline-primary btn-lg">Search</a>
                     <div class="dropdown-content">

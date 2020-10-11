@@ -53,7 +53,15 @@
                         <p id= "description" th:text="'Description: '+${organization.organizationDescription}">Organization Description</p>
                         <p id= "phone" th:text="'Phone:'+${organization.organizationPhone}">Organization Phone </p>
                         <p id= "email" th:text="'Email:'+${organization.organizationEmail}">Organization Email </p>
-                        
+                        <div id="content">
+                            <p > Members:    
+                            <ul style="list-style-type:none;">
+                                <li th:each="herofororganization: ${organization.heroes}">      
+                                    <span th:text="'•' +${herofororganization.heroName}" th:remove="tag"></span>         
+                                </li>    
+                        </ul>
+                    </p>
+                </div>
                         <p>
                           
                             <button th:attr="id=${organization.organizationId},value=${organization.location.locationId}" class="updateOrganizationButton btn btn-primary"  type="button" OnClick="updateOrganization(this.id, this.value)" >Update</button>

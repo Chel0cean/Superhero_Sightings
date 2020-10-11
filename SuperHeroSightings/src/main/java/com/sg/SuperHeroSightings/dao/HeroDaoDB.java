@@ -122,7 +122,7 @@ public class HeroDaoDB implements HeroDao {
     public List<Hero> getHeroesByOrganization(Organization organization) {
 
         final String GET_HEROES_BY_ORGANIZATION
-                = "SELECT h.idHero, h.name, h.description, h.Superpower_idSuperpower FROM Hero h "
+                = "SELECT h.idHero, h.name, h.description, h.Superpower_idSuperpower, h.photoFilename FROM Hero h "
                 + " JOIN HeroOrganization ho ON ho.Hero_idHero=h.idHero"
                 + " WHERE ho.Organization_idOrganization = ?";
 

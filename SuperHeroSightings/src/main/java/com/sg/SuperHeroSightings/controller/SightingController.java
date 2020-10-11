@@ -56,10 +56,10 @@ public class SightingController {
     }
     @PostMapping("editSighting")
     public String performEditSighting(HttpServletRequest request) {
-        LocalDate date = LocalDate.parse(request.getParameter("date"));
-        int heroID = Integer.parseInt(request.getParameter("heroId"));
-        int locationID = Integer.parseInt(request.getParameter("locationId"));
-        int sightingID = Integer.parseInt(request.getParameter("sightingId"));
+        LocalDate date = LocalDate.parse(request.getParameter("dateForEdit"));
+        int heroID = Integer.parseInt(request.getParameter("heroIdEdit"));
+        int locationID = Integer.parseInt(request.getParameter("locationIdEdit"));
+        int sightingID = Integer.parseInt(request.getParameter("sightingIdEdit"));
         Sighting sighting = new Sighting();
         sighting.setLocation(locationDao.getLocationById(locationID));
         sighting.setDate(date);

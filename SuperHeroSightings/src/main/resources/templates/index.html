@@ -1,69 +1,141 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link th:href="@{/css/home.css}"
+        <!-- Bootstrap CSS -->
+        <link th:href="@{/css/home.css}"
               rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Superhero Sightings</title>
-  </head>
-  <body>
-    <!-- Main Body of Page -->
+        <title>Superhero Sightings</title>
+    </head>
+    <body>
+        <!-- Main Body of Page -->
 
-    <!-- End main body -->
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-2.2.4.min.js"></script>
-       <script th:src="@{/js/home.js}"></script>
+        <!-- End main body -->
+        <div class="col text-center border border-dark" id="map">
+            TEST
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="js/jquery-2.2.4.min.js"></script>
+        <script th:src="@{/js/home.js}"></script>
         <script th:src="@{/js/design.js}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+    <script th:inline="javascript">
+
+            var locationArray = /*[[${locations}]]*/ [];
+            var openInfoWindow;
+
+            // Initialize and add the map
+            function initMap() {
+                console.log(locationArray);
+                // The location of Uluru
+                var firstLocation = {lat: locationArray[0].latitude, lng: locationArray[0].longitude};
+                // The map, centered at Uluru
+                var map = new google.maps.Map(
+                        document.getElementById('map'), {zoom: 4, center: firstLocation});
+                // The marker, positioned at Uluru
+                for (i = 0; i < locationArray.length; i++) {
+                    var location = locationArray[i];
+                    var position = {lat: location.latitude, lng: location.longitude};
+                    var title = location.locationName
+                    const marker = new google.maps.Marker({position: position, map: map, title: title});
+                    var content =
+                            '<div id="content">' + '<h1 id="firstHeading" class="firstHeading">' + location.locationName + '</h1>' +
+                            '<div id="bodyContent">' +
+                            '<p>' + location.locationDescription + '</p>' +
+                            '<p>' + location.locationAddress + '</p>' +
+                            '<p>' + location.locationCity + ', ' + location.locationState + ' ' + location.zipCode + ' ' + location.country + '</p>' +
+                            '<p>' + location.latitude + ', ' + location.longitude + '</p>' +
+                            "</div>" +
+                            "</div>";
+
+                    var infowindow = new google.maps.InfoWindow()
+
+
+                    google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
+                        return function () {
+
+                            if (openInfoWindow)
+                                openInfoWindow.close();
+
+                            infowindow.setContent(content);
+                            openInfoWindow = infowindow;
+                            infowindow.open(map, marker);
+
+                        };
+                    })(marker, content, infowindow));
+                }
+
+            }
+
+            function closeOtherInfo() {
+                if (InforObj.length > 0) {
+                    InforObj[0].set("marker", null);
+                    InforObj[0].close();
+                    InforObj.length = 0;
+                }
+            }
+
+        </script>
+        <script defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4ZKtqSmMKm51iys8uCdqosZwtEgF_duU&callback=initMap">
+        </script>
+    </body>
 </html>;
 <div class="container">
-        <div class="row m-4">
-            <div class="col text-center border border-dark">
-                <h1>Hero Tracker</h1>
-            </div>
-           
-        </div>
-        <div class="row m-4 ">
-            <div class="col text-center m-1">
-                <a  th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h4>Heroes</h4></a>
-            </div>
-            <div class="col text-center m-1">
-                <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h4>Organizations</h4></a>	
-            </div>
-            <div class="col text-center m-1">
-                <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h4>Sightings</h4></a>	
-            </div>
-            <div class="col text-center m-1">
-                <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h4>Locations</h4></a>		
-            </div>
-            <div class="col text-center m-1">
-                <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h4>Superpowers</h4></a>		
-            </div>
-        </div>
-        <div class="text-center">
-            <h2><u>Top Ten Hero Sightings</u></h2>
+    <div class="row m-4">
+        <div class="col text-center border border-dark">
+            <h1>Hero Tracker</h1>
         </div>
 
-        <div class= "grid container" >
-            <div th:each="sighting : ${sightings}" >
+
+
+    </div>
+    <div class="row m-4">
+        <div class="col text-center border border-dark" id="map">
+            TEST
+        </div>
+    </div>
+    <div class="row m-4 ">
+        <div class="col text-center m-1">
+            <a  th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h4>Heroes</h4></a>
+        </div>
+        <div class="col text-center m-1">
+            <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h4>Organizations</h4></a>	
+        </div>
+        <div class="col text-center m-1">
+            <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h4>Sightings</h4></a>	
+        </div>
+        <div class="col text-center m-1">
+            <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h4>Locations</h4></a>		
+        </div>
+        <div class="col text-center m-1">
+            <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h4>Superpowers</h4></a>		
+        </div>
+    </div>
+    <div class="text-center">
+        <h2><u>Top Ten Hero Sightings</u></h2>
+    </div>
+
+
+
+    <div class= "grid container" >
+        <div th:each="sighting : ${sightings}" >
             <div  id="content" class= "card" >
-               <div><img></div> 
+                <div><img></div> 
                 <div>
                     <a href="#" name="heroId" th:text="'•' +${sighting.hero.heroName}" onClick="getHero(this.id)" th:id="${sighting.hero.heroId}"></a>
-       <p id="location" th:text="'Location: '+${sighting.location.locationName}">Location </p>
-                          
-                            <p id="sightingDate" th:text="'Date: '+${sighting.dateAsString}">Date </p>
-                         
-                        </div>
-                    </div>
-    </div>
+                    <p id="location" th:text="'Location: '+${sighting.location.locationName}">Location </p>
+
+                    <p id="sightingDate" th:text="'Date: '+${sighting.dateAsString}">Date </p>
+
+                </div>
+            </div>
+        </div>

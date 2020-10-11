@@ -1,4 +1,34 @@
 -------------------------------------------------------------------------------
 Test set: com.sg.SuperHeroSightings.dao.HeroDaoDBTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.506 s - in com.sg.SuperHeroSightings.dao.HeroDaoDBTest
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 1.612 s <<< FAILURE! - in com.sg.SuperHeroSightings.dao.HeroDaoDBTest
+testUpdateHero  Time elapsed: 0.657 s  <<< ERROR!
+org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [INSERT INTO Hero(name, description, Superpower_idSuperpower, photoFilename) VALUES(?,?,?,?)]; nested exception is java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testUpdateHero(HeroDaoDBTest.java:186)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testUpdateHero(HeroDaoDBTest.java:186)
+
+testGetHeroesBySuperpower  Time elapsed: 0.039 s  <<< ERROR!
+org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [INSERT INTO Hero(name, description, Superpower_idSuperpower, photoFilename) VALUES(?,?,?,?)]; nested exception is java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testGetHeroesBySuperpower(HeroDaoDBTest.java:239)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testGetHeroesBySuperpower(HeroDaoDBTest.java:239)
+
+testGetAllHeroes  Time elapsed: 0.019 s  <<< ERROR!
+org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [INSERT INTO Hero(name, description, Superpower_idSuperpower, photoFilename) VALUES(?,?,?,?)]; nested exception is java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testGetAllHeroes(HeroDaoDBTest.java:150)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testGetAllHeroes(HeroDaoDBTest.java:150)
+
+testDeleteHeroById  Time elapsed: 0.015 s  <<< ERROR!
+org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [INSERT INTO Hero(name, description, Superpower_idSuperpower, photoFilename) VALUES(?,?,?,?)]; nested exception is java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testDeleteHeroById(HeroDaoDBTest.java:216)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testDeleteHeroById(HeroDaoDBTest.java:216)
+
+testAddGetHeroById  Time elapsed: 0.014 s  <<< ERROR!
+org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [INSERT INTO Hero(name, description, Superpower_idSuperpower, photoFilename) VALUES(?,?,?,?)]; nested exception is java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testAddGetHeroById(HeroDaoDBTest.java:126)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.HeroDaoDBTest.testAddGetHeroById(HeroDaoDBTest.java:126)
+

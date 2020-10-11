@@ -1,89 +1,156 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-        <title>Manage Superpowers</title>
+        <title>Superpowers</title>
     </head>
     <body>
         <!-- Main Body of Page -->
+        <!--                <div id="map">
+    
+            </div>-->
         <div class="container">
             <div class="row m-4">
                 <div class="col text-center border border-dark">
-                    <h1>Add a Superpower!</h1>
+                    <h1>Superpowers</h1>
                 </div>
             </div>
-            <div class="row m-4 border border-dark">
-                <div class="col text-center m-3">
-                    <a href="heroes" class="btn btn-outline-primary btn-lg">Heroes</a>
-                </div>
-                <div class="col text-center m-3">
-                    <a href="organizations" class="btn btn-outline-primary btn-lg">Organizations</a>
-                </div>
-                <div class="col text-center m-3">
-                    <a href="superpowers" class="btn btn-outline-primary btn-lg">Superpowers</a>
-                </div>
+        </div>
+        <div id="buttonNavBar" class="text-center">
+            <a th:href="@{index}" class="btn btn-outline-primary btn-lg">
+                <h3>Home</h3>
+            </a>
+    
+            <a th:href="@{heroes}" class="btn btn-outline-primary btn-lg">
+                <h3>Heroes</h3>
+            </a>
+    
+            <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg ">
+                <h3>Organizations</h3>
+            </a>
+    
+    
+            <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg">
+                <h3>Sightings</h3>
+            </a>
+    
+    
+    
+            <a th:href="@{locations}" class="btn btn-outline-primary btn-lg">
+                <h3>Locations</h3>
+            </a>
+        </div>
+    
+        <div class="homeAndSearchButtons">
+    
+            <ul style="list-style-type:none;">
+                <li> <a th:href="@{index}" class="btn btn-outline-primary btn-lg">Home</a></li>
+                <li><button id="addFormRevealButton" type="button" class="btn btn-outline-primary btn-lg">Add
+                        Superpower</button></li>
+            </ul>
+        </div>
+    
+        <div hidden id="addObjectField" class="container">
+            <div class="col-3 text-center m-3">
+                <span class="h3">Add Superpower</span>
             </div>
-
-            <!--             adding SuperPower-->
-            <div class="row m-4 border border-dark">
-                <div class="col-3 text-center m-3">
-                    <span class="h3">Add Superpower</span>
-                </div>
-                <div class="col-7 text-center m-3">
-                    <form action="addSuperpower" method="POST">
-                        <div class="form-group row">
-                            <label for="superPowerName" class="col-3 col-form-label">
-                                Superpower </label>
-                            <div class="col-9">
-                                <input type="text" name="superPowerName" 
-                                       id="superPower" class="form-control"/>
-                            </div>
+            <div class="col-7 text-center m-3">
+                <form action="addSuperpower" method="POST" enctype="multipart/form-data">
+                    <div class="form-group row">
+                        <label for="superPowerName" class="col-3 col-form-label">
+                            Name</label>
+                        <div class="col-9">
+                            <input type="text" name="superPowerName" id="superPowerName" class="form-control" />
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Superpower</button>
-                    </form>
-                </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Add Superpower</button>
+                    <button type="reset" id="" class="btn btn-warning">Reset</button>
+                    <button type="button" id="cancelAddObject" class="btn btn-danger">Cancel</button>
+                </form>
             </div>
-
-
-
-
-            <!--             list of course-->
-            <div class="row m-4 border border-dark">
-                <div class="col text-center m-3">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Super Power ID</th>
-                                <th>Super Power Name</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="superpower : ${superpowers}">
-                                <td th:text="${superpower.superPowerId}">SuperPowerID</td>
-                                <td th:text='${superpower.superPowerName}'>SuperPowerName</td>
-
-                                <td><a href="#" th:href="@{/editSuperpower(id=${superpower.superPowerId})}">Update</a></td>
-                                <td><a href="#" th:href="@{/deleteSuperpower(id=${superpower.superPowerId})}">Delete</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+    
+        </div>
+    
+    
+        <div class="grid container">
+            <div th:each="superpower : ${superpowers}">
+                <div id="content" class="card">
+                    <!-- <div><img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap
+                        &markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318
+                        &markers=color:red%7Clabel:C%7C40.718217,-73.998284
+                        &key=AIzaSyCgMgs5Q5-lkhK5MGaA6_9jUTLuUXKlOWs"></div> -->
+                    <div>
+                        <h3><b>Superpower: </b></h3>
+                        <p id="superPowerName" th:text="${superpower.superPowerName}">Name</p>
+                    </div>
+    
+    
+                    <p>
+                        <button th:attr="id=${superpower.superPowerId},value=${superpower.superPowerId}"
+                            class="updateSuperpowersButton btn btn-primary" type="button"
+                            OnClick="updateSuperpower(this.id, this.value)">Update</button>
+                        <button th:attr="id=${superpower.superPowerId},value=${superpower.superPowerName}"
+                            class="updateSuperpowersButton btn btn-primary" type="button"
+                            OnClick="deleteSuperpower(this.value, this.id)">Delete</button>
+                    </p>
+    
+    
+    
+                    <div hidden th:attr="id='updateTr'+${superpower.superPowerId}" class="container editForm">
+                        <div>
+                            <span class="h3">Edit Superpower</span>
+                        </div>
+                        <form action="editSuperpower" method="POST" enctype="multipart/form-data">
+                            <div class="form-group row">
+                                <label for="superPowerName" class="col-3 col-form-label">
+                                    Name</label>
+                                <div class="col-9">
+                                    <input type="hidden" name="superPowerId" th:value="${superpower.superPowerId}" />
+                                    <input type="text" name="superPowerName" id="superPowerName" class="form-control"
+                                        th:value="${superpower.superPowerName}" />
+                                </div>
+                            </div>
+                        
+                            <button type="submit" th:attr="value=${superpower.superPowerId}" class="btn btn-primary"
+                                OnClick="hideForm(this.value)">Update Superpower</button>
+                            <button type="button" th:attr="value=${superpower.superPowerId}"
+                                class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)">Cancel</button>
+                        </form>
+                    </div>
                 </div>
+    
+    
+    
             </div>
-        </div>   
-        <!-- End main body -->
-
+        </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+    
+    
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+        <script th:src="@{/js/home.js}"></script>
+        <script th:src="@{/js/design.js}"></script>
+        <script th:src="@{/js/bootstrap.js}"></script>
+        <!-- <script th:src="@{/js/map.js}"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
     </body>
 </html>;

@@ -1,4 +1,18 @@
 -------------------------------------------------------------------------------
 Test set: com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.284 s - in com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest
+Tests run: 4, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 0.136 s <<< FAILURE! - in com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest
+testGetAllOrganizations  Time elapsed: 0.023 s  <<< ERROR!
+org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [SELECT h.idHero, h.name, h.description,Superpower_idSuperpower, h.photoFilename FROM Hero h JOIN HeroOrganization ho ON ho.Hero_idHero = h.idHero WHERE ho.Organization_idOrganization = ?]; nested exception is java.sql.SQLSyntaxErrorException: Unknown column 'h.photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.testGetAllOrganizations(OrganizationDaoDBTest.java:208)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'h.photoFilename' in 'field list'
+	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.testGetAllOrganizations(OrganizationDaoDBTest.java:208)
+
+testUpdateOrganization  Time elapsed: 0.032 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.testUpdateOrganization(OrganizationDaoDBTest.java:251)
+
+testAddGetOrganizationById  Time elapsed: 0.055 s  <<< FAILURE!
+java.lang.AssertionError: expected:<Organization{organizationId=85, location=Location{locationId=308, locationName=Mall of America, locationDescription=Not just for shopping, locationAddress=1234 washington way, locationCity=D.C, locationState=Va, country=USA, zipCode=11111, latitude=35.555000, longitude=85.555000}, heroes=null, organizationName=Crime Fighters United, organizationDescription=Hidden under the Mall of America, organizationEmail=emailus@nowhere, organizationPhone=5555555}> but was:<null>
+	at com.sg.SuperHeroSightings.dao.OrganizationDaoDBTest.testAddGetOrganizationById(OrganizationDaoDBTest.java:146)
+

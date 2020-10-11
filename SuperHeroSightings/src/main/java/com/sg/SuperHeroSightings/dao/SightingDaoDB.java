@@ -149,6 +149,10 @@ public class SightingDaoDB implements SightingDao {
                 + " ORDER BY Date DESC"
                 + " LIMIT 10;";
         List<Sighting> topTenSightings = jdbc.query(GET_TOP_TEN_SIGHTINGS, new SightingMapper());
+        for(Sighting sighting:topTenSightings){
+         associateHeroesAndLocationsWithSighting(sighting);   
+        }
+        
         return topTenSightings;
         
     }

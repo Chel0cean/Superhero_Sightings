@@ -27,6 +27,8 @@ public class SightingController {
     LocationDao locationDao;
     @Autowired
     HeroDao heroDao;
+    
+    
     @GetMapping("sightings")
     public String displaySightings(Model model) {
         List<Sighting> sightings = sightingDao.getAllSightings();
@@ -37,6 +39,28 @@ public class SightingController {
         model.addAttribute("locations", locations);
         return "sightings";
     }
+    
+       @GetMapping("index")
+    public String loadIndex(Model model) {
+        List<Sighting> sightings = sightingDao.getTopTenSightings();
+        List<Hero> heroes = heroDao.getAllHeroes();
+        List<Location> locations = locationDao.getAllLocations();
+        model.addAttribute("sightings", sightings);
+        model.addAttribute("heroes", heroes);
+        model.addAttribute("locations", locations);
+        return "index";
+    }
+    
+    
+      @GetMapping("sighting")
+    public String getorganization(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Sighting sighting = sightingDao.getSightingById(id);
+
+        model.addAttribute(sighting);
+        return "sighting";
+    }
+    
     @PostMapping("addSighting")
     public String addSighting(HttpServletRequest request) {
         LocalDate date = LocalDate.parse(request.getParameter("date"));

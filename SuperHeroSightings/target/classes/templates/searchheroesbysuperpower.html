@@ -28,9 +28,9 @@
         <div class="homeAndSearchButtons">
            
             <ul style="list-style-type:none;">
-                <li> <a  th:href="@{/index.html}" class="btn btn-outline-primary btn-lg">Home</a></li>
+                <li> <a  th:href="@{index}" class="btn btn-outline-primary btn-lg">Home</a></li>
 
-               <li> <a  th:href="@{/heroes}" class="btn btn-outline-primary btn-lg">All Heroes</a></li>
+               <li> <a  th:href="@{heroes}" class="btn btn-outline-primary btn-lg">All Heroes</a></li>
 
 
             </ul>
@@ -60,7 +60,7 @@
                                 <p > Organizations:    
                                 <ul style="list-style-type:none;">
                                     <li th:each="organizationforhero: ${hero.organizations}">      
-                                        <span th:text="'•' +${organizationforhero.organizationName}" th:remove="tag"></span>         
+                                        <a href="#" name="organizationId" th:text="'•' +${organizationforhero.organizationName}" onClick="getOrganization(this.id)" th:id="${organizationforhero.organizationId}"></a>        
                                     </li>    
                             </ul>
                         </p>
@@ -120,7 +120,7 @@
                                                 <fieldset>
                         
                                                     <select multiple id="organizationIDEdit" 
-                                                            class="form-control" >
+                                                            class="form-control"  style="display:none;">
                         
                                                         <option >
                                                         <ul style="list-style-type:none;" >

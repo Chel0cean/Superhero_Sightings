@@ -7,6 +7,14 @@ function deleteHero(name, id){
     };
     
     };
+
+    function getHero(id){
+     
+        window.location.href = "/hero?id="+id;
+    
+      
+      };
+  
     
     function updateHero(id, value){
     
@@ -44,6 +52,12 @@ function deleteHero(name, id){
       };
       
       };
+      function getOrganization(id){
+     
+        window.location.href = "/organization?id="+id;
+    
+      
+      };
       
       function updateOrganization(id, value){
       
@@ -67,6 +81,12 @@ function deleteHero(name, id){
         if(confirmed){
           window.location.href = "/deleteOrganization?id="+id;
         };
+        
+        };
+        function getSighting(id){
+     
+          window.location.href = "/sighting?id="+id;
+      
         
         };
         

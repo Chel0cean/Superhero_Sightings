@@ -16,10 +16,18 @@ form {
 /*    color: #5cb85c;*/	
 }
 
+
+#description{
+  text-align: left;
+  overflow:auto;
+  height:120px;
+  width:120px;
+
+}
 #buttonNavBar{
 
   align-items: center;
-  justify-content: center:
+  justify-content: center;
 
   padding-right: 15px;
   padding-left: 15px;
@@ -57,6 +65,7 @@ form {
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {display: block;}
 
+  
 
 .grid{
   display: grid;
@@ -65,12 +74,19 @@ grid-gap: 10px;
 grid-auto-rows: minmax(100px, auto); 
 }
 
+.gridforcard{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+grid-gap: 10px;
+
+}
    
   #content {
     
     border-style: solid;
     text-align: center;
-    padding-bottom: 15px;
+    padding-bottom: 0px;
     
   }
   .card {

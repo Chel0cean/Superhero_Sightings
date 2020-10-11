@@ -44,6 +44,19 @@ public class OrganizationController {
         return "organizations";
     }
 
+    @GetMapping("organization")
+    public String getorganization(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Organization organization = organizationDao.getOrganizationById(id);
+          List<Hero> heroes = heroDao.getAllHeroes();
+        List<Location> locations = locationDao.getAllLocations();
+
+         model.addAttribute("heroes", heroes);
+        model.addAttribute("locations", locations);
+        model.addAttribute(organization);
+        return "organization";
+    }
+
     @PostMapping("addOrganization")
     public String addOrganization(HttpServletRequest request) {
         List<Hero> heroes = new ArrayList<>();
@@ -129,7 +142,6 @@ public class OrganizationController {
 
     }
 
-
     @GetMapping("searchOrganizationsByHero")
     public String searchOrganizationsByHero(HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("heroId"));
@@ -140,8 +152,5 @@ public class OrganizationController {
 
         return "searchOrganizationsByHero";
     }
-
-    
-
 
 }

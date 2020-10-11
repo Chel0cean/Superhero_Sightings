@@ -54,6 +54,21 @@ public class HeroController {
 
         return "heroes";
     }
+    
+      @GetMapping("hero")
+    public String getHero(HttpServletRequest request, Model model) {
+        String idAsString=request.getParameter("id");
+        int id = Integer.parseInt(idAsString);
+        Hero hero=heroDao.getHeroById(id);
+         List<Superpower> superpowers = superpowerDao.getAllSuperpowers();
+        List<Organization> organizations = organizationDao.getAllOrganizations();
+         List <Organization> orgs=organizationDao.getOrganizationsByHero(hero);
+            heroDao.associateOrgsForHero(hero, orgs);
+            model.addAttribute(hero);
+             model.addAttribute("superpowers", superpowers);
+        model.addAttribute("organizations", organizations);
+            return "hero";
+  }
 
     @PostMapping("addHero")
     public String addHero(HttpServletRequest request) {

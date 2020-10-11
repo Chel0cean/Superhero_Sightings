@@ -29,7 +29,7 @@
     <div class="homeAndSearchButtons">
         
         <ul style="list-style-type:none;">
-            <li> <a  th:href="@{/index.html}" class="btn btn-outline-primary btn-lg">Home</a></li>
+            <li> <a  th:href="@{index}" class="btn btn-outline-primary btn-lg">Home</a></li>
 
             <li class="dropdown">
                 
@@ -56,7 +56,7 @@
             <div  id="content" class= "card" >
                <div><img></div> 
                 <div>
-                    <h4 id="name" th:text="'Hero: '+${sighting.hero.heroName}"></h4><b></b></h4>
+                    <a href="#" name="heroId" th:text="'•' +${sighting.hero.heroName}" onClick="getHero(this.id)" th:id="${sighting.hero.heroId}"></a>
                     <p id="location" th:text="'Location: '+${sighting.location.locationName}">Location </p>
                           
                             <p id="sightingDate" th:text="'Date: '+${sighting.dateAsString}">Date </p>

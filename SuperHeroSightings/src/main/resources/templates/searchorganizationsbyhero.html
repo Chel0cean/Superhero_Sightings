@@ -28,7 +28,7 @@
     <div class="homeAndSearchButtons">
         
         <ul style="list-style-type:none;">
-            <li> <a  th:href="@{/index.html}" class="btn btn-outline-primary btn-lg">Home</a></li>
+            <li> <a  th:href="@{index}" class="btn btn-outline-primary btn-lg">Home</a></li>
 
             <li class="dropdown">
                 
@@ -57,7 +57,7 @@
                             <p > Members:    
                             <ul style="list-style-type:none;">
                                 <li th:each="herofororganization: ${organization.heroes}">      
-                                    <span th:text="'•' +${herofororganization.heroName}" th:remove="tag"></span>         
+                                    <a href="#" name="heroId" th:text="'•' +${herofororganization.heroName}" onClick="getHero(this.id)" th:id="${herofororganization.heroId}"></a>       
                                 </li>    
                         </ul>
                     </p>

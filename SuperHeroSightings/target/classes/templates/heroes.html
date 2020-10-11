@@ -22,7 +22,7 @@
                 </div>
             </div>
                 <div id="buttonNavBar" class="text-center">	
-                    <a  th:href="@{/index.html}" class="btn btn-outline-primary btn-lg"><h3>Home</h3></a>
+                    <a  th:href="@{index}" class="btn btn-outline-primary btn-lg"><h3>Home</h3></a>
                        
                                         <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h3>Organizations</h3></a>	
                                  
@@ -197,27 +197,47 @@
 <div th:each="hero : ${heroes}" >
 <div  id="content" class= "card" >
    <div><img></div> 
-    <div>
-        <h4 id= "name" th:text="'Name: '+${hero.heroName}"></h4><b></b></h4>
-        <p id="superpower" th:text="'Ability: '+${hero.superPower.superPowerName}">Hero Superpower </p>
+  
+   <div>
+        <h4><b>Name: </b></h4>
+        <p id="name"  th:text="${hero.heroName}">Hero Superpower </p>
+    </div>
+   
+        <div>
+            <p>Ability: </p>
               
-                <p id= "description" th:text="'Description: '+${hero.heroDescription}">Hero Description </p>
-                <div id="content">
-                    <p > Organizations:    
+        <p id="superpower" th:text="${hero.superPower.superPowerName}">Hero Superpower </p>
+    </div>
+    
+
+        <div>
+                
+                
+                <p>Description: </p>
+               
+              
+                <p id="description" th:text="${hero.heroDescription}">Hero Description </p>
+               
+            </div>
+            
+              
+                    
+                  <div><p> Organizations: </p>
                     <ul style="list-style-type:none;">
-                        <li th:each="organizationforhero: ${hero.organizations}">      
-                            <span th:text="'•' +${organizationforhero.organizationName}" th:remove="tag"></span>         
+                        <li th:each="organizationforhero: ${hero.organizations}">    
+                            <a href="#" name="organizationId" th:text="'•' +${organizationforhero.organizationName}" onClick="getOrganization(this.id)" th:id="${organizationforhero.organizationId}"></a>  
                         </li>    
                 </ul>
-            </p>
-        </div>
-                
+            </div>  
+            
+ 
+   
                 <p>
                     <button th:attr="id=${hero.heroId},value=${hero.superPower.superPowerId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateHero(this.id, this.value)" >Update</button>
                     <button th:attr="id=${hero.heroId},value=${hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteHero(this.value, this.id)" >Delete</button>
                 </p>
-            </div>
-        </div>
+          
+        
                 <div hidden th:attr="id='updateTr'+${hero.heroId}" class="container editForm">
                      <div>
                                 <span class="h3">Edit Hero</span>
@@ -266,7 +286,7 @@
                                     <fieldset>
             
                                         <select multiple id="organizationIDEdit" 
-                                                class="form-control" >
+                                                class="form-control" style="display:none;">
             
                                             <option >
                                             <ul style="list-style-type:none;" >
@@ -292,7 +312,7 @@
                     
                     </form>
                     </div>
-                    
+                </div>
                 </div>
             </div>
         </body>               

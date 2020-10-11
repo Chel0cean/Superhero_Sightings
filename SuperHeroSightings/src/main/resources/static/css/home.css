@@ -71,7 +71,8 @@ form {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 grid-gap: 10px;
-grid-auto-rows: minmax(100px, auto); 
+grid-auto-rows: minmax(100px, auto);
+  grid-template-areas:     '. myArea .';
 }
 
 .gridforcard{
@@ -80,6 +81,10 @@ grid-auto-rows: minmax(100px, auto);
   grid-template-rows: repeat(3, 1fr);
 grid-gap: 10px;
 
+}
+
+.getCard {
+  grid-area: myArea;
 }
    
   #content {

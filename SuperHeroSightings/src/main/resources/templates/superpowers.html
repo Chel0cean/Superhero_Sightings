@@ -24,30 +24,20 @@
                 </div>
             </div>
         </div>
-        <div id="buttonNavBar" class="text-center">
-            <a th:href="@{index}" class="btn btn-outline-primary btn-lg">
-                <h3>Home</h3>
-            </a>
-    
-            <a th:href="@{heroes}" class="btn btn-outline-primary btn-lg">
-                <h3>Heroes</h3>
-            </a>
-    
-            <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg ">
-                <h3>Organizations</h3>
-            </a>
-    
-    
-            <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg">
-                <h3>Sightings</h3>
-            </a>
-    
-    
-    
-            <a th:href="@{locations}" class="btn btn-outline-primary btn-lg">
-                <h3>Locations</h3>
-            </a>
-        </div>
+        <div id="buttonNavBar" class="text-center">	
+            <a  th:href="@{index}" class="btn btn-outline-primary btn-lg"><h3>Home</h3></a>
+
+            <a th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h3>Heroes</h3></a>	
+            <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h3>Organizations</h3></a>	
+
+            <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h3>Sightings</h3></a>	
+
+
+            <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h3>Locations</h3></a>	
+
+
+            <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg active"><h3>Superpowers</h3></a>	
+        </div>	
     
         <div class="homeAndSearchButtons">
     
@@ -89,8 +79,8 @@
                         &markers=color:red%7Clabel:C%7C40.718217,-73.998284
                         &key="></div> -->
                     <div>
-                        <h3><b>Superpower: </b></h3>
-                        <p id="superPowerName" th:text="${superpower.superPowerName}">Name</p>
+                        <h3><b><p id="superPowerName" th:text="${superpower.superPowerName}"></p></b></h3>
+                        
                     </div>
     
     

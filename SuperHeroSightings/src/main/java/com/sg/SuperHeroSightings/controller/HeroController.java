@@ -2,11 +2,14 @@
 package com.sg.SuperHeroSightings.controller;
 
 import com.sg.SuperHeroSightings.dao.HeroDao;
+import com.sg.SuperHeroSightings.dao.ImageDao;
 import com.sg.SuperHeroSightings.dao.OrganizationDao;
 import com.sg.SuperHeroSightings.dao.SuperpowerDao;
 import com.sg.SuperHeroSightings.dto.Hero;
 import com.sg.SuperHeroSightings.dto.Organization;
 import com.sg.SuperHeroSightings.dto.Superpower;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 

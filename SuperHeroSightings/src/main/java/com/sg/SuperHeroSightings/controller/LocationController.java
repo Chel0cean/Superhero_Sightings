@@ -1,4 +1,3 @@
-
 package com.sg.SuperHeroSightings.controller;
 
 import com.sg.SuperHeroSightings.dao.HeroDao;
@@ -37,6 +36,15 @@ public class LocationController {
         List<Location> locations = locationDao.getAllLocations();
         model.addAttribute("locations", locations);
         return "locations";
+    }
+
+    @GetMapping("location")
+    public String getLocation(HttpServletRequest request, Model model) {
+        String idAsString = request.getParameter("id");
+        int id = Integer.parseInt(idAsString);
+        Location location = locationDao.getLocationById(id);
+        model.addAttribute(location);
+        return "location";
     }
 
     @PostMapping("addLocation")
@@ -88,7 +96,7 @@ public class LocationController {
                 for (Hero hero : heroes) {
                     List<Organization> orgs = organizationDao.getOrganizationsByHero(hero);
                     heroDao.associateOrgsForHero(hero, orgs);
-                    if (hero.getOrganizations().size() == 1){
+                    if (hero.getOrganizations().size() == 1) {
                         heroDao.deleteHeroById(hero.getHeroId());
                     }
                 }

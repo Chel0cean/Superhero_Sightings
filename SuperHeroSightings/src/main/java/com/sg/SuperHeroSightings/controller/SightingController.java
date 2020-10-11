@@ -53,7 +53,7 @@ public class SightingController {
     
     
       @GetMapping("sighting")
-    public String getorganization(HttpServletRequest request, Model model) {
+    public String getSighting(HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("id"));
         Sighting sighting = sightingDao.getSightingById(id);
 

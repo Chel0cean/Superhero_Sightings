@@ -13,7 +13,6 @@
             #map {
                 width: 50%;
                 height: 400px;
-                background-color: grey;
                   margin: auto;
 
             }
@@ -35,22 +34,25 @@
     
     <script th:inline="javascript">
 
-            var locationArray = /*[[${locations}]]*/ [];
+            var sightingsArray = /*[[${sightings}]]*/ [];
             var openInfoWindow;
 
             // Initialize and add the map
             function initMap() {
-                console.log(locationArray);
+                console.log(sightingsArray);
                 // The location of Uluru
-                var firstLocation = {lat: locationArray[0].latitude, lng: locationArray[0].longitude};
+                var firstLocation = {lat: sightingsArray[0].location.latitude, lng: sightingsArray[0].location.longitude};
                 // The map, centered at Uluru
                 var map = new google.maps.Map(
                         document.getElementById('map'), {zoom: 4, center: firstLocation});
                 // The marker, positioned at Uluru
-                for (i = 0; i < locationArray.length; i++) {
-                    var location = locationArray[i];
+                for (i = 0; i < sightingsArray.length; i++) {
+                    var sighting = sightingsArray[i];
+                    var location = sightingsArray[i].location;
                     var position = {lat: location.latitude, lng: location.longitude};
                     var title = location.locationName
+                    var icon = sighting.hero.photoFileName;
+                                    console.log(icon);
                     const marker = new google.maps.Marker({position: position, map: map, title: title});
                     var content =
                             '<div id="content">' + '<h1 id="firstHeading" class="firstHeading">' + location.locationName + '</h1>' +
@@ -105,23 +107,20 @@
 
     </div>
 
-    <div class="row m-4 ">
-        <div class="col text-center m-1">
-            <a  th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h4>Heroes</h4></a>
-        </div>
-        <div class="col text-center m-1">
-            <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h4>Organizations</h4></a>	
-        </div>
-        <div class="col text-center m-1">
-            <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h4>Sightings</h4></a>	
-        </div>
-        <div class="col text-center m-1">
-            <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h4>Locations</h4></a>		
-        </div>
-        <div class="col text-center m-1">
-            <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h4>Superpowers</h4></a>		
-        </div>
-    </div>
+        <div id="buttonNavBar" class="text-center">	
+            <a  th:href="@{index}" class="btn btn-outline-primary btn-lg active"><h3>Home</h3></a>
+
+            <a th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h3>Heroes</h3></a>	
+            <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h3>Organizations</h3></a>	
+
+            <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h3>Sightings</h3></a>	
+
+
+            <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h3>Locations</h3></a>	
+
+
+            <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h3>Superpowers</h3></a>	
+        </div>	
     <div class="text-center">
         <h2><u>Top Ten Hero Sightings</u></h2>
     </div>
@@ -137,9 +136,10 @@
             <div  id="content" class= "card" >
                 <div><img></div> 
                 <div>
-                    <a href="#" name="heroId" th:text="'•' +${sighting.hero.heroName}" onClick="getHero(this.id)" th:id="${sighting.hero.heroId}"></a>
-                    <p id="location" th:text="'Location: '+${sighting.location.locationName}">Location </p>
-
+                    <a href="#" name="heroId" th:text="'' +${sighting.hero.heroName}" onClick="getHero(this.id)" th:id="${sighting.hero.heroId}"></a>
+                <p>
+                    <a href="#" onClick="getLocation(this.id)" th:id="${sighting.location.locationId}" th:text="${sighting.location.locationName}"/>  
+                </p>
                     <p id="sightingDate" th:text="'Date: '+${sighting.dateAsString}">Date </p>
 
                 </div>

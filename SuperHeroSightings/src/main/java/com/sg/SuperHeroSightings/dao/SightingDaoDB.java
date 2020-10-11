@@ -163,7 +163,7 @@ public class SightingDaoDB implements SightingDao {
         sighting.setLocation(location);
 
         final String GET_HERO_FOR_SIGHTING
-                = "SELECT h.idHero, h.name, h.description FROM Hero h "
+                = "SELECT h.idHero, h.name, h.description, h.photoFilename FROM Hero h "
                 + " JOIN Sighting s ON s.Hero_idHero = h.idHero"
                 + " WHERE s.idSighting = ?";
         Hero hero = jdbc.queryForObject(GET_HERO_FOR_SIGHTING, new HeroMapper(), sighting.getSightingId());

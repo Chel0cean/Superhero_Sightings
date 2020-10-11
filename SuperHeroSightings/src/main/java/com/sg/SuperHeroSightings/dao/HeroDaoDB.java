@@ -27,22 +27,22 @@ public class HeroDaoDB implements HeroDao {
 
     @Autowired
     JdbcTemplate jdbc;
-    
 
     //CRUD methods
     @Override
     @Transactional
     public Hero addHero(Hero hero) {
-        final String INSERT_HERO = "INSERT INTO Hero(name, description, Superpower_idSuperpower) "
-                + "VALUES(?,?,?)";
+         final String INSERT_HERO = "INSERT INTO Hero(name, description, Superpower_idSuperpower, photoFilename) "
+                + "VALUES(?,?,?,?)";
         jdbc.update(INSERT_HERO,
                 hero.getHeroName(),
                 hero.getHeroDescription(),
-                hero.getSuperPower().getSuperPowerId());
+                hero.getSuperPower().getSuperPowerId(),
+                hero.getPhotoFilename());
 
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         hero.setHeroId(newId);
-        
+
         return hero;
     }
 
@@ -52,10 +52,9 @@ public class HeroDaoDB implements HeroDao {
         try {
             final String GET_HERO_BY_ID = "SELECT * FROM Hero WHERE idHero = ?";
             Hero hero = jdbc.queryForObject(GET_HERO_BY_ID, new HeroMapper(), id);
-            
+
             associateSuperpowerWithHero(hero);
-           
-            
+
             return hero;
         } catch (DataAccessException ex) {
             return null;
@@ -66,10 +65,10 @@ public class HeroDaoDB implements HeroDao {
     public List<Hero> getAllHeroes() {
         final String GET_ALL_HEROES = "SELECT * FROM Hero";
         List<Hero> heroes = jdbc.query(GET_ALL_HEROES, new HeroMapper());
-        
+
         for (Hero hero : heroes) {
             associateSuperpowerWithHero(hero);
-           
+
         }
         return heroes;
     }
@@ -86,7 +85,7 @@ public class HeroDaoDB implements HeroDao {
 
         final String DELETE_HERO_ORGANIZATION = "DELETE FROM HeroOrganization WHERE Hero_idHero = ?";
         jdbc.update(DELETE_HERO_ORGANIZATION, hero.getHeroId());
-      
+
     }
 
     @Override
@@ -101,14 +100,11 @@ public class HeroDaoDB implements HeroDao {
         final String DELETE_HERO = "DELETE FROM Hero WHERE idHero = ?";
         jdbc.update(DELETE_HERO, id);
     }
-    
-    
-    
 
     //Helper methods
     @Override
     public List<Hero> getHeroesBySuperpower(Superpower superPower) {
-        
+
         final String GET_HEROES_BY_SUPERPOWER
                 = "SELECT * FROM Hero h "
                 + "WHERE h.Superpower_idSuperpower = ?";
@@ -121,9 +117,10 @@ public class HeroDaoDB implements HeroDao {
         }
         return heroes;
     }
-     @Override
-        public List<Hero> getHeroesByOrganization(Organization organization) {
-        
+
+    @Override
+    public List<Hero> getHeroesByOrganization(Organization organization) {
+
         final String GET_HEROES_BY_ORGANIZATION
                 = "SELECT h.idHero, h.name, h.description, h.Superpower_idSuperpower FROM Hero h "
                 + " JOIN HeroOrganization ho ON ho.Hero_idHero=h.idHero"
@@ -137,8 +134,6 @@ public class HeroDaoDB implements HeroDao {
         }
         return heroes;
     }
-      
- 
 
     @Override
     public void insertHeroOrganization(Hero hero, List<Integer> organizationsIds) {
@@ -148,7 +143,7 @@ public class HeroDaoDB implements HeroDao {
             for (Integer i : organizationsIds) {
                 jdbc.update(INSERT_HERO_ORGANIZATION,
                         hero.getHeroId(),
-                       i);
+                        i);
             }
         } catch (NullPointerException ex) {
 
@@ -164,22 +159,20 @@ public class HeroDaoDB implements HeroDao {
         hero.setSuperPower(thisPower);
 
     }
-     @Override
-     public void associateOrgsForHero(Hero hero, List<Organization> organizations) {
-        List <OrgStub> orgStubs = new ArrayList();
-        for(Organization organization:organizations){
-           OrgStub orgstub =new OrgStub(); 
-           orgstub.setOrganizationId(organization.getOrganizationId());
-           orgstub.setOrganizationName(organization.getOrganizationName());
-           orgStubs.add(orgstub);
-        }
-        
 
-       hero.setOrganizations(orgStubs);
+    @Override
+    public void associateOrgsForHero(Hero hero, List<Organization> organizations) {
+        List<OrgStub> orgStubs = new ArrayList();
+        for (Organization organization : organizations) {
+            OrgStub orgstub = new OrgStub();
+            orgstub.setOrganizationId(organization.getOrganizationId());
+            orgstub.setOrganizationName(organization.getOrganizationName());
+            orgStubs.add(orgstub);
+        }
+
+        hero.setOrganizations(orgStubs);
 
     }
-    
-    
 
     public static final class HeroMapper implements RowMapper<Hero> {
 
@@ -188,6 +181,7 @@ public class HeroDaoDB implements HeroDao {
             Hero hero = new Hero(rs.getInt("idHero"));
             hero.setHeroName(rs.getString("name"));
             hero.setHeroDescription(rs.getString("description"));
+            hero.setPhotoFilename(rs.getString("photoFilename"));
 
             return hero;
         }

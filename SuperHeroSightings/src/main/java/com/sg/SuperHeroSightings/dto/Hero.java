@@ -14,13 +14,14 @@ public class Hero {
     private String heroDescription;
     private Superpower superPower;
     private List<OrgStub> organizations;
+    private String photoFilename;
+
+    public Hero(int heroId) {
+        this.heroId = heroId;
+    }
  
 
     public Hero() {
-    }
-    
-    public Hero(int heroId) {
-        this.heroId = heroId;
     }
 
     public int getHeroId() {
@@ -63,14 +64,23 @@ public class Hero {
         this.organizations = organizations;
     }
 
+    public String getPhotoFilename() {
+        return photoFilename;
+    }
+
+    public void setPhotoFilename(String photoFilename) {
+        this.photoFilename = photoFilename;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + this.heroId;
-        hash = 29 * hash + Objects.hashCode(this.heroName);
-        hash = 29 * hash + Objects.hashCode(this.heroDescription);
-        hash = 29 * hash + Objects.hashCode(this.superPower);
-        hash = 29 * hash + Objects.hashCode(this.organizations);
+        hash = 59 * hash + this.heroId;
+        hash = 59 * hash + Objects.hashCode(this.heroName);
+        hash = 59 * hash + Objects.hashCode(this.heroDescription);
+        hash = 59 * hash + Objects.hashCode(this.superPower);
+        hash = 59 * hash + Objects.hashCode(this.organizations);
+        hash = 59 * hash + Objects.hashCode(this.photoFilename);
         return hash;
     }
 
@@ -95,6 +105,9 @@ public class Hero {
         if (!Objects.equals(this.heroDescription, other.heroDescription)) {
             return false;
         }
+        if (!Objects.equals(this.photoFilename, other.photoFilename)) {
+            return false;
+        }
         if (!Objects.equals(this.superPower, other.superPower)) {
             return false;
         }
@@ -106,8 +119,10 @@ public class Hero {
 
     @Override
     public String toString() {
-        return "Hero{" + "heroId=" + heroId + ", heroName=" + heroName + ", heroDescription=" + heroDescription + ", superPower=" + superPower + ", organizations=" + organizations + '}';
+        return "Hero{" + "heroId=" + heroId + ", heroName=" + heroName + ", heroDescription=" + heroDescription + ", superPower=" + superPower + ", organizations=" + organizations + ", photoFilename=" + photoFilename + '}';
     }
+    
+
 
     
 

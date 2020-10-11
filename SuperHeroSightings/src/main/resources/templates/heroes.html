@@ -195,49 +195,55 @@
 
 <div class= "grid container" >
 <div th:each="hero : ${heroes}" >
-<div  id="content" class= "card" >
-   <div><img></div> 
-  
+<div  id="content" class= "card " >
+    <div class="gridforcard">
    <div>
-        <h4><b>Name: </b></h4>
-        <p id="name"  th:text="${hero.heroName}">Hero Superpower </p>
+       <img th:src="@{/images/hero.jpg}" alt="hero" width="150" height="150">
+   </div> 
+   
+   <div id="details">
+       <h4 id="name" th:text="${hero.heroName}"><b></b></h4>
+        <p>
+            <span>Ability: </span>
+          
+        <span id="ability" th:text="${hero.superPower.superPowerName}">Hero Superpower </span>
+        </p>
+         <p id="description" >Description: </p>
+               
+              
+                <p id="descriptionInfo" th:text="${hero.heroDescription}">Hero Description </p>
     </div>
    
-        <div>
-            <p>Ability: </p>
-              
-        <p id="superpower" th:text="${hero.superPower.superPowerName}">Hero Superpower </p>
-    </div>
+
     
 
-        <div>
-                
-                
-                <p>Description: </p>
-               
-              
-                <p id="description" th:text="${hero.heroDescription}">Hero Description </p>
-               
-            </div>
             
               
                     
-                  <div><p> Organizations: </p>
-                    <ul style="list-style-type:none;">
+                  <div class="organizations">
+                      <div>
+                          <p> Organizations: </p>
+                      </div>
+                      
+                      <div class="organizationinfo"> 
+                          <ul style="list-style-type:none;">
                         <li th:each="organizationforhero: ${hero.organizations}">    
                             <a href="#" name="organizationId" th:text="'•' +${organizationforhero.organizationName}" onClick="getOrganization(this.id)" th:id="${organizationforhero.organizationId}"></a>  
                         </li>    
-                </ul>
-            </div>  
-            
- 
-   
-                <p>
-                    <button th:attr="id=${hero.heroId},value=${hero.superPower.superPowerId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateHero(this.id, this.value)" >Update</button>
-                    <button th:attr="id=${hero.heroId},value=${hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteHero(this.value, this.id)" >Delete</button>
-                </p>
-          
+                          </ul>
+                      </div>
+                           
+                      </div>
         
+                          
+                      <div class="updateDeleteButtons">
+                    <button th:attr="id=${hero.heroId},value=${hero.superPower.superPowerId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateHero(this.id, this.value)" >Update</button>
+                      
+                    <button th:attr="id=${hero.heroId},value=${hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteHero(this.value, this.id)" >Delete</button>
+               </div>
+               
+          
+          </div>
                 <div hidden th:attr="id='updateTr'+${hero.heroId}" class="container editForm">
                      <div>
                                 <span class="h3">Edit Hero</span>
@@ -312,6 +318,7 @@
                     
                     </form>
                     </div>
+              
                 </div>
                 </div>
             </div>

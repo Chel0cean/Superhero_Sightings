@@ -117,7 +117,7 @@ function updateSighting(id, value) {
 function deleteLocation(name, id) {
 
 
-    var confirmed = window.confirm('Are you sure you want to delete this ' + name + '?');
+    var confirmed = window.confirm('Are you sure you want to delete ' + name + '?');
     if (confirmed) {
         window.location.href = "/deleteLocation?id=" + id;
     }
@@ -150,7 +150,7 @@ function updateLocation(id, value) {
 function deleteSuperpower(name, id) {
 
 
-    var confirmed = window.confirm('Are you sure you want to delete this ' + name + '?');
+    var confirmed = window.confirm('Are you sure you want to delete ' + name + '?');
     if (confirmed) {
         window.location.href = "/deleteSuperpower?id=" + id;
     }

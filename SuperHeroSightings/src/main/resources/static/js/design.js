@@ -23,6 +23,8 @@ $("#searchHeroesBySuperpower").click(function(event){
   $('#searchHeroesBySuperpowerForm').removeAttr("hidden");
   $('#searchHeroesBySuperpowerForm').show();
   $('#searchHeroesByOrganizationForm').hide();
+  $("#addFormRevealButton").show();
+$("#addObjectField").hide();
  
 
 
@@ -41,6 +43,8 @@ $("#searchHeroesByOrganization").click(function(event){
   $('#searchHeroesByOrganizationForm').removeAttr("hidden");
   $('#searchHeroesByOrganizationForm').show();
   $('#searchHeroesBySuperpowerForm').hide();
+  $("#addFormRevealButton").show();
+$("#addObjectField").hide();
 
 
 
@@ -65,6 +69,8 @@ $("#searchOrganizationsByHeroButton").click(function(event){
  
   $('#searchOrganizationsByHeroForm').removeAttr("hidden");
   $('#searchOrganizationsByHeroForm').show();
+  $("#addFormRevealButton").show();
+$("#addObjectField").hide();
 
 
 
@@ -85,6 +91,8 @@ $("#searchSightingsByHero").click(function(event){
   $('#searchSightingsByHeroForm').show();
   $('#searchSightingsByDateForm').hide();
   $('#searchSightingsByLocationForm').hide();
+  $("#addFormRevealButton").show();
+$("#addObjectField").hide();
  
 
 
@@ -104,6 +112,8 @@ $("#searchSightingsByLocation").click(function(event){
   $('#searchSightingsByLocationForm').show();
   $('#searchSightingsByHeroForm').hide();
   $('#searchSightingsByDateForm').hide();
+  $("#addFormRevealButton").show();
+$("#addObjectField").hide();
 
 
 
@@ -124,6 +134,8 @@ $("#searchSightingsByDate").click(function(event){
   $('#searchSightingsByDateForm').show();
   $('#searchSightingsByHeroForm').hide();
   $('#searchSightingsByLocationForm').hide();
+  $("#addFormRevealButton").show();
+$("#addObjectField").hide();
 
 
 

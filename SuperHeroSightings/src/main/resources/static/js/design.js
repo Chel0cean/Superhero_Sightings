@@ -198,6 +198,28 @@ function deleteOrganization(name, id){
    
   
   };
+
+  function deleteSighting(name, id){
+
+
+    var confirmed=window.confirm('Are you sure you want to delete this sighting of '+name+'?');
+    if(confirmed){
+      window.location.href = "/deleteOrganization?id="+id;
+    };
+    
+    };
+    
+    function updateSighting(id, value){
+    
+      var updateId= "updateTr" + id;
+      $('#'+updateId).removeAttr("hidden");
+      $('.editForm').hide();
+      $('#'+updateId).show();
+     
+     $('button[id="'+id+'"]').hide();
+     
+    
+    };
   
  
   

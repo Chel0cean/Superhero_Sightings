@@ -194,54 +194,24 @@
     </div>
 
 
-
-
-
-
-    <div>
-        <div id="contentRows" class="container">
-
-            <table id="content" th:each="sighting : ${sightings}">
-                <tbody>
-                    <tr>
-                        <td id="name" th:text="'Hero: '+${sighting.hero.heroName}">Hero Name </td>
-                    </tr>
-                    <tr>
-                        <td id="location" th:text="'Location: '+${sighting.location.locationName}">Location </td>
-                    </tr>
-                    <tr>
-                        <td id="sightingDate" th:text="'Date: '+${sighting.date}">Date </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>
-                            <a href="#" th:href="@{/deleteSighting(id=${sighting.sightingId})}">
-                                <button th:attr="id=${sighting.sightingId}" class="btn btn-primary" type="button">Delete</button>
-                            </a>
-                           <button class="btn btn-primary" type="button" OnClick="deleteButtonPressed(${sighting.hero.heroName},${sighting.sightingId}, 'Sighting');" >Delete</button>
-
-
-                        </td>
-                    </tr>
-
-                    <!-- <tr hidden th:attr="id='updateTr'+${sighting.sightingId}" class="editForm">
-                        <td>
-                            <div>
-
-
-                    <!-- <tr>
-                        <td>
-
-                            <button th:attr="id=${sighting.sightingId},value=${hero.superPower.superPowerId}"
-                                class="updateHeroButton btn btn-primary" type="button"
-                                OnClick="updateHero(this.id, this.value)">Update</button>
-                            <button th:attr="id=${hero.heroId},value=${hero.heroName}"
-                                class="updateHeroButton btn btn-primary" type="button"
-                                OnClick="deleteHero(this.value, this.id)">Delete</button>
-                        </td>
-                    </tr>
-
+    <div class= "grid container" >
+        <div th:each="sighting : ${sightings}" >
+        <div  id="content" class= "card" >
+           <div><img></div> 
+            <div>
+                <h4 id="name" th:text="'Hero: '+${sighting.hero.heroName}"></h4><b></b></h4>
+                <p id="location" th:text="'Location: '+${sighting.location.locationName}">Location </p>
+                      
+                        <p id="sightingDate" th:text="'Date: '+${sighting.date}">Date </p>
+                        
+                        
+                        <p>
+                            <button th:attr="id=${sighting.sightingId},value=${sighting.location.locationId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateSighting(this.id, this.value)" >Update</button>
+                            <button th:attr="id=${sighting.sightingId},value=${sighting.hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteSighting(this.value, this.id)" >Delete</button>
+                        </p>
+                    </div>
+                </div>
+                <div hidden th:attr="id='updateTr'+${sighting.sightingId}" class="container editForm">
                                 <div>
                                     <span class="h3">Edit Sighting</span>
                                 </div>
@@ -290,21 +260,19 @@
             </div>
 
 
-                                    <button type="submit" th:attr="value=${hero.heroId}" class="btn btn-primary"
+                                    <button type="submit" th:attr="value=${sighting.sightingId}" class="btn btn-primary"
                                         OnClick="hideForm(this.value)">Update Sighting</button>
-                                    <button type="button" th:attr="value=${hero.heroId}"
+                                    <button type="button" th:attr="value=${sighting.sightingId}"
                                         class="cancelEditObject btn btn-primary"
                                         OnClick="hideForm(this.value)">Cancel</button>
 
-                                </form>
+                                    </form>
+                                </div>
+                                
                             </div>
-
-                        </td>
-                    </tr> -->
-                    </div>
-                    </div>
-      
-
+                        </div>
+                    </body>               
+               
 
                 <!-- Optional JavaScript -->
                 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

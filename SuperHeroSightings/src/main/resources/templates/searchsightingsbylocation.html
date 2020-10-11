@@ -50,125 +50,85 @@
         <img  th:src="@{/images/Batman-Slapping-Robin-Meme.jpg}" alt="">
         </div>
 
-    <div th:if="${not #lists.isEmpty(sightings)}" id="contentRows" class= "container">
-
-    <table id="content" th:each="sighting : ${sightings}">
-        <tbody>
-            <tr><td id= "name" th:text="'Hero: '+${sighting.hero.heroName}">Sighting Hero</td></tr>
-            <tr><td id="location" th:text="'Location: '+${sighting.location.locationName}">Sighting Location </td></tr>
-            <tr><td id= "description" th:text="'Date: '+${sighting.date}">Sighting Date </td></tr>
-            
-            
-            <tr><td>
-              
-                <button th:attr="id=${sighting.sightingId},value=${sighting.location.locationId}" class="updateOrganizationButton btn btn-primary"  type="button" OnClick="updateSighting(this.id, this.value)" >Update</button>
-                <button th:attr="id=${sighting.sightingId},value=${sighting.hero.heroName}" class="updateOrganizationButton btn btn-primary" type="button" OnClick="deleteSighting(this.value, this.id)" >Delete</button>
-            </td></tr>
-            
-            
-<!-- NEED TO COPY UPDATE FORM FROM SIGHTING PAGE
-
-
-            <tr hidden th:attr="id='updateTr'+${sighting.sightingId}" class="editForm"><td >
-                <div >
-
-                    
-                        <div>
-                            <span class="h3">Update Sighting</span>
+ 
+        <div  th:if="${not #lists.isEmpty(sightings)}" class= "grid container" >
+            <div th:each="sighting : ${sightings}" >
+            <div  id="content" class= "card" >
+               <div><img></div> 
+                <div>
+                    <h4 id="name" th:text="'Hero: '+${sighting.hero.heroName}"></h4><b></b></h4>
+                    <p id="location" th:text="'Location: '+${sighting.location.locationName}">Location </p>
+                          
+                            <p id="sightingDate" th:text="'Date: '+${sighting.date}">Date </p>
+                            
+                            
+                            <p>
+                                <button th:attr="id=${sighting.sightingId},value=${sighting.location.locationId}" class="updateHeroButton btn btn-primary"  type="button" OnClick="updateSighting(this.id, this.value)" >Update</button>
+                                <button th:attr="id=${sighting.sightingId},value=${sighting.hero.heroName}" class="updateHeroButton btn btn-primary" type="button" OnClick="deleteSighting(this.value, this.id)" >Delete</button>
+                            </p>
                         </div>
-                        <form action="editSighting" method="POST">
-                            <div hidden class="form-group row">
-                                <label for="id">
-                                    Id</label>
-                                <div class="col-5">
-                                    <input type="text" name="sightingIdEdit" th:value="${sighting.sightingId}"
-                                           id="sightingIdEdit" class="form-control" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name">
-                                    Name</label>
-                                <div class="col-5">
-                                    <input type="text" name="sightingNameEdit" th:value="${sighting.sightingName}"
-                                           id="sightingNameEdit" class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="description">
-                                    Description</label>
-                                <div class="col-9">
-                                    <input type="text" name="sightingDescriptionEdit" th:value="${organization.organizationDescription}"
-                                           id="organizationDescriptionEdit" class="form-control"/>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="phone" class="col-3 col-form-label">
-                                        Phone</label>
-                                <div class="col-9">
-                                    <input type="text" name="organizationPhone" th:value="${organization.organizationPhone}"
-                                           id="organizationPhone" class="form-control"/>
-                                </div>
-                            </div>
-                                <div class="form-group row">
-                                    <label for="email" class="col-3 col-form-label">
-                                        Email</label>
-                                <div class="col-9">
-                                    <input type="text" name="organizationEmail" th:value="${organization.organizationEmail}"
-                                           id="organizationEmail" class="form-control"/>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="Location" >
-                                    Location</label>
-                                <div class="col-5">
-                                    <select th:attr="id='locationIdForEditOrganization'+${organization.organizationId}"
-                                    name="locationIDEdit" class="form-control" >
-                                        <option th:each="location : ${locations}"
-                                                th:value="${location.locationId}"
-                                                th:text="${location.locationName}">
-                                            Location</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div id=selectHeroesEdit class="form-group row">
-                                <label for="heroes" class="col-3 col-form-label">
-                                    Hero(es)</label>
-                                <fieldset>
-        
-                                    <select multiple id="heroIDEdit" 
-                                            class="form-control" >
-        
-                                        <option >
-                                        <ul style="list-style-type:none;" >
-        
-                                            <li th:each="hero : ${heroes}" style="list-style-type:none;" >
-                                                <input type="checkbox" name="heronIDForEditOrganization" th:value="${hero.heroId}">
-                                                <label th:text="${hero.heroName}"></label>
-                                            </li>
-        
-                                        </ul>
-                                        </option>
-                                      
-        
-                                    </select>
-                                </fieldset>
-        
-                            </div>
-                    
-                   
-                
-                    <button type="submit" th:attr="value=${organization.organizationId}" class="btn btn-primary" OnClick="hideForm(this.value)">Update Organization</button>
-                    <button type="button" th:attr="value=${organization.organizationId}" class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)" >Cancel</button>
-                
-                </form>
+                    </div>
+                    <div hidden th:attr="id='updateTr'+${sighting.sightingId}" class="container editForm">
+                                    <div>
+                                        <span class="h3">Edit Sighting</span>
+                                    </div>
+                                    <form action="editSighting" method="POST">
+                                        <div hidden class="form-group row">
+                                            <label for="id">
+                                                Id</label>
+                                            <div class="col-5">
+                                                <input type="text" name="sightingIdEdit" th:value="${sighting.sightingId}"
+                                                    id="sightingIdEdit" class="form-control" readonly />
+                                            </div>
+                                        </div>
+    
+                                        <div class="form-group row">
+                                            <label for="Location">
+                                                Location</label>
+                                            <div class="col-5">
+                                                <select th:attr="id='locationIdForEditSighting'+${sighting.sightingId}"
+                                                    name="locationIdEdit" class="form-control">
+                                                    <option th:each="location : ${locations}"
+                                                        th:value="${location.locationId}"
+                                                        th:text="${location.locationName}">
+                                                        Location</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="Hero">
+                                                Hero</label>
+                                            <div class="col-5">
+                                                <select th:attr="id='heroIdForEditSighting'+${sighting.sightingId}"
+                                                    name="heroIdEdit" class="form-control">
+                                                    <option th:each="hero : ${heroes}" th:value="${hero.heroId}"
+                                                        th:text="${hero.heroName}">
+                                                        Hero</option>
+                                                </select>
+                                            </div>
+                                        </div>
+    
+                <div class="form-group row">
+                    <div class="col-5">
+    
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" th:value="${sighting.date}">
+                    </div>
                 </div>
-              
-            </td> </tr>
- --> 
- 
- 
-        </div>
-            
+    
+    
+                                        <button type="submit" th:attr="value=${sighting.sightingId}" class="btn btn-primary"
+                                            OnClick="hideForm(this.value)">Update Sighting</button>
+                                        <button type="button" th:attr="value=${sighting.sightingId}"
+                                            class="cancelEditObject btn btn-primary"
+                                            OnClick="hideForm(this.value)">Cancel</button>
+    
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </body>  
 
 
 <!-- Optional JavaScript -->

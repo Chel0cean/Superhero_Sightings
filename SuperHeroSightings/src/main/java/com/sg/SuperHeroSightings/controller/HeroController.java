@@ -33,9 +33,11 @@ public class HeroController {
 
     @Autowired
     HeroDao heroDao;
+
+    @Autowired
+    ImageDao imageDao;
     
-    
-    
+    private final String TEACHER_UPLOAD_DIR = "HerosPicture";
     
  @GetMapping("heroes")
     public String displayHeroes(Model model) {
@@ -70,36 +72,37 @@ public class HeroController {
             return "hero";
   }
 
+
     @PostMapping("addHero")
-    public String addHero(HttpServletRequest request) {
-        
-     
+    public String addHero(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        String fileLocation = imageDao.saveImage(file, Long.toString(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)), TEACHER_UPLOAD_DIR);
+
         String heroName = request.getParameter("heroName");
         String heroDescription = request.getParameter("heroDescription");
 
-        
-       String superPowerIDAsString = request.getParameter("superPowerIdForAddHero");
-       int superPowerID=Integer.parseInt(superPowerIDAsString);
+        String superPowerIDAsString = request.getParameter("superPowerIdForAddHero");
+        int superPowerID = Integer.parseInt(superPowerIDAsString);
         Superpower superpower = superpowerDao.getSuperpowerById(superPowerID);
 
-        
         String[] stringOrganizationIDs = request.getParameterValues("organizationIDForAddHero");
-        
 
         List<Integer> organizationIds = new ArrayList<>();
-        
-            for (String organizationID : stringOrganizationIDs) {
-                int i= Integer.parseInt(organizationID);
-                organizationIds.add(i);
-            
+
+        for (String organizationID : stringOrganizationIDs) {
+            int i = Integer.parseInt(organizationID);
+            organizationIds.add(i);
+
         }
 
         Hero hero = new Hero();
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);
+        hero.setPhotoFilename(fileLocation);
+
         heroDao.addHero(hero);
         heroDao.insertHeroOrganization(hero, organizationIds);
+        
         return "redirect:/heroes";
     }
     
@@ -107,8 +110,9 @@ public class HeroController {
     
     @GetMapping("deleteHero")
     public String deleteHero(HttpServletRequest request) {
-
         int id = Integer.parseInt(request.getParameter("id"));
+        Hero hero = heroDao.getHeroById(id);
+        imageDao.deleteImage(hero.getPhotoFilename());
         heroDao.deleteHeroById(id);
         return "redirect:/heroes";
     }
@@ -116,29 +120,23 @@ public class HeroController {
 
     
     @PostMapping("editHero")
-    public String performEditHero(HttpServletRequest request) {
-
-      int heroId=Integer.parseInt(request.getParameter("heroIdEdit"));
-      
+    public String performEditHero(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        int heroId = Integer.parseInt(request.getParameter("heroIdEdit"));
         String heroName = request.getParameter("heroNameEdit");
         String heroDescription = request.getParameter("heroDescriptionEdit");
-
         int superPowerID = Integer.parseInt(request.getParameter("superPowerIDEdit"));
         Superpower superpower = new Superpower(superPowerID);
-
         String[] organizationIDsString = request.getParameterValues("organizationIDForEditHero");
-
         List<Integer> organizationIDs = new ArrayList<>();
-        
-            for (String organizationID : organizationIDsString) {
-                organizationIDs.add(Integer.parseInt(organizationID));
-            
-        }
+        for (String organizationID : organizationIDsString) {
+            organizationIDs.add(Integer.parseInt(organizationID));
 
+        }
         Hero hero = heroDao.getHeroById(heroId);
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);
+        hero.setPhotoFilename(imageDao.updateImage(file, hero.getPhotoFilename(), TEACHER_UPLOAD_DIR));
         heroDao.updateHero(hero);
         heroDao.insertHeroOrganization(hero, organizationIDs);
         return "redirect:/heroes";

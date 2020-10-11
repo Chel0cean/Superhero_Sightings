@@ -14,8 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Repository
 public class ImageDaoImpl implements ImageDao {
-
-    private final String RESOURCE_ROOT = "/SuperHeroSightings/src/main/resources/static/";
+    
+    //works 
+    private final String RESOURCE_ROOT = "src/main/resources/static/"; 
 
     private final String UPLOAD_DIRECTORY = "images/uploads/";
 
@@ -26,8 +27,9 @@ public class ImageDaoImpl implements ImageDao {
         String mimetype = file.getContentType();
         if (mimetype != null && mimetype.split("/")[0].equals("image")) {
             String originalName = file.getOriginalFilename();
-            String[] parts = originalName.split("[.]");
-            fileName = fileName + "." + parts[parts.length - 1];
+            //String[] parts = originalName.split("[.]");
+            
+            fileName = originalName; //new 
 
             try {
                 String fullPath = RESOURCE_ROOT + UPLOAD_DIRECTORY + directory + "/";
@@ -41,7 +43,9 @@ public class ImageDaoImpl implements ImageDao {
 
                 Path path = Paths.get(fullPath + fileName);
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                
                 savedFileName = UPLOAD_DIRECTORY + directory + "/" + fileName;
+                
             } catch (IOException e) {
                 e.printStackTrace();
             }

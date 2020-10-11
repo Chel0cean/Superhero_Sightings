@@ -6,7 +6,7 @@ CREATE DATABASE SuperHeroDBTEST;
 USE SuperHeroDBTEST;
 
 
-
+SELECT * FROM SuperHero;
 
 CREATE TABLE Superpower (
   idSuperpower INT PRIMARY KEY AUTO_INCREMENT,

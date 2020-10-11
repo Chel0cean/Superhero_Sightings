@@ -93,7 +93,7 @@ function deleteSighting(name, id) {
     ;
 
 }
-;
+; 
 function getSighting(id) {
 
     window.location.href = "/sighting?id=" + id;

@@ -29,21 +29,21 @@ INSERT INTO Superpower(idSuperpower, name) VALUES
 
     INSERT INTO Hero(name,description,Superpower_idSuperpower,photoFilename)  VALUES
 	("FlyGuy","Can control all tectonic plates within range, causing earthquakes. Alias Nick Shaker",1,
-"images/hero.jpg"),
+"images/uploads/HerosPicture/hero1.jpg"),
 	("Tecton-Nick","Good Guy",2,
-"images/hero.jpg"),
-    ("Spider Pig,","Can vomit spider webs, alias is Homer Simpson",3,
-"images/hero.jpg"),
+"images/uploads/HerosPicture/hero9.jpg"),
+    ("Spider Pig","Morphs into a giant hybrid pig-spider, alias is Homer Simpson",3,
+"images/uploads/HerosPicture/hero11.jpg"),
 	("Flamethrower","Can cause extreme fear, and breathe Fire alias Russell Russ",4,
-"images/hero.jpg"),
+"images/uploads/HerosPicture/hero4.jpg"),
     ("The InvisibleEntity","Can turn invisible anytime. Alias Chucker",5,
-"images/hero.jpg"),
+"images/uploads/HerosPicture/hero5.jpg"),
     ("Zen","Can read and control people’s minds. Alias Mandy",6,
-"images/hero.jpg"),
+"images/uploads/HerosPicture/hero6.jpg"),
     ("Iron Man","Tony Stark has a suit of armor that he uses to save the world",7,
-"images/hero.jpg"),
+"images/uploads/HerosPicture/hero7.jpg"),
     ("Mr.Fantastic"," Reed Richards can stretch any part of his body to save the day.",8,
-"images/hero.jpg");
+"images/uploads/HerosPicture/hero8.jpg");
     
     INSERT INTO Organization(name, Location_idLocation, description, contactEmail, contactPhone) VALUES
     ("The Southwest Center for Bad-doing", 1, "A large obsidian glass building that reflects the southwest sun into the eyes of all that pass by. Its mere existence has been the cause of many car accidents.", "badDoer@evil.com", 12125552112),
@@ -69,9 +69,30 @@ INSERT INTO Superpower(idSuperpower, name) VALUES
     
     INSERT INTO Sighting(date,Hero_idHero,Location_idLocation)  VALUES
 	('2020-01-01',1,1),
-	('2020-01-02',2,2),
-	('2020-01-03',3,3); 
-
+	('2020-01-02',2,1),
+	('2020-04-03',3,2),
+	('2020-05-01',4,3),
+	('2020-03-02',5,3),
+	('2020-07-03',6,3),
+    ('2020-08-01',7,4),
+	('2020-04-02',8,5),
+	('2020-05-03',1,6),
+    ('2020-03-01',1,6),
+	('2020-01-02',2,7),
+	('2020-01-03',3,7),
+    ('2020-07-01',4,8),
+	('2020-01-02',4,9),
+	('2020-01-03',5,10),
+    ('2020-09-01',5,11),
+	('2020-01-02',5,12),
+	('2020-03-03',6,12),
+    ('2020-01-01',7,12),
+	('2020-02-02',8,1),
+	('2020-01-03',8,2),
+    ('2020-08-01',8,2),
+	('2020-04-02',8,4),
+	('2020-04-03',7,5);
+    
     
     
     

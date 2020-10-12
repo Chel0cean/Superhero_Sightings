@@ -35,7 +35,7 @@ public class Location {
     private String locationCity;
 
     //can be null
-    @Size(max = 2, message = "State must be fewer than 2 characters")
+    @Size(max = 2, message = "State must be 2 characters")
     private String locationState;
 
     @NotBlank(message = "Country must not be blank")
@@ -43,7 +43,7 @@ public class Location {
     private String country;
 
     //can be null
-    @Size(max = 5, message = "Zip Code must be fewer than 5 characters")
+    @Size(min = 5, max = 5, message = "Zip Code must be 5 characters")
     private String zipCode;
 
     @DecimalMax(value = "90.0", inclusive = true, message = "Latitude must be between -90 and 90")

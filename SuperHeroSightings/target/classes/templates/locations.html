@@ -49,7 +49,11 @@
                         Location</button></li>
             </ul>
         </div>
-
+        <div class="col-12 m-1 text-center" 
+             th:if="${!errors.isEmpty()}">
+            <p class="alert alert-danger" th:each="error : ${errors}" 
+               th:text="${error.message}">Error message</p>
+        </div>
         <div hidden id="addObjectField" class="container">
             <div class="col-3 text-center m-3">
                 <span class="h3">Add Location</span>

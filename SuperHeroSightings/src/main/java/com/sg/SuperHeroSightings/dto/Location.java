@@ -39,7 +39,7 @@ public class Location {
     private String locationState;
 
     @NotBlank(message = "Country must not be blank")
-    @Size(max = 30, message = "Country must be no more than 30 characters")
+    @Size(max = 30, message = "Country must be fewer than 30 characters")
     private String country;
 
     //can be null

@@ -7,8 +7,13 @@ import com.sg.SuperHeroSightings.dto.Hero;
 import com.sg.SuperHeroSightings.dto.Location;
 import com.sg.SuperHeroSightings.dto.Organization;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +36,13 @@ public class LocationController {
     @Autowired
     HeroDao heroDao;
 
+    Set<ConstraintViolation<Location>> violations = new HashSet<>();
+
     @GetMapping("locations")
     public String displayLocations(Model model) {
         List<Location> locations = locationDao.getAllLocations();
         model.addAttribute("locations", locations);
+        model.addAttribute("errors", violations);
         return "locations";
     }
 
@@ -44,6 +52,7 @@ public class LocationController {
         int id = Integer.parseInt(idAsString);
         Location location = locationDao.getLocationById(id);
         model.addAttribute(location);
+        model.addAttribute("errors", violations);
         return "location";
     }
 
@@ -57,23 +66,54 @@ public class LocationController {
         String state = request.getParameter("locationState");
         String country = request.getParameter("country");
         String zipCode = request.getParameter("zipCode");
-        BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));
-        BigDecimal longitude = new BigDecimal(request.getParameter("longitude"));
 
-        Location location = new Location();
+        if (!request.getParameter("latitude").isEmpty() && !request.getParameter("longitude").isEmpty()) {
+            BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));
+            BigDecimal longitude = new BigDecimal(request.getParameter("longitude"));
+            Location location = new Location();
 
-        location.setLocationName(locationName);
-        location.setLocationDescription(description);
-        location.setLocationAddress(address);
-        location.setLocationCity(city);
-        location.setLocationState(state);
-        location.setCountry(country);
-        location.setZipCode(zipCode);
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
+            location.setLocationName(locationName);
+            location.setLocationDescription(description);
+            location.setLocationAddress(address);
+            location.setLocationCity(city);
+            location.setLocationState(state);
+            location.setCountry(country);
+            location.setZipCode(zipCode);
+            location.setLatitude(latitude);
+            location.setLongitude(longitude);
 
-        locationDao.addLocation(location);
+            Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+            violations = validate.validate(location);
+
+            if (violations.isEmpty()) {
+                locationDao.addLocation(location);
+            }
+        } else {
+
+            BigDecimal latitude = new BigDecimal("200");
+            BigDecimal longitude = new BigDecimal("200");
+
+            Location location = new Location();
+
+            location.setLocationName(locationName);
+            location.setLocationDescription(description);
+            location.setLocationAddress(address);
+            location.setLocationCity(city);
+            location.setLocationState(state);
+            location.setCountry(country);
+            location.setZipCode(zipCode);
+            location.setLatitude(latitude);
+            location.setLongitude(longitude);
+
+            Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+            violations = validate.validate(location);
+
+            if (violations.isEmpty()) {
+                locationDao.addLocation(location);
+            }
+        }
         return "redirect:/locations";
+
     }
 
     @GetMapping("deleteLocation")
@@ -115,38 +155,61 @@ public class LocationController {
         model.addAttribute("location", location);
         return "editLocation";
     }
-
     @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request) {
 
-        int id = Integer.parseInt(request.getParameter("locationId"));
+        int id = Integer.parseInt(request.getParameter("locationIdEdit"));
         System.out.println("This id is" + id);
         Location location = locationDao.getLocationById(id);
         System.out.println("com.sg.SuperHeroSightings.controller.LocationController.performEditLocation()");
 
         System.out.println(id);
-        String locationName = request.getParameter("locationName");
-        String description = request.getParameter("locationDescription");
-        String address = request.getParameter("locationAddress");
-        String city = request.getParameter("locationCity");
-        String state = request.getParameter("locationState");
-        String country = request.getParameter("country");
-        String zipCode = request.getParameter("zipCode");
-        BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));
-        BigDecimal longitude = new BigDecimal(request.getParameter("longitude"));
+        String locationName = request.getParameter("locationNameEdit");
+        String description = request.getParameter("locationDescriptionEdit");
+        String address = request.getParameter("locationAddressEdit");
+        String city = request.getParameter("locationCityEdit");
+        String state = request.getParameter("locationStateEdit");
+        String country = request.getParameter("countryEdit");
+        String zipCode = request.getParameter("zipCodeEdit");
 
-        location.setLocationName(locationName);
-        location.setLocationDescription(description);
-        location.setLocationAddress(address);
-        location.setLocationCity(city);
-        location.setLocationState(state);
-        location.setCountry(country);
-        location.setZipCode(zipCode);
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
+        if (!request.getParameter("latitudeEdit").isEmpty() && !request.getParameter("longitudeEdit").isEmpty()) {
+            BigDecimal latitude = new BigDecimal(request.getParameter("latitudeEdit"));
+            BigDecimal longitude = new BigDecimal(request.getParameter("longitudeEdit"));
 
-        locationDao.updateLocation(location);
+            location.setLocationName(locationName);
+            location.setLocationDescription(description);
+            location.setLocationAddress(address);
+            location.setLocationCity(city);
+            location.setLocationState(state);
+            location.setCountry(country);
+            location.setZipCode(zipCode);
+            location.setLatitude(latitude);
+            location.setLongitude(longitude);
 
+            Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+            violations = validate.validate(location);
+
+            if (violations.isEmpty()) {
+                locationDao.updateLocation(location);
+            }
+        } else {
+            System.out.println("BROKEN");
+            location.setLocationName(locationName);
+            location.setLocationDescription(description);
+            location.setLocationAddress(address);
+            location.setLocationCity(city);
+            location.setLocationState(state);
+            location.setCountry(country);
+            location.setZipCode(zipCode);
+
+            Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+            violations = validate.validate(location);
+
+            if (violations.isEmpty()) {
+                locationDao.updateLocation(location);
+            }
+        }
         return "redirect:/locations";
+
     }
 }

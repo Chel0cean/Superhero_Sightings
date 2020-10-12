@@ -48,13 +48,13 @@ public class Location {
 
     @DecimalMax(value = "90.0", inclusive = true, message = "Latitude must be between -90 and 90")
     @DecimalMin(value = "-90.0", inclusive = true, message = "Latitude must be between -90 and 90")
-    @Digits(integer=3, fraction=6, message = "Latitude must only have 6 numbers max after the decimal")
+    @Digits(integer = 3, fraction = 6, message = "Latitude must only have 6 numbers max after the decimal")
     @NotNull(message = "Please Input a valid Latitude")
     private BigDecimal latitude;
 
     @DecimalMax(value = "180.0", inclusive = true, message = "Longitude must be between -180 and 180")
     @DecimalMin(value = "-180.0", inclusive = true, message = "Longitude must be between -180 and 180")
-    @Digits(integer=3, fraction=6, message = "Longitude must only have 6 numbers max after the decimal")
+    @Digits(integer = 3, fraction = 6, message = "Longitude must only have 6 numbers max after the decimal")
     @NotNull(message = "Please Input a valid Longitude")
     private BigDecimal longitude;
 

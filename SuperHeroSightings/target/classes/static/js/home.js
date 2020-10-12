@@ -11,6 +11,7 @@ function getHero(id) {
 }
 ;
 function updateHero(id, value) {
+    
     var updateId = "updateTr" + id;
     $('#' + updateId).removeAttr("hidden");
     $('.editForm').hide();

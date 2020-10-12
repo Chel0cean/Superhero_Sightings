@@ -67,45 +67,36 @@ public class OrganizationController {
 
     @PostMapping("addOrganization")
     public String addOrganization(HttpServletRequest request) {
-        List<Hero> heroes = new ArrayList<>();
         Organization organization = new Organization();
-
-        String organizatonName = request.getParameter("organizationName");
-
+        String[] heroIDs = request.getParameterValues("heroIDForAddHero");
+        List<Hero> heroes = new ArrayList<>();
+        if (heroIDs != null) {
+            for (String heroID : heroIDs) {
+                heroes.add(heroDao.getHeroById(Integer.parseInt(heroID)));
+            }
+        }
+        Location location = locationDao.getLocationById(Integer.parseInt(request.getParameter("locationIdForAddOrganization")));
+        String organizationName = request.getParameter("organizationName");
         String organizationDescription = request.getParameter("organizationDescription");
-
         try {
             String organizationEmail = request.getParameter("organizationEmail");
-            String organizationPhone = request.getParameter("organizationPhone");
             organization.setOrganizationEmail(organizationEmail);
+        } catch (NullPointerException ex) {
+        }
+        try {
+            String organizationPhone = request.getParameter("organizationPhone");
             organization.setOrganizationPhone(organizationPhone);
         } catch (NullPointerException ex) {
-
-        }
-
-        String locationIDAsString = request.getParameter("locationIdForAddOrganization");
-        int locationID = Integer.parseInt(locationIDAsString);
-        Location location = locationDao.getLocationById(locationID);
-
-        String[] heroIDs = request.getParameterValues("heroID");
-
-        for (String heroID : heroIDs) {
-            heroes.add(heroDao.getHeroById(Integer.parseInt(heroID)));
         }
         organization.setHeroes(heroes);
-
         organization.setLocation(location);
-        organization.setOrganizationName(organizatonName);
+        organization.setOrganizationName(organizationName);
         organization.setOrganizationDescription(organizationDescription);
-
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(organization);
-
         if (violations.isEmpty()) {
             organizationDao.addOrganization(organization);
-
         }
-
         return "redirect:/organizations";
     }
 

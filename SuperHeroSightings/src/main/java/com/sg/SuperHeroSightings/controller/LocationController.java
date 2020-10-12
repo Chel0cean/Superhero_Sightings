@@ -1,5 +1,4 @@
 package com.sg.SuperHeroSightings.controller;
-
 import com.sg.SuperHeroSightings.dao.HeroDao;
 import com.sg.SuperHeroSightings.dao.LocationDao;
 import com.sg.SuperHeroSightings.dao.OrganizationDao;
@@ -19,25 +18,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 /**
  *
  * @author Chelsea, Karma, Mohammed, Patrick
  */
 @Controller
 public class LocationController {
-
     @Autowired
     LocationDao locationDao;
-
     @Autowired
     OrganizationDao organizationDao;
-
     @Autowired
     HeroDao heroDao;
-
     Set<ConstraintViolation<Location>> violations = new HashSet<>();
-
     @GetMapping("locations")
     public String displayLocations(Model model) {
         List<Location> locations = locationDao.getAllLocations();
@@ -45,7 +38,6 @@ public class LocationController {
         model.addAttribute("errors", violations);
         return "locations";
     }
-
     @GetMapping("location")
     public String getLocation(HttpServletRequest request, Model model) {
         String idAsString = request.getParameter("id");
@@ -55,7 +47,6 @@ public class LocationController {
         model.addAttribute("errors", violations);
         return "location";
     }
-
     @PostMapping("addLocation")
     public String addLocation(HttpServletRequest request) {
         Location location = new Location();
@@ -69,10 +60,18 @@ public class LocationController {
         String country = request.getParameter("country");
         String zipCode = request.getParameter("zipCode");
         if (!request.getParameter("latitude").isEmpty()) {
-            latitude = new BigDecimal(request.getParameter("latitude"));
+            try {
+                latitude = new BigDecimal(request.getParameter("latitude"));
+            } catch (Exception e) {
+                latitude = null;
+            }
         }
         if (!request.getParameter("longitude").isEmpty()) {
-            longitude = new BigDecimal(request.getParameter("longitude"));
+            try {
+                longitude = new BigDecimal(request.getParameter("longitude"));
+            } catch (Exception e) {
+                longitude = null;
+            }
         }
         location.setLocationName(locationName);
         location.setLocationDescription(description);
@@ -90,17 +89,13 @@ public class LocationController {
         }
         return "redirect:/locations";
     }
-
     @GetMapping("deleteLocation")
     public String deleteLocation(HttpServletRequest request) {
-
         int id = Integer.parseInt(request.getParameter("id"));
         locationCheckById(id);
         locationDao.deleteLocationById(id);
         return "redirect:/locations";
-
     }
-
     //Need to first retrieve an organization at that location (if there is one). then take that organization and get all heroes that belong to it. 
     //then if any heroes.getorganizationIDs list size = 1 (meanign they only belong to that one organization that is about to be deleted) delete that/those hero(es)
     private void locationCheckById(int id) {
@@ -118,7 +113,6 @@ public class LocationController {
             }
         }
     }
-
     @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("locationId"));
@@ -133,10 +127,18 @@ public class LocationController {
         String country = request.getParameter("country");
         String zipCode = request.getParameter("zipCode");
         if (!request.getParameter("latitude").isEmpty()) {
-            latitude = new BigDecimal(request.getParameter("latitude"));
+            try {
+                latitude = new BigDecimal(request.getParameter("latitude"));
+            } catch (Exception e) {
+                latitude = null;
+            }
         }
         if (!request.getParameter("longitude").isEmpty()) {
-            longitude = new BigDecimal(request.getParameter("longitude"));
+            try {
+                longitude = new BigDecimal(request.getParameter("longitude"));
+            } catch (Exception e) {
+                longitude = null;
+            }
         }
         location.setLocationName(locationName);
         location.setLocationDescription(description);
@@ -154,5 +156,4 @@ public class LocationController {
         }
         return "redirect:/locations";
     }
-
 }

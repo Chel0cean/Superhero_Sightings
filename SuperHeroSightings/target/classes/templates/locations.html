@@ -46,11 +46,17 @@
             <ul style="list-style-type:none;">
                 <li> <a th:href="@{index}" class="btn btn-outline-primary btn-lg">Home</a></li>
                 <li><button id="addFormRevealButton" type="button" class="btn btn-outline-primary btn-lg">Add
-                        Sighting</button></li>
+                        Location</button></li>
             </ul>
         </div>
 
-        <div hidden id="addObjectField" class="container">
+        <div class="col-12 m-1 text-center" 
+             th:if="${!errors.isEmpty()}">
+            <p class="alert alert-danger" th:each="error : ${errors}" 
+               th:text="${error.message}">Error message</p>
+        </div>
+
+        <div hidden id = "addObjectField" class="container">
             <div class="col-3 text-center m-3">
                 <span class="h3">Add Location</span>
             </div>
@@ -110,14 +116,14 @@
                         <label for="latitude" class="col-3 col-form-label">
                             Latitude</label>
                         <div class="col-9">
-                            <input type="text" name="latitude" id="latitude" class="form-control" />
+                            <input type="text" id="latitude" name="latitude" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="longitude" class="col-3 col-form-label">
                             Longitude</label>
                         <div class="col-9">
-                            <input type="text" name="longitude" id="longitude" class="form-control" />
+                            <input type="text" id="longitude" name="longitude" class="form-control"/>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Location</button>
@@ -195,8 +201,8 @@
                                 <label for="locationName" class="col-3 col-form-label">
                                     Name</label>
                                 <div class="col-9">
-                                    <input type="hidden" name="locationId" th:value="${location.locationId}" />
-                                    <input type="text" name="locationName" id="locationName" class="form-control"
+                                    <input type="hidden" name="locationIdEdit" th:value="${location.locationId}" />
+                                    <input type="text" name="locationNameEdit" id="locationNameEdit" class="form-control"
                                            th:value="${location.locationName}" />
                                 </div>
                             </div>
@@ -204,7 +210,7 @@
                                 <label for="locationDescription" class="col-3 col-form-label">
                                     Description</label>
                                 <div class="col-9">
-                                    <input type="text" name="locationDescription" id="locationDescription"
+                                    <input type="text" name="locationDescriptionEdit" id="locationDescriptionEdit"
                                            class="form-control" th:value="${location.locationDescription}" />
                                 </div>
                             </div>
@@ -212,7 +218,7 @@
                                 <label for="locationAddress" class="col-3 col-form-label">
                                     Address</label>
                                 <div class="col-9">
-                                    <input type="text" name="locationAddress" id="locationAddress" class="form-control"
+                                    <input type="text" name="locationAddressEdit" id="locationAddressEdit" class="form-control"
                                            th:value="${location.locationAddress}" />
                                 </div>
                             </div>
@@ -220,7 +226,7 @@
                                 <label for="locationCity" class="col-3 col-form-label">
                                     City</label>
                                 <div class="col-9">
-                                    <input type="text" name="locationCity" id="locationCity" class="form-control"
+                                    <input type="text" name="locationCityEdit" id="locationCityEdit" class="form-control"
                                            th:value="${location.locationCity}" />
                                 </div>
                             </div>
@@ -228,7 +234,7 @@
                                 <label for="locationState" class="col-3 col-form-label">
                                     State</label>
                                 <div class="col-9">
-                                    <input type="text" name="locationState" id="locationState" class="form-control"
+                                    <input type="text" name="locationStateEdit" id="locationStateEdit" class="form-control"
                                            th:value="${location.locationState}" />
                                 </div>
                             </div>
@@ -236,7 +242,7 @@
                                 <label for="country" class="col-3 col-form-label">
                                     Country</label>
                                 <div class="col-9">
-                                    <input type="text" name="country" id="country" class="form-control"
+                                    <input type="text" name="countryEdit" id="countryEdit" class="form-control"
                                            th:value="${location.country}" />
                                 </div>
                             </div>
@@ -244,7 +250,7 @@
                                 <label for="zipCode" class="col-3 col-form-label">
                                     Zip Code</label>
                                 <div class="col-9">
-                                    <input type="text" name="zipCode" id="zipCode" class="form-control"
+                                    <input type="text" name="zipCodeEdit" id="zipCodeEdit" class="form-control"
                                            th:value="${location.zipCode}" />
                                 </div>
                             </div>
@@ -253,7 +259,7 @@
                                 <label for="latitude" class="col-3 col-form-label">
                                     Latitude</label>
                                 <div class="col-9">
-                                    <input type="text" name="latitude" id="latitude" class="form-control"
+                                    <input type="text" id="latitudeEdit" name="latitudeEdit" class="form-control"
                                            th:value="${location.latitude}" />
                                 </div>
                             </div>
@@ -261,7 +267,7 @@
                                 <label for="longitude" class="col-3 col-form-label">
                                     Longitude</label>
                                 <div class="col-9">
-                                    <input type="text" name="longitude" id="longitude" class="form-control"
+                                    <input type="text" name="longitudeEdit" id="longitudeEdit" class="form-control"
                                            th:value="${location.longitude}" />
                                 </div>
                             </div>

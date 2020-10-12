@@ -73,7 +73,7 @@ public class HeroDaoDB implements HeroDao {
         return heroes;
     }
 
-@Override
+    @Override
     public void updateHero(Hero hero) {
         final String UPDATE_HERO = "UPDATE hero SET name = ?, description = ?, "
                 + "Superpower_idSuperpower = ?, photoFilename = ? WHERE idHero = ?";

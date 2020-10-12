@@ -13,7 +13,7 @@
             #map {
                 width: 50%;
                 height: 400px;
-                  margin: auto;
+                margin: auto;
 
             }
         </style>
@@ -31,8 +31,8 @@
         <script th:src="@{/js/design.js}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
-    <script th:inline="javascript">
+
+        <script th:inline="javascript">
 
             var sightingsArray = /*[[${sightings}]]*/ [];
             var openInfoWindow;
@@ -45,15 +45,23 @@
                 // The map, centered at Uluru
                 var map = new google.maps.Map(
                         document.getElementById('map'), {zoom: 4, center: firstLocation});
-                // The marker, positioned at Uluru
+                // The marker, positioned at Uluru //var icon = sighting.hero.photoFilename;
                 for (i = 0; i < sightingsArray.length; i++) {
                     var sighting = sightingsArray[i];
                     var location = sightingsArray[i].location;
                     var position = {lat: location.latitude, lng: location.longitude};
                     var title = location.locationName
-                    var icon = sighting.hero.photoFileName;
-                                    console.log(icon);
-                    const marker = new google.maps.Marker({position: position, map: map, title: title});
+                    var icon = {
+                        url: sighting.hero.photoFilename, // url
+                        scaledSize: new google.maps.Size(50, 50), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(0, 0) // anchor
+                    };
+
+                    console.log(i);
+                    console.log(icon);
+                    console.log("This file is at " + sighting.hero.photoFileName)
+                    const marker = new google.maps.Marker({position: position, map: map, title: title, icon: icon});
                     var content =
                             '<div id="content">' + '<h1 id="firstHeading" class="firstHeading">' + location.locationName + '</h1>' +
                             '<div id="bodyContent">' +
@@ -107,20 +115,20 @@
 
     </div>
 
-        <div id="buttonNavBar" class="text-center">	
-            <a  th:href="@{index}" class="btn btn-outline-primary btn-lg active"><h3>Home</h3></a>
+    <div id="buttonNavBar" class="text-center">	
+        <a  th:href="@{index}" class="btn btn-outline-primary btn-lg active"><h3>Home</h3></a>
 
-            <a th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h3>Heroes</h3></a>	
-            <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h3>Organizations</h3></a>	
+        <a th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h3>Heroes</h3></a>	
+        <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h3>Organizations</h3></a>	
 
-            <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h3>Sightings</h3></a>	
-
-
-            <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h3>Locations</h3></a>	
+        <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h3>Sightings</h3></a>	
 
 
-            <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h3>Superpowers</h3></a>	
-        </div>	
+        <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h3>Locations</h3></a>	
+
+
+        <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h3>Superpowers</h3></a>	
+    </div>	
     <div class="text-center">
         <h2><u>Top Ten Hero Sightings</u></h2>
     </div>
@@ -137,9 +145,9 @@
                 <div><img></div> 
                 <div>
                     <a href="#" name="heroId" th:text="'' +${sighting.hero.heroName}" onClick="getHero(this.id)" th:id="${sighting.hero.heroId}"></a>
-                <p>
-                    <a href="#" onClick="getLocation(this.id)" th:id="${sighting.location.locationId}" th:text="${sighting.location.locationName}"/>  
-                </p>
+                    <p>
+                        <a href="#" onClick="getLocation(this.id)" th:id="${sighting.location.locationId}" th:text="${sighting.location.locationName}"/>  
+                    </p>
                     <p id="sightingDate" th:text="'Date: '+${sighting.dateAsString}">Date </p>
 
                 </div>

@@ -58,7 +58,9 @@ public class LocationController {
 
     @PostMapping("addLocation")
     public String addLocation(HttpServletRequest request) {
-
+        Location location = new Location();
+        BigDecimal latitude = null;
+        BigDecimal longitude = null;
         String locationName = request.getParameter("locationName");
         String description = request.getParameter("locationDescription");
         String address = request.getParameter("locationAddress");
@@ -66,54 +68,27 @@ public class LocationController {
         String state = request.getParameter("locationState");
         String country = request.getParameter("country");
         String zipCode = request.getParameter("zipCode");
-
-        if (!request.getParameter("latitude").isEmpty() && !request.getParameter("longitude").isEmpty()) {
-            BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));
-            BigDecimal longitude = new BigDecimal(request.getParameter("longitude"));
-            Location location = new Location();
-
-            location.setLocationName(locationName);
-            location.setLocationDescription(description);
-            location.setLocationAddress(address);
-            location.setLocationCity(city);
-            location.setLocationState(state);
-            location.setCountry(country);
-            location.setZipCode(zipCode);
-            location.setLatitude(latitude);
-            location.setLongitude(longitude);
-
-            Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-            violations = validate.validate(location);
-
-            if (violations.isEmpty()) {
-                locationDao.addLocation(location);
-            }
-        } else {
-
-            BigDecimal latitude = new BigDecimal("200");
-            BigDecimal longitude = new BigDecimal("200");
-
-            Location location = new Location();
-
-            location.setLocationName(locationName);
-            location.setLocationDescription(description);
-            location.setLocationAddress(address);
-            location.setLocationCity(city);
-            location.setLocationState(state);
-            location.setCountry(country);
-            location.setZipCode(zipCode);
-            location.setLatitude(latitude);
-            location.setLongitude(longitude);
-
-            Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-            violations = validate.validate(location);
-
-            if (violations.isEmpty()) {
-                locationDao.addLocation(location);
-            }
+        if (!request.getParameter("latitude").isEmpty()) {
+            latitude = new BigDecimal(request.getParameter("latitude"));
+        }
+        if (!request.getParameter("longitude").isEmpty()) {
+            longitude = new BigDecimal(request.getParameter("longitude"));
+        }
+        location.setLocationName(locationName);
+        location.setLocationDescription(description);
+        location.setLocationAddress(address);
+        location.setLocationCity(city);
+        location.setLocationState(state);
+        location.setCountry(country);
+        location.setZipCode(zipCode);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(location);
+        if (violations.isEmpty()) {
+            locationDao.addLocation(location);
         }
         return "redirect:/locations";
-
     }
 
     @GetMapping("deleteLocation")
@@ -144,16 +119,12 @@ public class LocationController {
         }
     }
 
-
     @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request) {
-
         int id = Integer.parseInt(request.getParameter("locationId"));
-        System.out.println("This id is" + id);
         Location location = locationDao.getLocationById(id);
-        System.out.println("com.sg.SuperHeroSightings.controller.LocationController.performEditLocation()");
-
-        System.out.println(id);
+        BigDecimal latitude = null;
+        BigDecimal longitude = null;
         String locationName = request.getParameter("locationName");
         String description = request.getParameter("locationDescription");
         String address = request.getParameter("locationAddress");
@@ -161,45 +132,27 @@ public class LocationController {
         String state = request.getParameter("locationState");
         String country = request.getParameter("country");
         String zipCode = request.getParameter("zipCode");
-
-        if (!request.getParameter("latitude").isEmpty() && !request.getParameter("longitude").isEmpty()) {
-            BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));
-            BigDecimal longitude = new BigDecimal(request.getParameter("longitude"));
-
-            location.setLocationName(locationName);
-            location.setLocationDescription(description);
-            location.setLocationAddress(address);
-            location.setLocationCity(city);
-            location.setLocationState(state);
-            location.setCountry(country);
-            location.setZipCode(zipCode);
-            location.setLatitude(latitude);
-            location.setLongitude(longitude);
-
-            Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-            violations = validate.validate(location);
-
-            if (violations.isEmpty()) {
-                locationDao.updateLocation(location);
-            }
-        } else {
-            System.out.println("BROKEN");
-            location.setLocationName(locationName);
-            location.setLocationDescription(description);
-            location.setLocationAddress(address);
-            location.setLocationCity(city);
-            location.setLocationState(state);
-            location.setCountry(country);
-            location.setZipCode(zipCode);
-
-            Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-            violations = validate.validate(location);
-
-            if (violations.isEmpty()) {
-                locationDao.updateLocation(location);
-            }
+        if (!request.getParameter("latitude").isEmpty()) {
+            latitude = new BigDecimal(request.getParameter("latitude"));
+        }
+        if (!request.getParameter("longitude").isEmpty()) {
+            longitude = new BigDecimal(request.getParameter("longitude"));
+        }
+        location.setLocationName(locationName);
+        location.setLocationDescription(description);
+        location.setLocationAddress(address);
+        location.setLocationCity(city);
+        location.setLocationState(state);
+        location.setCountry(country);
+        location.setZipCode(zipCode);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(location);
+        if (violations.isEmpty()) {
+            locationDao.updateLocation(location);
         }
         return "redirect:/locations";
-
     }
+
 }

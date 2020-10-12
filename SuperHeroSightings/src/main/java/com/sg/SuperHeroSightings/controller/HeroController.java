@@ -46,7 +46,7 @@ public class HeroController {
 
     Set<ConstraintViolation<Hero>> violations = new HashSet<>();
 
-    private final String TEACHER_UPLOAD_DIR = "HerosPicture";
+    private final String HERO_UPLOAD_DIR = "HerosPicture";
 
     @GetMapping("heroes")
     public String displayHeroes(Model model) {
@@ -88,7 +88,7 @@ public class HeroController {
 
     @PostMapping("addHero")
     public String addHero(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
-        String fileLocation = imageDao.saveImage(file, Long.toString(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)), TEACHER_UPLOAD_DIR);
+        String fileLocation = imageDao.saveImage(file, Long.toString(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)), HERO_UPLOAD_DIR);
 
         String heroName = request.getParameter("heroName");
         String heroDescription = request.getParameter("heroDescription");
@@ -160,8 +160,9 @@ public class HeroController {
         hero.setHeroName(heroName);
         hero.setHeroDescription(heroDescription);
         hero.setSuperPower(superpower);
-        hero.setPhotoFilename(imageDao.updateImage(file, hero.getPhotoFilename(), TEACHER_UPLOAD_DIR));
-
+        if(!file.isEmpty()){
+        hero.setPhotoFilename(imageDao.updateImage(file, hero.getPhotoFilename(), HERO_UPLOAD_DIR));
+        }
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(hero);
 

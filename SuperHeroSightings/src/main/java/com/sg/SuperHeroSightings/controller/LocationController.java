@@ -144,17 +144,7 @@ public class LocationController {
         }
     }
 
-    @GetMapping("editLocation")
-    public String editLocation(HttpServletRequest request, Model model) {
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println("test");
-        System.out.println("This id is" + id);
-        Location location = locationDao.getLocationById(id);
-        System.out.println("com.sg.SuperHeroSightings.controller.LocationController.editLocation()");
-        model.addAttribute("location", location);
-        return "editLocation";
-    }
     @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request) {
 

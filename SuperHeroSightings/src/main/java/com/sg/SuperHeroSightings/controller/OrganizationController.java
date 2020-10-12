@@ -67,9 +67,7 @@ public class OrganizationController {
 
     @PostMapping("addOrganization")
     public String addOrganization(HttpServletRequest request) {
-        
         Organization organization = new Organization();
-
         String[] heroIDs = request.getParameterValues("heroIDForAddHero");
         List<Hero> heroes = new ArrayList<>();
         if (heroIDs != null) {
@@ -84,26 +82,21 @@ public class OrganizationController {
             String organizationEmail = request.getParameter("organizationEmail");
             organization.setOrganizationEmail(organizationEmail);
         } catch (NullPointerException ex) {
-
         }
         try {
             String organizationPhone = request.getParameter("organizationPhone");
             organization.setOrganizationPhone(organizationPhone);
         } catch (NullPointerException ex) {
-
         }
         organization.setHeroes(heroes);
         organization.setLocation(location);
         organization.setOrganizationName(organizationName);
         organization.setOrganizationDescription(organizationDescription);
-
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(organization);
-
         if (violations.isEmpty()) {
             organizationDao.addOrganization(organization);
         }
-
         return "redirect:/organizations";
     }
 

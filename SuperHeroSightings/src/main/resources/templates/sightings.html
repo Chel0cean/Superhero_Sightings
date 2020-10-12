@@ -138,7 +138,7 @@
                             <div class="col-5">
 
                                 <label for="date">Date:</label>
-                                <input type="date" id="date" name="date">
+                                <input type="date" id="date" name="date"  value="2020-10-11">
                             </div>
                         </div>
 
@@ -156,12 +156,12 @@
 
         </div>
 
-           <div class="col-12 m-1 text-center" 
+        <div class="col-12 m-1 text-center" 
              th:if="${!errors.isEmpty()}">
             <p class="alert alert-danger" th:each="error : ${errors}" 
                th:text="${error.message}">Error message</p>
         </div>
-        
+
         <div hidden id="addObjectField" class="container">
             <div class="col-3 text-center m-3">
                 <span class="h3">Add Sighting</span>
@@ -193,7 +193,7 @@
                     <div class="col-5">
 
                         <label for="date">Date:</label>
-                        <input type="date" id="date" name="date">
+                        <input type="date" id="date" name="date" value="2020-10-11">
                     </div>
                 </div>
 
@@ -210,7 +210,11 @@
     <div class= "grid container" >
         <div th:each="sighting : ${sightings}" >
             <div  id="content" class= "card" >
-                <div><img></div> 
+                <div>   
+                    <div><img th:src="@{https://maps.googleapis.com/maps/api/staticmap?&size=300x300&maptype=roadmap
+                              &markers=color:red%7C{lat},{long}
+                              &key=AIzaSyCgMgs5Q5-lkhK5MGaA6_9jUTLuUXKlOWs(id=${sighting.location.locationId},lat=${sighting.location.latitude},long=${sighting.location.longitude})}"></div> 
+                </div>  
                 <div>
                     <a href="#" name="heroId" th:text="'•' +${sighting.hero.heroName}" onClick="getHero(this.id)" th:id="${sighting.hero.heroId}"></a>
                     <p>Location: 

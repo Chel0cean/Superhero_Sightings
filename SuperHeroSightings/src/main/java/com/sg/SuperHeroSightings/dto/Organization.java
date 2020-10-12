@@ -1,24 +1,42 @@
-
 package com.sg.SuperHeroSightings.dto;
+
 import java.util.List;
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  *
  * @author Chelsea, Karma, Mohammed, Patrick
  */
 public class Organization {
+
     private int organizationId;
+
+    @NotNull(message = "You must select a location")
     private Location location;
-    private List <Hero> heroes;
+
+    @NotEmpty(message = "You must select at least one hero")
+    private List<Hero> heroes;
+
+    @NotBlank(message = "Name must not be blank")
+    @Size(max = 45, message = "Name must be fewer than 45 characters")
     private String organizationName;
+
+    @NotBlank(message = "Description must not be blank")
+    @Size(max = 255, message = "Description must be fewer than 255 characters")
     private String organizationDescription;
+
+    @Size(max = 65, message = "Email must be fewer than 65 characters")
     private String organizationEmail;
+
+    @Size(max = 15, message = "Phone number must be fewer than 15 characters")
     private String organizationPhone;
 
     public Organization() {
     }
-    
-    
 
     public Organization(int organizationId) {
         this.organizationId = organizationId;
@@ -27,13 +45,15 @@ public class Organization {
     public int getOrganizationId() {
         return organizationId;
     }
-    
+
     public void setOrganizationId(int organizationId) {
         this.organizationId = organizationId;
     }
+
     public Location getLocation() {
         return location;
     }
+
     public void setLocation(Location location) {
         this.location = location;
     }
@@ -45,29 +65,35 @@ public class Organization {
     public void setHeroes(List<Hero> heroes) {
         this.heroes = heroes;
     }
-    
-    
+
     public String getOrganizationName() {
         return organizationName;
     }
+
     public void setOrganizationName(String orgnizationName) {
         this.organizationName = orgnizationName;
     }
+
     public String getOrganizationDescription() {
         return organizationDescription;
     }
+
     public void setOrganizationDescription(String organizationDescription) {
         this.organizationDescription = organizationDescription;
     }
+
     public String getOrganizationEmail() {
         return organizationEmail;
     }
+
     public void setOrganizationEmail(String organizationEmail) {
         this.organizationEmail = organizationEmail;
     }
+
     public String getOrganizationPhone() {
         return organizationPhone;
     }
+
     public void setOrganizationPhone(String organizationPhone) {
         this.organizationPhone = organizationPhone;
     }
@@ -126,5 +152,4 @@ public class Organization {
         return "Organization{" + "organizationId=" + organizationId + ", location=" + location + ", heroes=" + heroes + ", organizationName=" + organizationName + ", organizationDescription=" + organizationDescription + ", organizationEmail=" + organizationEmail + ", organizationPhone=" + organizationPhone + '}';
     }
 
-    
 }

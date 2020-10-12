@@ -52,7 +52,7 @@ function updateOrganization(id, value) {
 function deleteSighting(name, id) {
     var confirmed = window.confirm('Are you sure you want to delete this sighting of the ' + name + '?');
     if (confirmed) {
-        window.location.href = "/deleteOrganization?id=" + id;
+        window.location.href = "/deleteSighting?id=" + id;
     }
     ;
 }

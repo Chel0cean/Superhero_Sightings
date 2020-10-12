@@ -14,7 +14,7 @@ form {
     text-align: center;	
     /*    color: #5cb85c;*/	
 }
-#descriptionInfo{
+#descriptionInfo {
 
     overflow:auto; 
     height: 50px;
@@ -30,7 +30,7 @@ form {
     border-style: solid;
 }
 
-.organizationinfo, .organizations{
+.organizationInfo, .organizations, .members, .memberInfo{
     text-align: left;
 }
 
@@ -43,7 +43,7 @@ form {
     display: inline-block;
     padding-top: 30%;
 }
-#ability{
+#ability, #location{
     padding-left: 20px;  
     font-weight: bold; 
     text-align: center;

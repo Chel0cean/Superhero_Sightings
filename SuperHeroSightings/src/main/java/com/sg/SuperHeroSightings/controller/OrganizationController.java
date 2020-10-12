@@ -7,8 +7,13 @@ import com.sg.SuperHeroSightings.dto.Hero;
 import com.sg.SuperHeroSightings.dto.Location;
 import com.sg.SuperHeroSightings.dto.Organization;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +37,8 @@ public class OrganizationController {
     @Autowired
     HeroDao heroDao;
 
+    Set<ConstraintViolation<Organization>> violations = new HashSet<>();
+
     @GetMapping("organizations")
     public String displayOrganizations(Model model) {
         List<Organization> organizations = organizationDao.getAllOrganizations();
@@ -40,7 +47,7 @@ public class OrganizationController {
         model.addAttribute("organizations", organizations);
         model.addAttribute("heroes", heroes);
         model.addAttribute("locations", locations);
-
+        model.addAttribute("errors", violations);
         return "organizations";
     }
 
@@ -48,12 +55,13 @@ public class OrganizationController {
     public String getorganization(HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("id"));
         Organization organization = organizationDao.getOrganizationById(id);
-          List<Hero> heroes = heroDao.getAllHeroes();
+        List<Hero> heroes = heroDao.getAllHeroes();
         List<Location> locations = locationDao.getAllLocations();
 
-         model.addAttribute("heroes", heroes);
+        model.addAttribute("heroes", heroes);
         model.addAttribute("locations", locations);
         model.addAttribute(organization);
+        model.addAttribute("errors", violations);
         return "organization";
     }
 
@@ -90,7 +98,13 @@ public class OrganizationController {
         organization.setOrganizationName(organizatonName);
         organization.setOrganizationDescription(organizationDescription);
 
-        organizationDao.addOrganization(organization);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(organization);
+
+        if (violations.isEmpty()) {
+            organizationDao.addOrganization(organization);
+
+        }
 
         return "redirect:/organizations";
     }
@@ -110,13 +124,14 @@ public class OrganizationController {
         int id = Integer.parseInt(request.getParameter("organizationIdEdit"));
         Organization organization = organizationDao.getOrganizationById(id);
 
-        String[] heroIDs = request.getParameterValues("heroIdEdit");
+        String[] heroIDs = request.getParameterValues("heroIDForEditOrganization");
         List<Hero> heroes = new ArrayList<>();
-        for (String heroID : heroIDs) {
-            heroes.add(heroDao.getHeroById(Integer.parseInt(heroID)));
+        if (heroIDs != null) {
+            for (String heroID : heroIDs) {
+                heroes.add(heroDao.getHeroById(Integer.parseInt(heroID)));
+            }
         }
-
-        Location location = locationDao.getLocationById(Integer.parseInt(request.getParameter("locationIdEdit")));
+        Location location = locationDao.getLocationById(Integer.parseInt(request.getParameter("locationIDEdit")));
         String organizationName = request.getParameter("organizationNameEdit");
         String organizationDescription = request.getParameter("organizationDescriptionEdit");
         try {
@@ -136,7 +151,12 @@ public class OrganizationController {
         organization.setOrganizationName(organizationName);
         organization.setOrganizationDescription(organizationDescription);
 
-        organizationDao.updateOrganization(organization);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(organization);
+
+        if (violations.isEmpty()) {
+            organizationDao.updateOrganization(organization);
+        }
 
         return "redirect:/organizations";
 
@@ -147,8 +167,14 @@ public class OrganizationController {
         int id = Integer.parseInt(request.getParameter("heroId"));
         Hero hero = heroDao.getHeroById(id);
         List<Organization> organizations = organizationDao.getOrganizationsByHero(hero);
+        List<Hero> heroes = heroDao.getAllHeroes();
+        List<Location> locations = locationDao.getAllLocations();
         model.addAttribute("organizations", organizations);
         model.addAttribute("hero", hero);
+        model.addAttribute("heroes", heroes);
+        model.addAttribute("locations", locations);
+
+        model.addAttribute("errors", violations);
 
         return "searchOrganizationsByHero";
     }

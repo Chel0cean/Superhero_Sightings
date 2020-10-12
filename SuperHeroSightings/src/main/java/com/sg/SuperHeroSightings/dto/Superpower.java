@@ -1,17 +1,18 @@
 package com.sg.SuperHeroSightings.dto;
 
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Chelsea, Karma, Mohammed, Patrick
  */
-
 public class Superpower {
 
     public Superpower() {
     }
-    
+
     public Superpower(int superPowerId) {
         this.superPowerId = superPowerId;
     }
@@ -19,9 +20,11 @@ public class Superpower {
     public Superpower(String superPowerName) {
         this.superPowerName = superPowerName;
     }
-    
 
     private int superPowerId;
+
+    @NotBlank(message = "Superpower name must not be blank")
+    @Size(max = 45, message = "Superpower name must be fewer than 45 characters")
     private String superPowerName;
 
     public int getSuperPowerId() {
@@ -73,6 +76,5 @@ public class Superpower {
     public String toString() {
         return "Superpower{" + "superPowerId=" + superPowerId + ", superPowerName=" + superPowerName + '}';
     }
-    
-    
+
 }

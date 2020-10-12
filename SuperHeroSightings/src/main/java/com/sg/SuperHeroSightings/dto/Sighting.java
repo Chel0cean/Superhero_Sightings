@@ -2,15 +2,26 @@
 package com.sg.SuperHeroSightings.dto;
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
 /**
  *
  * @author Chelsea, Karma, Mohammed, Patrick
  */
 public class Sighting {
     private int SightingId;
+    
+    
+    @NotNull(message = "You must select a date")
     private LocalDate date;
+    
+    
+    @NotNull(message = "You must select a hero")
     private Hero hero;
+    
+    @NotNull(message = "You must select a location")
     private Location location;
+    
+    
     private String dateAsString;
 
     public Sighting() {

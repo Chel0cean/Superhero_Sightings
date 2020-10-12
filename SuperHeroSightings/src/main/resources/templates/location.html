@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <!-- Required meta tags -->
@@ -6,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
-                <link th:href="@{/css/home.css}" rel="stylesheet">
+        <link th:href="@{/css/home.css}" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
         <title>Locations</title>
@@ -47,171 +46,174 @@
 
             </ul>
         </div>
+        <div class="col-12 m-1 text-center" 
+             th:if="${!errors.isEmpty()}">
+            <p class="alert alert-danger" th:each="error : ${errors}" 
+               th:text="${error.message}">Error message</p>
+        </div>
+        <div id="itemNotFoundDiv" th:if="${location==null}" class= "container">
 
-        <div>
-            <div id="itemNotFoundDiv" th:if="${location==null}" class= "container">
-
-                <p>No Location Found :( </p>
-                <img  th:src="@{/images/Batman-Slapping-Robin-Meme.jpg}" alt="">
-            </div>
-
-
-
-            <div th:if="${location!=null}"  class= "grid container">
-
-                <div id="content" class="card getCard">
-                    <div>   
-                        <div><img th:src="@{https://maps.googleapis.com/maps/api/staticmap?&size=300x300&maptype=roadmap
-                                  &markers=color:red%7C{lat},{long}
-                                  &key=AIzaSyCgMgs5Q5-lkhK5MGaA6_9jUTLuUXKlOWs(id=${location.locationId},lat=${location.latitude},long=${location.longitude})}"></div> 
-                    </div>
-                    <div>
-                        <h4><b>Location: </b></h4>
-                        <p id="locationName" th:text="${location.locationName}">Name</p>
-                    </div>
-                    <div>
-                        <p>Description: </p>
-                        <p id="locationDescription" th:text="${location.locationDescription}">Description</p>
-                    </div>
-                    <div>
-                        <p>Address: </p>
-                        <p id="locationAddress" th:text="${location.locationAddress}">Address</p>
-                    </div>
-                    <div>
-                        <p>City: </p>
-                        <p id="locationCity" th:text="${location.locationCity}">City</p>
-                    </div>
-                    <div>
-                        <p>State: </p>
-                        <p id="locationState" th:text="${location.locationState}">State</p>
-                    </div>
-                    <div>
-                        <p>Country: </p>
-                        <p id="country" th:text="${location.country}">Country</p>
-                    </div>
-                    <div>
-                        <p>Zip Code: </p>
-                        <p id="zipCode" th:text="${location.zipCode}">Zip Code</p>
-                    </div>
-                    <div>
-                        <p>Latitude: </p>
-                        <p id="latitude" th:text="${location.latitude}">Latitude</p>
-                    </div>
-                    <div>
-                        <p>Longitude: </p>
-                        <p id="longitude" th:text="${location.longitude}">Longitude</p>
-                    </div>
-
-
-                    <p>
-                        <button th:attr="id=${location.locationId},value=${location.locationId}"
-                                class="updateLocationsButton btn btn-primary" type="button"
-                                OnClick="updateLocation(this.id, this.value)">Update</button>
-                        <button th:attr="id=${location.locationId},value=${location.locationName}"
-                                class="updateLocationsButton btn btn-primary" type="button"
-                                OnClick="deleteLocation(this.value, this.id)">Delete</button>
-                    </p>
+            <p>No Location Found :( </p>
+            <img  th:src="@{/images/Batman-Slapping-Robin-Meme.jpg}" alt="">
+        </div>
 
 
 
-                    <div hidden th:attr="id='updateTr'+${location.locationId}" class="container editForm">
-                        <div>
-                            <span class="h3">Edit Location</span>
-                        </div>
-                        <form action="editLocation" method="POST" enctype="multipart/form-data">
-                            <div class="form-group row">
-                                <label for="locationName" class="col-3 col-form-label">
-                                    Name</label>
-                                <div class="col-9">
-                                    <input type="hidden" name="locationId" th:value="${location.locationId}" />
-                                    <input type="text" name="locationName" id="locationName" class="form-control"
-                                           th:value="${location.locationName}" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="locationDescription" class="col-3 col-form-label">
-                                    Description</label>
-                                <div class="col-9">
-                                    <input type="text" name="locationDescription" id="locationDescription"
-                                           class="form-control" th:value="${location.locationDescription}" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="locationAddress" class="col-3 col-form-label">
-                                    Address</label>
-                                <div class="col-9">
-                                    <input type="text" name="locationAddress" id="locationAddress" class="form-control"
-                                           th:value="${location.locationAddress}" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="locationCity" class="col-3 col-form-label">
-                                    City</label>
-                                <div class="col-9">
-                                    <input type="text" name="locationCity" id="locationCity" class="form-control"
-                                           th:value="${location.locationCity}" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="locationState" class="col-3 col-form-label">
-                                    State</label>
-                                <div class="col-9">
-                                    <input type="text" name="locationState" id="locationState" class="form-control"
-                                           th:value="${location.locationState}" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="country" class="col-3 col-form-label">
-                                    Country</label>
-                                <div class="col-9">
-                                    <input type="text" name="country" id="country" class="form-control"
-                                           th:value="${location.country}" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="zipCode" class="col-3 col-form-label">
-                                    Zip Code</label>
-                                <div class="col-9">
-                                    <input type="text" name="zipCode" id="zipCode" class="form-control"
-                                           th:value="${location.zipCode}" />
-                                </div>
-                            </div>
+        <div th:if="${location!=null}"  class= "grid container">
 
-                            <div class="form-group row">
-                                <label for="latitude" class="col-3 col-form-label">
-                                    Latitude</label>
-                                <div class="col-9">
-                                    <input type="text" name="latitude" id="latitude" class="form-control"
-                                           th:value="${location.latitude}" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="longitude" class="col-3 col-form-label">
-                                    Longitude</label>
-                                <div class="col-9">
-                                    <input type="text" name="longitude" id="longitude" class="form-control"
-                                           th:value="${location.longitude}" />
-                                </div>
-                            </div>
-                            <button type="submit" th:attr="value=${location.locationId}" class="btn btn-primary"
-                                    OnClick="hideForm(this.value)">Update Location</button>
-                            <button type="button" th:attr="value=${location.locationId}"
-                                    class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)">Cancel</button>
-                        </form>
-                    </div>
+            <div id="content" class="card getCard">
+                <div>   
+                    <div><img th:src="@{https://maps.googleapis.com/maps/api/staticmap?&size=300x300&maptype=roadmap
+                              &markers=color:red%7C{lat},{long}
+                              &key=AIzaSyCgMgs5Q5-lkhK5MGaA6_9jUTLuUXKlOWs(id=${location.locationId},lat=${location.latitude},long=${location.longitude})}"></div> 
+                </div>
+                <div>
+                    <h4><b>Location: </b></h4>
+                    <p id="locationName" th:text="${location.locationName}">Name</p>
+                </div>
+                <div>
+                    <p>Description: </p>
+                    <p id="locationDescription" th:text="${location.locationDescription}">Description</p>
+                </div>
+                <div>
+                    <p>Address: </p>
+                    <p id="locationAddress" th:text="${location.locationAddress}">Address</p>
+                </div>
+                <div>
+                    <p>City: </p>
+                    <p id="locationCity" th:text="${location.locationCity}">City</p>
+                </div>
+                <div>
+                    <p>State: </p>
+                    <p id="locationState" th:text="${location.locationState}">State</p>
+                </div>
+                <div>
+                    <p>Country: </p>
+                    <p id="country" th:text="${location.country}">Country</p>
+                </div>
+                <div>
+                    <p>Zip Code: </p>
+                    <p id="zipCode" th:text="${location.zipCode}">Zip Code</p>
+                </div>
+                <div>
+                    <p>Latitude: </p>
+                    <p id="latitude" th:text="${location.latitude}">Latitude</p>
+                </div>
+                <div>
+                    <p>Longitude: </p>
+                    <p id="longitude" th:text="${location.longitude}">Longitude</p>
                 </div>
 
+
+                <p>
+                    <button th:attr="id=${location.locationId},value=${location.locationId}"
+                            class="updateLocationsButton btn btn-primary" type="button"
+                            OnClick="updateLocation(this.id, this.value)">Update</button>
+                    <button th:attr="id=${location.locationId},value=${location.locationName}"
+                            class="updateLocationsButton btn btn-primary" type="button"
+                            OnClick="deleteLocation(this.value, this.id)">Delete</button>
+                </p>
+
+
+
+                <div hidden th:attr="id='updateTr'+${location.locationId}" class="container editForm">
+                    <div>
+                        <span class="h3">Edit Location</span>
+                    </div>
+                    <form action="editLocation" method="POST" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label for="locationName" class="col-3 col-form-label">
+                                Name</label>
+                            <div class="col-9">
+                                <input type="hidden" name="locationId" th:value="${location.locationId}" />
+                                <input type="text" name="locationName" id="locationName" class="form-control"
+                                       th:value="${location.locationName}" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="locationDescription" class="col-3 col-form-label">
+                                Description</label>
+                            <div class="col-9">
+                                <input type="text" name="locationDescription" id="locationDescription"
+                                       class="form-control" th:value="${location.locationDescription}" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="locationAddress" class="col-3 col-form-label">
+                                Address</label>
+                            <div class="col-9">
+                                <input type="text" name="locationAddress" id="locationAddress" class="form-control"
+                                       th:value="${location.locationAddress}" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="locationCity" class="col-3 col-form-label">
+                                City</label>
+                            <div class="col-9">
+                                <input type="text" name="locationCity" id="locationCity" class="form-control"
+                                       th:value="${location.locationCity}" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="locationState" class="col-3 col-form-label">
+                                State</label>
+                            <div class="col-9">
+                                <input type="text" name="locationState" id="locationState" class="form-control"
+                                       th:value="${location.locationState}" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="country" class="col-3 col-form-label">
+                                Country</label>
+                            <div class="col-9">
+                                <input type="text" name="country" id="country" class="form-control"
+                                       th:value="${location.country}" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="zipCode" class="col-3 col-form-label">
+                                Zip Code</label>
+                            <div class="col-9">
+                                <input type="text" name="zipCode" id="zipCode" class="form-control"
+                                       th:value="${location.zipCode}" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="latitude" class="col-3 col-form-label">
+                                Latitude</label>
+                            <div class="col-9">
+                                <input type="text" name="latitude" id="latitude" class="form-control"
+                                       th:value="${location.latitude}" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="longitude" class="col-3 col-form-label">
+                                Longitude</label>
+                            <div class="col-9">
+                                <input type="text" name="longitude" id="longitude" class="form-control"
+                                       th:value="${location.longitude}" />
+                            </div>
+                        </div>
+                        <button type="submit" th:attr="value=${location.locationId}" class="btn btn-primary"
+                                OnClick="hideForm(this.value)">Update Location</button>
+                        <button type="button" th:attr="value=${location.locationId}"
+                                class="cancelEditObject btn btn-primary" OnClick="hideForm(this.value)">Cancel</button>
+                    </form>
+                </div>
             </div>
 
         </div>
-    </body>  
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script th:src="@{/js/jquery-2.2.4.min.js}"></script>
-    <script th:src="@{/js/home.js}"></script>
-    <script th:src="@{/js/design.js}"></script>
-    <script th:src="@{/js/bootstrap.js}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    </div>
+</body>  
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<script th:src="@{/js/design.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
-</html>;
+</html>

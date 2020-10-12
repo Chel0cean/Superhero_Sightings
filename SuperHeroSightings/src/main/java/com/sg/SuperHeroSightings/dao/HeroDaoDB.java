@@ -76,16 +76,15 @@ public class HeroDaoDB implements HeroDao {
     @Override
     public void updateHero(Hero hero) {
         final String UPDATE_HERO = "UPDATE hero SET name = ?, description = ?, "
-                + "Superpower_idSuperpower = ? WHERE idHero = ?";
+                + "Superpower_idSuperpower = ?, photoFilename = ? WHERE idHero = ?";
         jdbc.update(UPDATE_HERO,
                 hero.getHeroName(),
                 hero.getHeroDescription(),
                 hero.getSuperPower().getSuperPowerId(),
+                hero.getPhotoFilename(),
                 hero.getHeroId());
-
         final String DELETE_HERO_ORGANIZATION = "DELETE FROM HeroOrganization WHERE Hero_idHero = ?";
         jdbc.update(DELETE_HERO_ORGANIZATION, hero.getHeroId());
-
     }
 
     @Override

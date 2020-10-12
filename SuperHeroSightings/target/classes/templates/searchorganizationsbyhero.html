@@ -23,14 +23,27 @@
 
 
     </div>
+  <div id="buttonNavBar" class="text-center">	
+            <a  th:href="@{index}" class="btn btn-outline-primary btn-lg"><h3>Home</h3></a>
 
+            <a th:href="@{heroes}" class="btn btn-outline-primary btn-lg"><h3>Heroes</h3></a>	
+            <a th:href="@{organizations}" class="btn btn-outline-primary btn-lg"><h3>Organizations</h3></a>	
+
+            <a th:href="@{sightings}" class="btn btn-outline-primary btn-lg "><h3>Sightings</h3></a>	
+
+
+            <a th:href="@{locations}" class="btn btn-outline-primary btn-lg"><h3>Locations</h3></a>	
+
+
+            <a th:href="@{superpowers}" class="btn btn-outline-primary btn-lg"><h3>Superpowers</h3></a>	
+        </div>
 
     <div class="homeAndSearchButtons">
         
         <ul style="list-style-type:none;">
-            <li> <a  th:href="@{index}" class="btn btn-outline-primary btn-lg">Home</a></li>
+            
 
-            <li class="dropdown">
+            <li>
                 
                     <a id="organizations" th:href="@{/organizations}"  class= "btn btn-outline-primary btn-lg" href="#">All Organizations</a>   
                

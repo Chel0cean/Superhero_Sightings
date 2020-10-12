@@ -41,9 +41,9 @@
         <div class="homeAndSearchButtons">
 
             <ul style="list-style-type:none;">
-                <li> <a  th:href="@{index}" class="btn btn-outline-primary btn-lg">Home</a></li>
+                
 
-                <li class="dropdown">
+                <li>
 
                     <a id="organizations" th:href="@{/sightings}"  class= "btn btn-outline-primary btn-lg" href="#">All Sightings</a>   
 
@@ -72,7 +72,8 @@
                         <div><img></div> 
                         <div>
                             <a href="#" name="heroId" th:text="'•' +${sighting.hero.heroName}" onClick="getHero(this.id)" th:id="${sighting.hero.heroId}"></a>
-                            <p id="location" th:text="'Location: '+${sighting.location.locationName}">Location </p>
+                             <p>Location: 
+                        <a href="#" onClick="getLocation(this.id)" th:id="${sighting.location.locationId}" th:text="${sighting.location.locationName}"/>  </p>    
 
                             <p id="sightingDate" th:text="'Date: '+${sighting.dateAsString}">Date </p>
 

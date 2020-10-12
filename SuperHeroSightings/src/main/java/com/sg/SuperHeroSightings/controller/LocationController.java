@@ -148,23 +148,23 @@ public class LocationController {
     @PostMapping("editLocation")
     public String performEditLocation(HttpServletRequest request) {
 
-        int id = Integer.parseInt(request.getParameter("locationIdEdit"));
+        int id = Integer.parseInt(request.getParameter("locationId"));
         System.out.println("This id is" + id);
         Location location = locationDao.getLocationById(id);
         System.out.println("com.sg.SuperHeroSightings.controller.LocationController.performEditLocation()");
 
         System.out.println(id);
-        String locationName = request.getParameter("locationNameEdit");
-        String description = request.getParameter("locationDescriptionEdit");
-        String address = request.getParameter("locationAddressEdit");
-        String city = request.getParameter("locationCityEdit");
-        String state = request.getParameter("locationStateEdit");
-        String country = request.getParameter("countryEdit");
-        String zipCode = request.getParameter("zipCodeEdit");
+        String locationName = request.getParameter("locationName");
+        String description = request.getParameter("locationDescription");
+        String address = request.getParameter("locationAddress");
+        String city = request.getParameter("locationCity");
+        String state = request.getParameter("locationState");
+        String country = request.getParameter("country");
+        String zipCode = request.getParameter("zipCode");
 
-        if (!request.getParameter("latitudeEdit").isEmpty() && !request.getParameter("longitudeEdit").isEmpty()) {
-            BigDecimal latitude = new BigDecimal(request.getParameter("latitudeEdit"));
-            BigDecimal longitude = new BigDecimal(request.getParameter("longitudeEdit"));
+        if (!request.getParameter("latitude").isEmpty() && !request.getParameter("longitude").isEmpty()) {
+            BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));
+            BigDecimal longitude = new BigDecimal(request.getParameter("longitude"));
 
             location.setLocationName(locationName);
             location.setLocationDescription(description);

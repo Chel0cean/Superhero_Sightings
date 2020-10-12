@@ -40,7 +40,13 @@ public class SuperpowerController {
         String power = request.getParameter("superPowerName");
 
         Superpower superpower = new Superpower(power);
-        superpowerDao.addSuperpower(superpower);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(superpower);
+
+        if (violations.isEmpty()) {
+            superpowerDao.addSuperpower(superpower);
+        }
+       
         return "redirect:/superpowers";
     }
 

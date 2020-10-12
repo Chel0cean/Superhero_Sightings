@@ -3,6 +3,7 @@ package com.sg.SuperHeroSightings.dto;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 /**
  *
  * @author Chelsea, Karma, Mohammed, Patrick
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class Sighting {
     private int SightingId;
     
-    
+    @Past(message = "Date must not be in the future")
     @NotNull(message = "You must select a date")
     private LocalDate date;
     
